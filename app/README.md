@@ -76,7 +76,7 @@ than a confident wrong answer.
 ## Tests
 
 ```bash
-npm test              # 58 unit tests on the pipeline and the HTML export
+npm test              # 68 unit tests on the pipeline and the HTML export
 npx playwright test   # 10 end-to-end, incl. axe WCAG 2.2 AA + real offline
 ```
 
