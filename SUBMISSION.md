@@ -93,12 +93,16 @@ columns" is not the same as "I am sure there are none".
 
 **The outline is the point.** A repaired reading order is only useful if the
 export carries real heading structure, because that is how the 71.6% navigate. On
-the six-paper corpus the export emits **390 real `<h2>`/`<h3>` elements with zero
-skipped heading levels**. Getting there meant fixing a subtle bug: a numbered
-section heading set at near-body size with normal leading was being absorbed into
-the paragraph above it, which silently cost the document its outline. The fix
-judges a line on its own before merging it, rather than relying on gap and size
-thresholds alone.
+the six-paper corpus the export emits **167 real `<h2>`/`<h3>` elements with zero
+skipped heading levels** — the actual section titles, nested as the paper nests
+them ("3.1. Residual Learning" under "3. Deep Residual Learning"). Getting there
+meant fixing two subtle bugs. A numbered section heading was being absorbed into
+the paragraph above it, because it sits just inside both the gap and size
+thresholds. And "1. Introduction" matches the same pattern as an ordered-list
+item, so top-level sections were being exported as `<li>` bullets — the outline
+was destroyed by the very rule meant to describe it. The classifier now judges a
+line on its own before merging, and uses capitalisation to tell a section title
+from a list entry.
 
 **Stack:** React 19, TypeScript, Vite 8, pdf.js. Hand-written CSS — no UI
 framework, so every focus state, contrast ratio and target size is ours to get
@@ -128,11 +132,13 @@ can be unit-tested without a browser or a PDF.
    rewrote it to earn confidence from evidence, and it now discriminates (79–96%
    across the corpus, with 0–10% of blocks flagged).
 
-4. **A heading that was not a heading.** Section headings set at near-body size
-   were merging into the paragraph above, so the exported outline silently lost
-   sections — the one thing a screen-reader user depends on. We only found it by
-   auditing the *structure* of the export, not its text. Fixing it took the
-   corpus from 112 to 390 emitted headings, with no loss of confidence.
+4. **A heading that was not a heading, and a heading that was a bullet.** Section
+   headings set at near-body size were merging into the paragraph above, and
+   "1. Introduction" was matching the ordered-list pattern and being exported as a
+   `<li>`. Both silently cost the document its outline — the one thing a
+   screen-reader user depends on. We only found them by auditing the *structure*
+   of the export rather than its text. A title is now recognised on its own, before
+   merging, and capitalisation separates a section title from a list entry.
 
 4. **Accessibility bugs that automated tools caught, not us.** axe found a
    nested-interactive control (a file input inside a `role="button"` container), a

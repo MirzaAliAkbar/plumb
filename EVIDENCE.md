@@ -107,7 +107,7 @@ the exported HTML:
 | Clean text extraction (no replacement characters) | 6/6 documents |
 | Blocks flagged low-confidence | 2.9% mean |
 | Running headers/footers suppressed | 47 lines |
-| Headings emitted as real `<h2>`/`<h3>` | 390 across the corpus |
+| Headings emitted as real `<h2>`/`<h3>` | 167 across the corpus |
 | Heading-level skips in the export outline | 0 |
 | Scanned-document detection | explicit refusal, not garbage |
 

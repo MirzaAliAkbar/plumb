@@ -20,7 +20,12 @@ import type { LayoutInfo } from './layout';
 // bracketed number, or a number followed by punctuation.
 const LIST_PREFIX = /^([•·‣▪◦*\-–—]|\(\d{1,2}[.)]|\d{1,2}[.)]|\(?[ivxlc]{1,5}[.)])\s+/u;
 const CAPTION_PREFIX = /^(figure|fig\.|table|listing|algorithm|exhibit)\s*\d+/iu;
-const HEADING_NUMBER = /^(\d+(\.\d+)*|[IVXLC]+\.)\s+\S/u;
+// A section number: "1", "1.", "3.1", "IV." — optionally followed by a dot.
+const HEADING_NUMBER = /^((\d{1,2}(\.\d{1,2})*\.?)|([IVXLC]{1,5}\.))\s+\p{L}/u;
+// Sentence punctuation inside a candidate heading means it is prose, not a title.
+// Deliberately narrow: banning common words like "and" would reject real titles
+// such as "Results and Discussion".
+const PROSE_HINT = /[,;]\s|[.!?]\s/u;
 const CODE_HINT =
   /[{};=<>]|^\s{2,}\S|\b(function|const|let|var|class|import|return|def|public|private)\b/u;
 
@@ -176,14 +181,46 @@ export function classify(lines: Line[], opts: SequenceOptions): BlockKind {
   const first = lines[0];
   const text = first.text;
   const size = first.size;
-  const isLarger = size > opts.bodySize * 1.25;
   const isBoldish = first.runs.some((r) => /bold|black|heavy/i.test(r.font));
   const short = text.length < 90 && lines.length <= 2;
+  // Nothing smaller than body text is a heading. Real section headings are set
+  // at or above body size; sub-body type in a figure or a table footnote is not.
+  const isSmallPrint = size < opts.bodySize * 0.95;
+  // "Larger than body" has to be a modest multiple: a section heading is often
+  // only ~1.2x body (12pt against 10pt), and a 1.25 threshold silently lost
+  // every "Abstract" in the corpus while keeping 18pt titles.
+  const isLarger = size >= opts.bodySize * 1.08;
+
+  const words = text.split(/\s+/).filter(Boolean).length;
+  // Strip a leading section number before looking for sentence punctuation: the
+  // dot in "1. Introduction" is part of the number, not the end of a sentence.
+  const stripped = text.replace(/^\d{1,2}(\.\d{1,2})*\.?\s+/, '').replace(/^[IVXLC]{1,5}\.\s+/, '');
+  const prose = PROSE_HINT.test(stripped);
+  const titleish = short && words <= 6 && !prose && stripped.split(/\s+/).length >= 1;
 
   if (CAPTION_PREFIX.test(text)) return 'caption';
+
+  // Numbered section heading, checked BEFORE the list rule: "1. Introduction"
+  // also matches the list-marker pattern, and turning a paper's top-level
+  // sections into bullet points destroys the outline the export exists to
+  // provide. This also catches "3.1 Encoder and Decoder Stacks", which is set at
+  // body size and is only identifiable by its numbering.
+  //
+  // "1. Introduction" and "1. first point" are structurally identical, so the
+  // discriminator is capitalisation: a section title starts with a capital
+  // letter, a prose list entry does not.
+  const afterNumber = stripped.charAt(0);
+  const titleCase = afterNumber !== '' && afterNumber === afterNumber.toUpperCase();
+  if (titleish && !isSmallPrint && titleCase && HEADING_NUMBER.test(text)) return 'heading';
+
+  // Unnumbered heading: "Abstract", "References", "Results and Discussion".
+  // Needs the size or weight signal, because "the" alone would otherwise
+  // promote a short prose line.
+  if (titleish && !isSmallPrint && (isLarger || (isBoldish && !/[.!?]$/.test(text)))) {
+    return 'heading';
+  }
+
   if (LIST_PREFIX.test(text)) return 'list-item';
-  if (short && (isLarger || isBoldish) && !/[.!?]$/.test(text)) return 'heading';
-  if (short && HEADING_NUMBER.test(text)) return 'heading';
   if (CODE_HINT.test(text) && lines.length <= 6 && averageLineLength(lines) < 60) {
     return 'code';
   }

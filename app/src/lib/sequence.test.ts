@@ -146,6 +146,36 @@ describe('classify', () => {
     expect(classify([line('1. first point', 72, 300, 100)], opts)).toBe('list-item');
   });
 
+  it('treats "1. Introduction" as a section heading, not a list item', () => {
+    // The single most damaging misclassification we had: papers number their
+    // sections exactly like an ordered list, so the export was turning every
+    // top-level section into a <li> and destroying the outline.
+    expect(classify([line('1. Introduction', 72, 300, 100, 12)], opts)).toBe('heading');
+  });
+
+  it('treats a modestly larger word as a heading, not body text', () => {
+    // "Abstract" is 12pt against a 10pt body — a 1.2x step, below the old 1.25
+    // threshold, so every Abstract in the corpus was read as body text.
+    expect(classify([line('Abstract', 72, 300, 100, 12)], opts)).toBe('heading');
+  });
+
+  it('does not promote sub-body-size text to a heading', () => {
+    // Figure axis labels are tiny; at 4.5pt against a 10pt body they are noise,
+    // not structure, however short they are.
+    expect(classify([line('0 shot', 72, 300, 100, 4.5)], opts)).toBe('paragraph');
+  });
+
+  it('does not promote a table row or a numbered paragraph line', () => {
+    expect(classify([line('3 1 3 2 3 3', 72, 300, 100, 10)], opts)).toBe('paragraph');
+    expect(
+      classify([line('27 different datasets requires tuning 1782 different evalua-', 72, 300, 100, 10)], opts),
+    ).toBe('paragraph');
+  });
+
+  it('keeps a title containing "and" as a heading', () => {
+    expect(classify([line('Results and Discussion', 72, 300, 100, 12)], opts)).toBe('heading');
+  });
+
   it('detects a figure caption', () => {
     expect(classify([line('Figure 2: Scaled Dot-Product Attention', 72, 400, 100)], opts)).toBe(
       'caption',
