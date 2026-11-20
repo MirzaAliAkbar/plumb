@@ -59,7 +59,13 @@ export function splitOnLargeGaps(group: TextRun[]): TextRun[][] {
     const prev = ordered[i - 1];
     const run = ordered[i];
     const gap = run.x - (prev.x + prev.w);
-    const threshold = Math.max(12, Math.max(prev.size, run.size) * 1.8);
+    // A word space is well under half an em; a column gutter is one to two ems.
+    // The multiplier used to be 1.8, which put the threshold at 18pt for 10pt
+    // body text — wider than the 16pt gutter in a dense two-column paper, so the
+    // two columns merged into one page-wide "spanning" line and the banding was
+    // built on nonsense. 1.2em still leaves room for wide justified spacing and
+    // for large type, whose word spaces scale with the font.
+    const threshold = Math.max(10, Math.max(prev.size, run.size) * 1.2);
     if (gap > threshold) {
       segments.push(current);
       current = [run];

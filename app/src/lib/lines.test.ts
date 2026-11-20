@@ -33,6 +33,27 @@ describe('clusterLines', () => {
     expect(reversed).toEqual(forward);
   });
 
+  it('splits a narrow 16pt gutter in dense two-column body text', () => {
+    // Real case from CLIP: the left column ends at x=291 and the right starts at
+    // 307, a 16pt gutter. The old threshold was 1.8em (18pt at 10pt body), so the
+    // two columns merged into one page-wide line, every line looked "spanning",
+    // and the banding was built on nonsense.
+    const runs = [
+      run('representation learning analysis and show', 55, 378, 10, 236),
+      run('(Lin et al., 2014), Visual Genome (Krish', 307, 378, 10, 234),
+    ];
+    const lines = clusterLines(runs);
+    expect(lines).toHaveLength(2);
+    expect(lines[0].text).toContain('representation learning');
+    expect(lines[1].text).toContain('Visual Genome');
+  });
+
+  it('keeps normally spaced words on one line', () => {
+    // The threshold must not be so tight that justified spacing splits words.
+    const runs = [run('widely', 10, 100, 10, 55), run('spaced', 70, 100, 10, 55)];
+    expect(clusterLines(runs)).toHaveLength(1);
+  });
+
   it('does not merge lines that are merely close', () => {
     const runs = [run('one', 10, 100, 10), run('two', 10, 108, 10)];
     expect(clusterLines(runs)).toHaveLength(2);

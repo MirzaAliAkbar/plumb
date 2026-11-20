@@ -103,11 +103,11 @@ the exported HTML:
 
 | Metric | Result |
 |---|---|
-| Mean page reading-order confidence | 79–96% depending on document (mean 89.0%) |
+| Mean page reading-order confidence | 79–97% depending on document (mean 89.6%) |
 | Clean text extraction (no replacement characters) | 6/6 documents |
-| Blocks flagged low-confidence | 2.9% mean |
+| Blocks flagged low-confidence | 2.8% mean |
 | Running headers/footers suppressed | 47 lines |
-| Headings emitted as real `<h2>`/`<h3>` | 167 across the corpus |
+| Headings emitted as real `<h2>`/`<h3>` | 180 across the corpus |
 | Heading-level skips in the export outline | 0 |
 | Scanned-document detection | explicit refusal, not garbage |
 

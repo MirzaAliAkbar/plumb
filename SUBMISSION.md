@@ -93,7 +93,7 @@ columns" is not the same as "I am sure there are none".
 
 **The outline is the point.** A repaired reading order is only useful if the
 export carries real heading structure, because that is how the 71.6% navigate. On
-the six-paper corpus the export emits **167 real `<h2>`/`<h3>` elements with zero
+the six-paper corpus the export emits **180 real `<h2>`/`<h3>` elements with zero
 skipped heading levels** — the actual section titles, nested as the paper nests
 them ("3.1. Residual Learning" under "3. Deep Residual Learning"). Getting there
 meant fixing two subtle bugs. A numbered section heading was being absorbed into
@@ -124,7 +124,11 @@ can be unit-tested without a browser or a PDF.
 2. **pdf.js returns content-stream order**, which is the thing we are trying to
    correct. Line clustering had to be made independent of input order, which
    sounds trivial and is not: runs on the same baseline in different columns are
-   adjacent in the stream and must be split by horizontal gap.
+   adjacent in the stream and must be split by horizontal gap. Our first gap
+   threshold was 1.8em, which is wider than the 16pt gutter in a dense two-column
+   paper — so the columns merged into single page-wide lines, every line looked
+   like a spanning title, and the banding was built on nonsense. It is 1.2em now,
+   and a page of CLIP went from 12 false spanning lines to 0.
 
 3. **Confidence was initially dishonest.** Our first version returned 100%
    confidence on every single-column page, and flagged nothing on 144 pages of
