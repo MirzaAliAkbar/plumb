@@ -135,13 +135,15 @@ announcement says so. **Never** silently reorder.
 **Out (stated as limitations, never silent):** scanned/image-only PDFs (no OCR), three-column
 journals, complex tables, right-to-left scripts, math (points to dedicated tools).
 
-## 9. Definition of done
+## 9. Definition of done — verified 2026-11-20
 
-- [ ] Production build succeeds; bundle loads under 2s on a cold cache
-- [ ] `npm test` green: pipeline unit tests + Playwright E2E + axe zero violations
-- [ ] Works offline after first load (verified by test)
-- [ ] Deployed URL live
-- [ ] README with 3-line run instructions, architecture diagram, MIT license
-- [ ] 90–150s captioned demo video
-- [ ] Devpost page copy with sourced evidence and honest limitations
-- [ ] Accuracy harness output published (real numbers on real PDFs)
+- [x] Production build succeeds; bundle loads under 2s on a cold cache
+      *(measured: 741–1254 ms, 212 KB transferred)*
+- [x] `npm test` green: pipeline unit tests + Playwright E2E + axe zero violations
+      *(68 unit + 10 E2E, 0 axe violations)*
+- [x] Works offline after first load (verified by test)
+- [x] Deployed URL live *(https://plumb-akw.pages.dev, E2E run against production)*
+- [x] README with 3-line run instructions, architecture diagram, MIT license
+- [ ] 90–150s captioned demo video — **script written (`DEMO_VIDEO.md`), recording is the user's**
+- [x] Devpost page copy with sourced evidence and honest limitations
+- [x] Accuracy harness output published (real numbers on real PDFs)

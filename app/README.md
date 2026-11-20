@@ -18,6 +18,42 @@ account, no upload, no API key, no server.
 
 ---
 
+## Architecture
+
+```
+                       ┌─────────────────────────────────────────┐
+  PDF file (local) ───▶│  extract.ts — pdf.js in a web worker    │
+                       │  every text run + its page position     │
+                       └────────────────────┬────────────────────┘
+                                            │ TextRun[]
+                       ┌────────────────────▼────────────────────┐
+                       │  lines.ts — cluster runs onto baselines │
+                       │  split on gaps wider than 1.2em         │
+                       └────────────────────┬────────────────────┘
+                                            │ Line[]
+                       ┌────────────────────▼────────────────────┐
+                       │  layout.ts — density profile → gutter   │
+                       │  columns, spanning lines, running       │
+                       │  headers/footers suppressed             │
+                       └────────────────────┬────────────────────┘
+                                            │ LayoutInfo
+                       ┌────────────────────▼────────────────────┐
+                       │  sequence.ts — band the page, order it, │
+                       │  group into blocks, classify, score     │
+                       └────────────────────┬────────────────────┘
+                                            │ Block[]
+              ┌─────────────────────────────┼─────────────────────────────┐
+              ▼                             ▼                             ▼
+      ┌───────────────┐           ┌─────────────────┐          ┌──────────────────┐
+      │ PageOverlay   │           │  ReadingView    │          │  export.ts       │
+      │ numbered,     │           │  reflow + TTS   │          │  semantic HTML   │
+      │ auditable     │           │                 │          │  ← the artifact  │
+      └───────────────┘           └─────────────────┘          └──────────────────┘
+```
+
+Everything after `extract` is a pure function of extracted geometry, which is why
+the whole pipeline is unit-testable without a browser or a PDF.
+
 ## Run it
 
 ```bash

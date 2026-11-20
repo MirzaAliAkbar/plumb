@@ -8,14 +8,16 @@
 |---|---|---|---|
 | 1 | Field intelligence | `research/FIELD_INTEL.md`, 40 scraped pages | ✅ done |
 | 2 | Masterplan + constraints | this file, `DECISIONS.md` | ✅ done |
-| 3 | Generate 5 candidate ideas | `IDEAS.md` | → |
-| 4 | 5 adversarial agents debate → 1 winner | `DEBATE.md` | → |
-| 5 | Spec + architecture for the winner | `SPEC.md` | → |
-| 6 | Build (parallel workers, disjoint scopes) | app | → |
-| 7 | Polish: design, a11y, copy, states | app | → |
-| 8 | Verify: build, run, axe, smoke tests, screenshots | evidence | → |
-| 9 | Demo video script + Devpost copy | `SUBMISSION.md` | → |
-| 10 | Handoff report | `HANDOFF.md` | → |
+| 3 | Generate 5 candidate ideas | `IDEAS.md` | ✅ done |
+| 4 | 5 adversarial agents debate → 1 winner | `DEBATE.md` | ✅ done |
+| 5 | Spec + architecture for the winner | `SPEC.md` | ✅ done |
+| 6 | Build (parallel workers, disjoint scopes) | `app/` | ✅ done |
+| 7 | Polish: design, a11y, copy, states | `app/` | ✅ done |
+| 8 | Verify: build, run, axe, smoke tests, screenshots | `HANDOFF.md` | ✅ done |
+| 9 | Demo video script + Devpost copy | `SUBMISSION.md`, `DEMO_VIDEO.md` | ✅ done |
+| 10 | Handoff report | `HANDOFF.md` | ✅ done |
+
+**Live:** https://plumb-akw.pages.dev · **Repo:** https://github.com/MirzaAliAkbar/plumb
 
 ## Hard constraints (locked)
 
