@@ -17,3 +17,10 @@ shots/
 # The accuracy corpus is fetched, not vendored: these are other people's papers.
 # Run `node app/tools/fetch-corpus.mjs` to rebuild it.
 spike/pdfs/
+
+# Raw scrapes of other people's Devpost project pages. Kept locally as research
+# notes; not republished. The conclusions drawn from them are in
+# research/FIELD_INTEL.md, which is checked in.
+research/pages/
+research/gallery_p*.json
+research/projects_inventory.md

@@ -14,7 +14,7 @@ import { chromium } from 'playwright';
 import path from 'node:path';
 
 const SAMPLE = path.resolve('public/samples/two-column-paper.pdf');
-const URL = 'http://127.0.0.1:4173/';
+const URL = process.argv[2] ?? 'http://127.0.0.1:4173/';
 
 const IN_PAGE = `(() => {
   function parseRgb(c) {

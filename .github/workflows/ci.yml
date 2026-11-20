@@ -23,14 +23,16 @@ jobs:
 
       - run: npm ci
 
-      - name: Typecheck
-        run: npx tsc -b --noEmit || npx tsc -p tsconfig.app.json --noEmit
+      - name: Lint
+        run: npm run lint
+
+      # `npm run build` runs `tsc -b` itself, so a separate typecheck step would
+      # only duplicate work.
+      - name: Build (typechecks the whole program)
+        run: npm run build
 
       - name: Unit tests
-        run: npx vitest run
-
-      - name: Build
-        run: npm run build
+        run: npm test
 
       - name: Contrast audit
         run: node tools/contrast.mjs
@@ -38,14 +40,17 @@ jobs:
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
+      # The E2E config starts its own preview server, so this covers the axe
+      # WCAG 2.2 AA scans and the offline test.
       - name: End-to-end + accessibility
         run: npx playwright test
 
+      # design-audit.mts measures a running server, so it needs its own one.
       - name: Design audit
         run: |
-          npx vite preview --port 4173 --strictPort --host 127.0.0.1 &
-          npx wait-on http://127.0.0.1:4173
-          npx tsx tools/design-audit.mts
+          npx vite preview --port 4174 --strictPort --host 127.0.0.1 &
+          npx wait-on http://127.0.0.1:4174 --timeout 60000
+          npx tsx tools/design-audit.mts http://127.0.0.1:4174
 
       - name: Upload screenshots on failure
         if: failure()
@@ -53,3 +58,4 @@ jobs:
         with:
           name: playwright-failures
           path: app/test-results/
+          if-no-files-found: ignore
