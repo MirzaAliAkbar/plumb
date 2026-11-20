@@ -200,8 +200,10 @@ export function findRunningElements(
   pagesLines: Line[][],
   pageHeight: number,
 ): Set<string> {
-  const topBand = pageHeight * 0.085;
-  const bottomBand = pageHeight * 0.925;
+  const topBand = pageHeight * 0.09;
+  // Footers sit lower than a naive 7.5% margin suggests: a page number 44pt up
+  // from the bottom edge is 0.944 of the height, and an 0.925 cutoff missed it.
+  const bottomBand = pageHeight * 0.93;
 
   const occurrences = new Map<string, number>();
   for (const lines of pagesLines) {
@@ -231,14 +233,22 @@ export function findRunningElements(
     const bodySize = modalSize(pagesLines[0]);
     for (const line of pagesLines[0]) {
       const atTop = line.y < pageHeight * 0.06;
-      const atBottom = line.y > pageHeight * 0.945;
+      const atBottom = line.y > pageHeight * 0.93;
       if (!atTop && !atBottom) continue;
-      if (signature(line.text).length < 2) continue;
 
+      // Checked before the signature-length guard on purpose: signature("1")
+      // collapses to "#", so a bare page number would be discarded as too short
+      // to be meaningful before this rule ever saw it.
       const isBareNumber = /^[\s\d\-–—|/]+$/.test(line.text);
-      const isSmallPrint = line.size <= bodySize * 1.02;
+      if (!isBareNumber && signature(line.text).length < 2) continue;
 
-      if (isBareNumber || isSmallPrint) repeated.add(runningKey(line));
+      const isSmallPrint = line.size <= bodySize * 1.02;
+      // Only a bare number *in the margin and set smaller than body text* is a
+      // page number. A numeral heading is set at or above body size, and keying
+      // on text alone would suppress it too.
+      const pageNumber = isBareNumber && line.size < bodySize;
+
+      if (pageNumber || isSmallPrint) repeated.add(runningKey(line));
     }
   }
 

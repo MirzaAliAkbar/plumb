@@ -143,7 +143,24 @@ function groupIntoBlocks(
     const bigGap = gap > Math.max(prev.size * 1.9, 16);
     const backwards = line.y < prev.y - 2; // a new band started
 
-    if (!sameColumn || sizeChanged || bigGap || backwards) {
+    // A line that is a heading (or caption) on its own must never be absorbed
+    // into the paragraph above it. Judging that per-line is more reliable than
+    // the gap and size heuristics, which a numbered heading with normal leading
+    // and near-body type slips past: "2 Method" is 18.9pt below the previous
+    // line at 1pt larger, so both thresholds miss and it joins the paragraph.
+    const kindAlone = classify([line], opts);
+    const startsOwnBlock = kindAlone === 'heading' || kindAlone === 'caption';
+
+    // The same rule from the other side: a block that is already a heading must
+    // not swallow the body text beneath it. It may still take a second line, but
+    // only when that line is heading-like too, which is how a wrapped title
+    // survives while "2 Method" does not eat its own section.
+    const currentIsHeading =
+      current.length === 1 &&
+      (classify(current, opts) === 'heading' || classify(current, opts) === 'caption');
+    const headingEndsHere = currentIsHeading && !startsOwnBlock;
+
+    if (!sameColumn || sizeChanged || bigGap || backwards || startsOwnBlock || headingEndsHere) {
       flush();
       current = [line];
     } else {

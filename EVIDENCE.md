@@ -98,17 +98,22 @@ licence, no account, and no expert — while being explicit about where it is un
 ## 5. Our own measured results
 
 Measured, not claimed. `npx tsx tools/accuracy.mts` over a corpus of 6 real
-arXiv papers (144 pages):
+arXiv papers (144 pages), plus `npx tsx tools/structure.mts` for the structure of
+the exported HTML:
 
 | Metric | Result |
 |---|---|
-| Mean page reading-order confidence | 79–95% depending on document (mean 88.6%) |
+| Mean page reading-order confidence | 79–96% depending on document (mean 89.0%) |
 | Clean text extraction (no replacement characters) | 6/6 documents |
+| Blocks flagged low-confidence | 2.9% mean |
 | Running headers/footers suppressed | 47 lines |
+| Headings emitted as real `<h2>`/`<h3>` | 390 across the corpus |
+| Heading-level skips in the export outline | 0 |
 | Scanned-document detection | explicit refusal, not garbage |
 
 The corpus harness is checked in, so the numbers are reproducible rather than
-asserted — which is the point.
+asserted — which is the point. The papers themselves are fetched by
+`tools/fetch-corpus.mjs` rather than vendored, since they are other people's work.
 
 ---
 

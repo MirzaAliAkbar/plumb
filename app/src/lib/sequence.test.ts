@@ -65,6 +65,26 @@ describe('sequenceBlocks — the core fix', () => {
     expect(blocks[0].lines).toHaveLength(3);
   });
 
+  it('never absorbs a numbered heading into the paragraph above it', () => {
+    // The real-world case this guards: a section heading set at near-body size,
+    // with normal leading, so neither the size delta nor the gap threshold fires.
+    // "2 Method" sat 18.9pt below the previous line at 1pt larger and was being
+    // swallowed into the paragraph, which cost the document its outline.
+    const lines = [
+      line('a line of ordinary body text that runs on', 72, 520, 100),
+      line('another line of that same paragraph', 72, 520, 113),
+      line('2 Method', 72, 520, 132, 11),
+      line('the body of the method section', 72, 520, 145),
+    ];
+    const blocks = sequenceBlocks(lines, single, { bodySize: 10 });
+    const heading = blocks.find((b) => b.lines[0].text === '2 Method');
+    expect(heading).toBeDefined();
+    expect(heading!.kind).toBe('heading');
+    expect(heading!.lines).toHaveLength(1);
+    // And the paragraph above it keeps only its own two lines.
+    expect(blocks[0].lines).toHaveLength(2);
+  });
+
   it('flags low-confidence blocks with a warning instead of staying silent', () => {
     const shaky: LayoutInfo = { ...twoCol, confidence: 0.2 };
     const lines: Line[] = [];

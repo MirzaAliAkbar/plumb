@@ -91,6 +91,15 @@ the block is visibly flagged and the export marks it. We deliberately do **not**
 report certainty on a page where we could not find a gutter at all: "I found no
 columns" is not the same as "I am sure there are none".
 
+**The outline is the point.** A repaired reading order is only useful if the
+export carries real heading structure, because that is how the 71.6% navigate. On
+the six-paper corpus the export emits **390 real `<h2>`/`<h3>` elements with zero
+skipped heading levels**. Getting there meant fixing a subtle bug: a numbered
+section heading set at near-body size with normal leading was being absorbed into
+the paragraph above it, which silently cost the document its outline. The fix
+judges a line on its own before merging it, rather than relying on gap and size
+thresholds alone.
+
 **Stack:** React 19, TypeScript, Vite 8, pdf.js. Hand-written CSS — no UI
 framework, so every focus state, contrast ratio and target size is ours to get
 right. Vitest for the pipeline, Playwright + axe-core for end-to-end and
@@ -116,13 +125,25 @@ can be unit-tested without a browser or a PDF.
 3. **Confidence was initially dishonest.** Our first version returned 100%
    confidence on every single-column page, and flagged nothing on 144 pages of
    real papers. A signal that never fires is not a signal — it is decoration. We
-   rewrote it to earn confidence from evidence, and it now discriminates (79–95%
+   rewrote it to earn confidence from evidence, and it now discriminates (79–96%
    across the corpus, with 0–10% of blocks flagged).
+
+4. **A heading that was not a heading.** Section headings set at near-body size
+   were merging into the paragraph above, so the exported outline silently lost
+   sections — the one thing a screen-reader user depends on. We only found it by
+   auditing the *structure* of the export, not its text. Fixing it took the
+   corpus from 112 to 390 emitted headings, with no loss of confidence.
 
 4. **Accessibility bugs that automated tools caught, not us.** axe found a
    nested-interactive control (a file input inside a `role="button"` container), a
    form field with no label, and `--ink-400` at 3.58:1 contrast. All three are
    fixed and the scan is now part of CI.
+
+5. **Our own contrast audit was lying.** It kept a duplicate copy of the palette
+   which drifted from the stylesheet, so it reported a failure on a colour the app
+   no longer used — and would have passed a genuinely bad colour for the same
+   reason. It now parses the tokens straight out of the CSS, and we tested it in
+   both directions to prove it still fails when it should.
 
 ---
 

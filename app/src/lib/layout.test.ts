@@ -130,6 +130,23 @@ describe('findRunningElements', () => {
     expect(repeated.has(runningKey(line('A Big Title', 72, 400, 60, 18)))).toBe(false);
   });
 
+  it('suppresses a bare page number in the footer of a single-page document', () => {
+    // signature("1") collapses to "#", so this used to be discarded as too short
+    // to be meaningful and the reader heard a stray "1" in the middle of the
+    // body. The number sits 44pt up from the bottom edge, i.e. y=748 of 792.
+    const pages = [[line('body text', 72, 500, 200, 10), line('1', 303, 309, 748, 8)]];
+    const repeated = findRunningElements(pages, 792);
+    expect(repeated.has(runningKey(line('1', 303, 309, 748, 8)))).toBe(true);
+  });
+
+  it('keeps a numeral heading that is set at body size', () => {
+    // "1" as a section heading must not be mistaken for a page number; the size
+    // is what separates them.
+    const pages = [[line('body text', 72, 500, 200, 10), line('1', 72, 80, 748, 11)]];
+    const repeated = findRunningElements(pages, 792);
+    expect(repeated.has(runningKey(line('1', 72, 80, 748, 11)))).toBe(false);
+  });
+
   it('collapses page numbers to one signature', () => {
     expect(signature('Page 3')).toBe(signature('Page 47'));
   });
