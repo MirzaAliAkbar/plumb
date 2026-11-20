@@ -1,0 +1,149 @@
+ 
+ Hardware Launchpad | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ Hardware Launchpad
+ a hardware management system for hacking organizations and hackathons
+ Like
+ 4 
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ Inspiration
+ The two hacking organizations on the University of Michigan's campus - MHacks and Michigan Hackers - have a large amount of hardware that's accumulated over the years. The problem is that the hardware comes out for major events, and then just stays in storage for the majority of the year. We think some sort of system to manage renting out this hardware during the year to hackers at Michigan would be invaluable for our hacker community.
+ What it does
+ The list of available and taken inventory is publicly viewable for anyone to see at anytime. After registering, users can add a credit card (to ensure that users can be charged in the case where they do not return their hardware) and then check out hardware with administrator approval. 
+ How we built it
+ We all had a little bit of Rails experience with different levels of the stack, so we started working on various parts in line with our strengths and weaknesses. First came a backend to handle user accounts (while design was worked on concurrently), then hardware, then routing and general page design before adding Braintree API integration to handle our customers' credit card information.
+ Challenges we ran into
+ We struggled using the Braintree API (having started it with only a little amount of time left in the hackathon), as well as general source control with three people working on the project (we stopped using branches in our GitHub repository early on, which was a poor choice).
+ Accomplishments that we're proud of
+ The design is kickass, the basics of the Braintree API implementation are there, and we think this hack has a lot of potential to help a lot of cool hacks be created at Michigan between our local hackathons and events.
+ What we learned
+ We further learned and practiced our limited Rails experience and API implementation skills, while thinking broadly about the issues and possibilities facing our hardware hackers at Michigan.
+ What's next for Hackathon Launchpad
+ There's a bit more spit and polish required - especially around supporting administrator actions like viewing loans and where hardware is at any one time, which was originally scoped but we ran out of time for. After bringing our Braintree API account to production, we'd like to investigate integrating the NFC cards from MHacks 6 as a way to identify and login users with a simple card swipe. Then, we think we can go live with this to the hacker community at Michigan.
+ Built With
+ braintree 
+ javascript 
+ ruby 
+ ruby-on-rails 
+ Try it out
+ github.com 
+ Submitted to
+ Hack the North 2015 
+ Created by
+ I really enjoyed using this opportunity to work with Ruby on Rails! Usually, I'm more of a front-end dev, but this time I tried to focus on the back-end!
+ Pavi Vetriselvan 
+ Colin Szechy 
+ I like hacking, whether hardware or software. 
+ Preeti Mohan 
+ Computer Science and Cognitive Science student with a love for design, math, and making cool things 
+ Like
+ 4 
+ 4 people like this:
+ Share this project:
+ Updates
+ Colin Szechy 
+ started this project
+ —
+ Sep 20, 2015 08:51 AM EDT
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

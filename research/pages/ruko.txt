@@ -1,0 +1,188 @@
+ 
+ Ruko | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ Ruko
+ A one-minute voice check that stops payment scams before the money leaves. Ruko holds a coached payment and a voice agent calls the customer in their language to break the scammer's script.
+ Like
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ Inspiration
+ In India, "digital arrest" and related scams took ₹1,935.51 crore across 1,23,672 incidents (MHA, Rajya Sabha USQ 1505). The pattern is always the same: a fake police or CBI officer keeps the victim on a video call for an hour and coaches them through the payment. The victim enters the OTP and PIN themselves. SMS warnings and pop-ups don't break that spell. A calm voice asking the right question, in the victim's own language, before the money moves, can.
+ What it does
+ Ruko (Hindi for "wait") is a one-minute voice check for risky payments.
+ For people (free): the "Is this a scam?" checker at /check . Paste a suspicious message or describe a call, and Ruko explains the likely scam in plain words. It quotes the matching line from an official advisory (72 patterns cited to 223 sources from RBI, NPCI, MHA/I4C, CERT-In, DoT and others) and says what to do next. It runs a small on-server text classifier and stores nothing you type . No LLM is involved.
+ For banks and UPI apps: an API. When a payment looks coached, the bank sends it to Ruko and Ruko holds it.
+ Within seconds, a Bolna voice agent calls the customer in English or Hindi. It says a one-time code word shown in their app first, so the call is hard to spoof.
+ It asks what a fraud officer would ask ("Is anyone on another call telling you what to do?") and names the scam with a cited, official truth line ("There's no 'digital arrest' in Indian law").
+ With consent, it can call a trusted family contact .
+ A deterministic policy decides to release, delay or block, with a plain-language reason for every step. The model can make a decision stricter, never softer, and the agent never asks for an OTP, PIN, card or account number .
+ A fraud-ops console at /console shows each check's transcript with the evidence highlighted, the signals, the policy's reasons, the pattern library and the evaluation.
+ Try the sandbox bank at /demo . Press Pay on the "CBI officer" scenario and watch the recorded run. It replays a text-mode conversation through the live engine and costs nothing.
+ How we built it
+ Frontend: React, Vite, Tailwind and Motion.
+ API: TypeScript, deployed as one Vercel serverless function in the Mumbai region.
+ Voice: Bolna Agent API v2 (custom functions, Web Call SDK, webhooks), with Sarvam saaras:v3 and bulbul:v3 for Hindi.
+ Text classifier: character n-gram TF-IDF with logistic regression, exported to JSON and run on the server. It is advisory only.
+ Evaluation: a text-mode harness in which an LLM plays coached victims and genuine payers across ten scam types, in English, Hindi and Hinglish. Ruko's agent runs with the same prompt and tools, against the real engine.
+ Results (honest numbers)
+ Fresh held-out set, written and frozen before the current version ran: 15/18 scams caught , with 2/10 false holds on genuine payments (both delays, not blocks). The median time to a decision is about a minute (estimated from transcript length).
+ The agent asked for an OTP, PIN, card or account number 0 times in 208 conversations (959 agent turns). Each mention was checked by a separate judge model.
+ Five live Bolna web calls on 23 Oct (four in English, one in Hindi). The customer was a scripted text-to-speech voice, not a real person. Two ran the full flow and blocked a coached "digital arrest" victim.
+ The checker's text classifier scores AUROC 0.957 on 165 cited real Indian scam and genuine cases.
+ Challenges
+ Coached victims stick to a cover story. The fix was a safe default: when pre-call risk is critical, Ruko never releases on a cover story alone. It delays the payment and offers an in-app confirm, a call-back and the fraud desk.
+ Bolna's recordings remove each side's silences separately, so the two voices overlapped on playback. We rebuilt the call turn by turn from each channel.
+ Keeping it free and safe in public. Live calls sit behind an access code with daily and per-code caps and a wallet floor, and production never calls an LLM.
+ What it cannot do yet
+ It has had no calls with real people yet , and has no bank customers or pilots.
+ The pre-call risk weights are hand-set; a bank would tune them on its own data.
+ Voice languages are English and Hindi only. The Tamil, Bengali and Marathi truth lines are drafts awaiting native review.
+ Built during the event vs before (SafeSpace Hacks, LaunchPad Hacks)
+ Before the event: Ruko's first commit was at 00:29 IST on 16 Oct (15 Oct, US time), for the Bolna × Y Combinator Symphony Buildathon , where it is also entered. The first five commits predate both events (SafeSpace's build window opened 17 Oct; LaunchPad's hacking opened 16 Oct): the scaffold, the first API engine, the Bolna agent setup and eval v1.
+ During the events (17–23 Oct): the remaining 89 commits. These include:
+ the public "Is this a scam?" checker and its text classifier;
+ the 72-pattern cited library;
+ the sandbox bank demo, the fraud-ops console and the brand;
+ eval versions 2 to 5 and four held-out sets;
+ every live Bolna call, including the first Hindi call.
+ The full history is public on GitHub.
+ Credits
+ Voice platform: Bolna (with Sarvam, Deepgram and ElevenLabs models through Bolna).
+ Evaluation models: Nebius Token Factory, used locally only.
+ Datasets: used to train and test the text classifier, with authors and licences listed in the repo's NOTICE:
+ SMS Phishing Dataset (Mishra and Soni, CC BY 4.0)
+ SMS Spam Collection (UCI, CC BY 4.0)
+ BothBosu scam-dialogue datasets (Apache 2.0)
+ Fishing for Smishing (IMC 2025, CC BY 4.0), and four more
+ Video narration: a public-domain LJSpeech voice (Piper).
+ AI assistance: built with Claude (Anthropic) through Claude Code as a coding and writing assistant.
+ Demo data: all demo people and payees are fictional.
+ Built With
+ bolna 
+ nebius 
+ node.js 
+ python 
+ react 
+ sarvam 
+ scikit-learn 
+ tailwindcss 
+ typescript 
+ vercel 
+ vite 
+ voice-ai 
+ Try it out
+ ruko-symphony.vercel.app 
+ github.com 
+ Submitted to
+ LaunchPad Hacks (580k In Prizes!) 
+ SafeSpace Hacks - Judges Needed 
+ Created by
+ YashVardhan Thanvi 
+ Like
+ Share this project:
+ Updates
+ YashVardhan Thanvi 
+ started this project
+ —
+ Oct 27, 2026 05:04 PM EDT
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

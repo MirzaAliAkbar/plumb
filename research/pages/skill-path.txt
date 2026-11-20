@@ -1,0 +1,158 @@
+ 
+ skill path | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ skill path
+ "Dynamically generated learning roadmaps for every tech stack."
+ Like
+ 1 
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ Inspiration
+ Every developer knows the paralyzing feeling of "Tutorial Hell." You want to learn Full-Stack Development, but the landscape is overwhelming. You spend more time researching what to learn—stitching together fragmented YouTube videos and outdated documentation—than actually writing code.
+ We realized that traditional education platforms are entirely static. They force a beginner and an intermediate developer down the exact same path. We were inspired to build Skill Path: an engine that adapts to the human, generating dynamic, deeply personalized learning roadmaps based on real-time cognitive capacity and skill level. We didn't just want to build a course catalog; we wanted to build a GPS for technical mastery.
+ What it does
+ Skill Path is an AI-powered, adaptive learning engine designed to cure "tutorial hell." Instead of forcing users to sift through static, one-size-fits-all video courses, it generates a personalized, dynamic curriculum tailored exactly to their current skill level and tech goals.
+ Here is exactly what the platform does for the user:
+ Dynamic Curriculum Generation: A user selects their target tech stack (e.g., "React Developer", "Python Data Science") and their starting proficiency. Our AI engine instantly architecturally structures a customized, 8-12 step learning roadmap.
+ Interactive "Node Tree" Progression: The curriculum is rendered as a sleek, gamified visual tree. Users must progress step-by-step, unlocking advanced topics and new UI states only after completing the foundational nodes.
+ Contextual Resource Routing: Instead of just listing topics, every active learning node acts as a launchpad. It dynamically generates smart-search integrations, instantly connecting the user to highly relevant YouTube video tutorials and official documentation for that specific concept.
+ Gamified Progress Tracking: As users conquer the roadmap, the platform recalculates their completion percentage in real-time, leveraging visual rewards (like screen-wide confetti) and localized data persistence to keep them motivated to reach the end of the path.
+ How we built it
+ We architected Skill Path using a modern, scalable stack designed for speed and state-driven UI:
+ Frontend (React.js): We built a highly interactive "Node Tree" visualization. Using robust state management, the UI dynamically changes styles (Locked, Active, Completed) based on database progression.
+ Backend & Database (Supabase / PostgreSQL): We needed strict schemas to prevent the UI from crashing on "undefined" data. Supabase gave us instant, type-safe database tables and Edge Functions to handle our serverless logic.
+ The AI Engine (LLM Integration): The core of the app runs on a Generative AI model. When a user requests a stack (e.g., "React Developer"), an Edge Function triggers a Zero-Shot prompt, forcing the LLM to output a strict JSON array of learning nodes, which is instantly mapped to our PostgreSQL database.
+ The "Hacks": We used native browser APIs to simulate enterprise features—like generating .ics calendar files for study reminders, base64 URL encoding for social sharing, and CSS media queries for clean PDF exports.
+ Challenges we ran into
+ Our biggest hurdle was AI Determinism and Data Integrity. Large Language Models are great at generating text, but they are notoriously bad at outputting perfectly structured, relational data.
+ In our early builds, the AI would occasionally return malformed JSON or skip the SequenceOrder key, which immediately crashed our React frontend.
+ The Solution: We implemented a two-fold safety net. First, we wrote explicit, schema-enforcing prompt instructions. Second, we built a validation middleware layer in our backend. If the AI returned broken data, the server caught the error and automatically triggered a Few-Shot fallback prompt to correct the formatting before saving it to the database.
+ Accomplishments that we're proud of
+ Taming the AI (Zero-Crash Architecture): We are incredibly proud of our backend validation middleware. LLMs are notoriously unpredictable, but we engineered a system that intercepts malformed JSON from the AI and automatically triggers fallback formatting prompts. As a result, our dynamic React frontend never crashes due to "undefined" data.
+ The "Illusion of Scale": In a single weekend, we made a lightweight app feel like a massive enterprise platform. We are proud of our frontend engineering "hacks"—utilizing browser-native APIs to deploy global language translations, generate .ics calendar notifications, and implement dynamic YouTube smart-searches without adding a single byte of bloat to our database schema.
+ Seamless Full-Stack Orchestration: Successfully bridging a highly interactive React frontend with Supabase Edge Functions and a generative AI model is no small feat. We are incredibly proud of the buttery-smooth state transitions and the optimistic UI updates that make the platform feel lightning-fast.
+ Solving a Real Developer Problem: Most importantly, we are proud that we didn't just build a basic "wrapper" around an AI API. We built a genuine, structural solution to the "tutorial hell" problem that every self-taught developer faces, resulting in a tool that our team actually wants to use for our own continuous learning
+ What we learned
+ This project was a masterclass in Prompt Engineering and System Architecture. We learned that building an AI app isn't just about calling an API; it's about chaining requests, enforcing constraints, and handling edge cases gracefully. We also learned how powerful frontend illusions can be—using conditional rendering and clever API links to simulate a massive video library without needing complex OAuth integrations.
+ What's next for skill path
+ while building the Node completion logic, we designed the architecture to eventually support dynamic review nodes based on the Ebbinghaus Forgetting Curve. To ensure knowledge retention, the system calculates the probability of recall over time.We model the memory retention $R$ as an exponential decay function:$$R(t) = e^{-\frac{t}{S}}$$Where:$t$ is the time elapsed since the node was marked "Completed".$S$ is the relative strength of memory (based on the user's initial skill level).To calculate the user's overall Learning Velocity ($V$) across the roadmap, we dynamically weigh the completed nodes ($N_c$) against the difficulty coefficient ($d_i$) and total active time ($T$):$V = \frac{1}{T} \sum_{i=1}^{N_c} d_i$By structuring our Supabase tables to timestamp every node completion, our next iteration will use these exact formulas to automatically inject "Review Nodes" into the user's path precisely when $R(t)$ drops below a critical threshold.
+ Built With
+ medo 
+ Try it out
+ app-bqxzui7m85j5.appmedo.com 
+ Submitted to
+ Build with MeDo Hackathon 
+ Created by
+ Role: Full-Stack Architect & UX Lead
+Contribution: Designed the core adaptive learning engine and database schemas. I engineered the strict JSON-validation workflows to ensure the Generative AI (LLM) integrated flawlessly with our frontend without causing UI crashes. I also spearheaded the user experience by building the "Illusion of Scale"—utilizing native browser APIs to add PDF exports, .ics calendar reminders, and dynamic localized video content without bloating the backend architecture.
+ Teja Harshith 
+ Like
+ 1 
+ 1 person likes this:
+ Share this project:
+ Updates
+ Teja Harshith 
+ started this project
+ —
+ May 19, 2026 10:27 AM EDT
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

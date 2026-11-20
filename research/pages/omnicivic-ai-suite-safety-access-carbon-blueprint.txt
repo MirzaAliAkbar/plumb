@@ -1,0 +1,156 @@
+ 
+ OmniCivic AI Suite: Safety, Access & Carbon Blueprint | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ OmniCivic AI Suite: Safety, Access & Carbon Blueprint
+ Unified civic AI suite for scam/permission shielding, plain-language accessibility & repair-vs-replace LCA.
+ Like
+ Comment
+ Story 
+ Updates 
+ 🏆 OmniCivic AI Suite — Ultra-Low-Competition Online Devpost Cash Hackathons ( < 160 Registrations, 0 Gallery Submissions!)
+ Ready-to-submit interactive prototype ( DevpostLowCompCashQuad2026/index.html ) tailored for 4 open, 100%-online, ultra-low-competition Devpost cash hackathons:
+ Hackathon 
+ Portal URL 
+ Cash Prize 
+ Current Registrations / Gallery 
+ Target Mode in index.html 
+ 1. LaunchPad Hacks 
+ https://launchpad-hacks.devpost.com/ 
+ $300 USD Cash 
+ 156 regs / 0 gallery 
+ All-in-One Civic LaunchPad 
+ 2. SafeSpace Hacks 
+ https://safespace-hacks.devpost.com/ 
+ $280 USD Cash 
+ 129 regs / 0 gallery 
+ SafeSpace Mode (Offline Scam & Permission Shield) 
+ 3. AccessED Hacks 
+ https://accessed-hacks.devpost.com/ 
+ $225 USD Cash 
+ 64 regs / 0 gallery 
+ AccessED Mode (Plain-Language & Screen-Reader Adapter) 
+ 4. Green Shift Hacks 
+ https://green-shift-hacks.devpost.com/ 
+ $125 USD Cash 
+ 59 regs / 0 gallery 
+ GreenShift Mode (Repair-vs-Replace Carbon & Water Calculator) 
+ 5. FUSE Society Blueprint 2026 
+ https://fuse-society-blueprint-2026.devpost.com/ 
+ $250 USD Cash 
+ 17 regs / 0 gallery 
+ Full Clickable Prototype + Cost/Timeline Blueprint 
+ Built With
+ css3 
+ html5 
+ javascript 
+ python 
+ Try it out
+ kevin9327.github.io 
+ github.com 
+ Created by
+ byunggwon so 
+ Like
+ Share this project:
+ Updates
+ byunggwon so 
+ started this project
+ —
+ Oct 25, 2026 07:11 AM EDT
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

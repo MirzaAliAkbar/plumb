@@ -1,0 +1,196 @@
+ 
+ Farm Surveillance Drone | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ Farm Surveillance Drone
+ A drone which can help farmers save their crops from pests and analyse the growth of crops.
+ Like
+ 4 
+ Comment
+ Story 
+ Updates 
+ Drone 
+ FlytBase Dashboard 
+ Expected Growth rate change before and after the usage of Drone 
+ Inspiration
+ Now a days, the number of crop damages by pests are increasing rapidly and on the other hands the population is also increasing at a very fast rate which increases the demands of food, so to meet this demand we need to stop the spoilage of the crops.
+ What it does
+ • To protect crops from insects, animal, etc.
+• To fulfill the need of food for the country.
+• To avoid loss of farmers capital.
+ Materials required
+ Raspberry Pi
+ Camera
+ G.P.S. Module
+ Pixhawk (Flight Controller)
+ Drone Framework
+ Ultrasonic sensor
+ Modem
+ Drone
+ How I built it
+ First we had a challenge to bring in all the parts necessary to complete the project. My school's robotics lab helped me with that, It provided me with everything I needed. Then we assembled the drone, We loaded OS in raspberry Pi and then installed payloads like ultrasonic sensor, Camera, IR Camera and then installed the FlytBase software in the raspberry Pi. We connected it with the nodeMCU and then it was connected with internet and then we could fly it with FlytBase just like how a DJI drone flows automatically. We then processed some sample images of crop field on Google Cloud .
+ We were not allowed to shoot the drone video by school as our age is less than 18 and we don't have license. However, We emulated all the process with the help of FlytBase emulator. 
+ Explanation of what it does
+ The drone is based on GPS and can be located from any place in the world if it has a modem.
+ The drone is simple and convenient to use and most of the times, the drone runs on its own, We just need to set the waypoints (fields from which the drone has to be flown.) and we need to feed the last field and from there the drone will return to home/ launchpad. This is possible 
+due to flytPi OS which is an operating system specially made for drones. We also have flytGCS and an Android app from which the drone can be operated and tracked. The drone has an anti-collision system as it has ultrasonic sensors. Once it reaches the 1st field, It will automatically move towards the 2nd and then towards the 3rd. After it reaches the last field, It will automatically go back home/ launchpad or as per the drone will be directed. The drone 
+will be safe to fly as it comprises of many advanced tools like camera, ultrasonic sensors, built-in proximity sensor, and camera. Besides this, we also have advanced tracking tools 
+based on GPS and IoT. To maintain the stability of the drone in the sky, we will use one of the flight controllers available in the market.
+We are also working on bringing the drone back home if the battery is less than required to accomplish the mission.
+ To control the drone, we will use FlytBase GCS. It is developed by flytbase Labs Inc. We can see the drone in real-time. It is free to use. It uses the GPS module of the drone to locate it and then transmits the location to the control room.
+ Accomplishments that I'm proud of
+ I am proud of making everything within 36hrs even being new to this field and all our team mates were high school students.
+ What I learned
+ I learnt a lot about drones, Google cloud, AI and FlytBase.
+ Variants of the drone
+ The drone has two variants listed below, the same drone may be used and the night vision camera can be removed to fit a camera and the infrasonic sensor may be removed to reduce the weight. However, two drones may be used depending upon the budget. 
+Variants and details of the drone:
+ • Night Variant – The night variant of the drone is intended to be used during the night 
+• as the insects and pests spoil and destroy the crop during night time. The drone will 
+• have the following payloads:
+ • ➢ INFRASONIC SOUND GENERATOR: The infrasonic sound generator 
+• will generate waves which will scare off pests and insects. The main reason 
+• for crop damage/ spoilage is pests and insects. They attack the plants during 
+• the night and spoil the crops.
+ • ➢ NIGHT VISION CAMERA: Night vision camera will help to detect if there 
+• are any other ways from which crop is being spoiled like the crops being 
+• grazed by animals or such that. It will help agricultural engineers to take 
+• preventive steps against the same to avoid it in the future.
+ • ➢ ULTRASONIC SENSOR: It can be used instead of an Infrasonic sound 
+• generator as it can perform almost the same function the infrasonic sound 
+• generators do. Moreover, it will make the anti-collision system for the drone. 
+• It will also help in landing the drone.
+ • ➢ MODEM: The modem is the most advanced part of the drone as it will help 
+• the control center to find the drone easily using the internet. The modem will 
+• be connected with Raspberry Pi which will have the drivers and system installed. We can also give commands which the drone will follow after we get the drone’s location using the internet.
+ • Day variant – The day variant will monitor the growth of crops in the fields. The drone will have the following payloads:
+ ➢ CAMERA: The camera will capture the image of the field and will automatically compare it with older images and will generate a graph of the development of the crop using Google Cloud Platform .
+ ➢ ULTRASONIC SENSOR: We can use it instead of an Infrasonic sound generator as it can perform almost the same function the infrasonic sound generators do. It will make the anti-collision system for the drone. It will also help in landing the drone.
+ ➢ MODEM: The modem is the most advanced part of the drone as it will help 
+the control center to find the drone easily using the internet. We will connect 
+the modem with Raspberry Pi which will have the drivers and operating
+system installed. We can also give commands which the drone will follow 
+once we get the drone’s location using the internet.
+ Analysing Crop Growth Data
+ We will use Google cloud AI and will match the previous camera image of field captured by drone with the new image which will help us to study on the development of crops and to predict what factors will affect the crop which can help us to tell the farmers the problems which they might face so that they will be ready for it.
+ What's next for Farm Surveillance Drone
+ We would like the governments of different states to use this project as this can be really useful.
+Even with HYV seeds, It can be used!
+ Built With
+ drone 
+ flytbase 
+ google-cloud 
+ pixhawk 
+ raspberry-pi 
+ ultrasonic-sensor 
+ Created by
+ I am designer asap
+ Saurav Kumar 
+ Rahul Sinha 
+ Manan . 
+ Like
+ 4 
+ 4 people like this:
+ Share this project:
+ Updates
+ Manan . 
+ started this project
+ —
+ Sep 06, 2020 04:03 AM EDT
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

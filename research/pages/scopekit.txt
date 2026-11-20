@@ -1,0 +1,154 @@
+ 
+ ScopeKit | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ ScopeKit
+ Turn a vague website brief into editable deliverables, acceptance checks and open questions, entirely in your browser.
+ Like
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ ScopeKit running with the fictional café sample. Suggestions remain editable and require client review. 
+ Inspiration
+ Student freelancers can receive short briefs that hide very different expectations: a booking link or a custom booking system; contact details or a working form. ScopeKit makes those questions visible before a commitment.
+ What it does
+ Matches a brief against eight transparent categories and creates an editable starting plan. Every suggestion shows the triggering phrase. Users refine acceptance checks, add or remove deliverables, record confirmed items, set boundaries and export Markdown. Questions can be edited, added and removed. Optional browser saving restores a draft after refresh; it is off by default and removable. JSON backup and restore keep work portable without an account.
+ How it was built
+ New HTML, CSS and vanilla JavaScript implementation started 8 November 2026. No framework, server, external assets, credentials or model calls. User content is rendered through DOM text/value APIs. Backups are size-limited and shape-validated.
+ AI assistance and attribution
+ OpenAI Codex generated and edited the implementation, interface and submission copy and assisted with testing under Charli Myers’s direction. The shipped app uses deterministic keyword rules, not generative AI. No sole manual authorship or previous paid client work is claimed.
+ Validation and lessons
+ Browser checks verified sample generation, editing, confirmation status, Markdown export and JSON backup recovery. The layout fit a 390px mobile viewport without horizontal overflow. On 13 November, browser checks also verified question edit/add/remove, exported question changes, saved draft recovery, persisted confirmations and removal of the saved copy on opt-out. Six automated regression checks cover positive mentions, explicit exclusions, mixed requirements, sentence boundaries, repeated mentions and unmatched briefs. Browser checks verified that “no booking system” and “Login is not required” become clarification questions, while mixed positive/negative requests retain a flagged suggestion. Keyword evidence makes suggestions inspectable; this is narrow phrase matching, not full language understanding.
+ Limitations and next steps
+ This is an early prototype for small website projects, with no external user study or revenue. A checkbox records the user’s statement, not proof of client agreement. Refresh loses unsaved work unless browser saving is enabled or a backup is exported. Browser saving is unsuitable for confidential briefs on a shared profile. Long-distance negation, lists and implied exclusions can still be misread. Next steps are user testing and scope comparison between revisions.
+ Try it
+ Open the demo and click Try a sample, edit a deliverable and export the plan. Source ZIP includes the app, README and matching regression tests; unzip and open index.html. No setup or account required.
+ Event history
+ Started on 8 November 2026 and improved on 13 November. Submitted to LaunchPad Hacks, GenHacks, Arbiter Hacks V1 and Code for Change; the same prototype is being entered in SafeSpace Hacks. Cross-event reuse is disclosed. No code or assets from a project predating 8 November were reused.
+ Intended community benefit
+ ScopeKit is intended to help student freelancers and small community organisations discuss a website brief before committing time or money. For example, the fictional café sample makes the difference between a booking link and a custom booking system explicit. The account-free, browser-based workflow lowers setup barriers. These are intended benefits, not measured outcomes: no external user study has yet established that the tool reduces disputes or saves money.
+ Privacy and safer decisions
+ The intended user is a student freelancer clarifying a small website brief. Two risks guide the design: sharing client information unnecessarily with a remote drafting service, and treating an ambiguous requirement as an agreed commitment. Brief matching runs in the browser without model calls or a project backend. Saving is optional and off by default; users choose what to export and share. The fictional café sample shows a booking requirement that still needs clarification before implementation. Every suggestion exposes its triggering phrase and remains editable, so users can review assumptions rather than treat generated text as approval.
+ This is a limited privacy-conscious planning prototype, not a security audit, legal contract or guarantee against disputes. Exported files and browser-saved drafts can expose information if shared or left on a shared device. Use fictional sample data for evaluation, avoid sensitive client details, and review the plan with the client. No external study has measured a reduction in harm. All implementation work described above was created during the SafeSpace build window; earlier contest reuse and AI assistance are disclosed.
+ Built With
+ css3 
+ html5 
+ javascript 
+ Try it out
+ scopekit-charli.cha209.chatgpt.site 
+ scopekit-charli.cha209.chatgpt.site 
+ github.com 
+ Submitted to
+ Arbiter Hacks V1 
+ LaunchPad Hacks (580k In Prizes!) 
+ GenHacks 
+ Code for Change 
+ SafeSpace Hacks - Judges Needed 
+ Created by
+ C I 
+ Like
+ Share this project:
+ Updates
+ C I 
+ started this project
+ —
+ Nov 13, 2026 03:58 AM EST
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

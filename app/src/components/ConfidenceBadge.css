@@ -1,0 +1,76 @@
+.confidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.2em 0.6em;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.confidence--sm {
+  font-size: 0.78rem;
+  padding: 0.15em 0.5em;
+}
+
+.confidence__dot {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.confidence__pct {
+  font-weight: 700;
+}
+
+.confidence__label {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.confidence--high {
+  background: var(--accent-050);
+  color: var(--accent-700);
+  border-color: var(--accent-100);
+}
+
+.confidence--medium {
+  background: var(--caution-100);
+  color: var(--caution-700);
+  border-color: var(--caution-500);
+}
+
+.confidence--low {
+  background: var(--danger-100);
+  color: var(--danger-700);
+  border-color: var(--danger-700);
+}
+
+/* Medium and low carry a dashed/dotted dot so the level is readable without colour. */
+.confidence--medium .confidence__dot {
+  background: transparent;
+  border: 1.5px dashed currentColor;
+}
+
+.confidence--low .confidence__dot {
+  background: transparent;
+  border: 1.5px dotted currentColor;
+}
+
+@media (forced-colors: active) {
+  .confidence {
+    border: 1px solid ButtonBorder;
+    background: Canvas;
+    color: CanvasText;
+  }
+  .confidence--low {
+    border-width: 2px;
+  }
+}

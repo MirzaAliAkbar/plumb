@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npx tsc -b --noEmit || npx tsc -p tsconfig.app.json --noEmit
+
+      - name: Unit tests
+        run: npx vitest run
+
+      - name: Build
+        run: npm run build
+
+      - name: Contrast audit
+        run: node tools/contrast.mjs
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: End-to-end + accessibility
+        run: npx playwright test
+
+      - name: Design audit
+        run: |
+          npx vite preview --port 4173 --strictPort --host 127.0.0.1 &
+          npx wait-on http://127.0.0.1:4173
+          npx tsx tools/design-audit.mts
+
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failures
+          path: app/test-results/

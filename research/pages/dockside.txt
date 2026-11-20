@@ -1,0 +1,177 @@
+ 
+ Dockside | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ Dockside
+ Check every supplier delivery note in Jira before you pay it: prices, quantities, VAT and totals, with a Rovo agent for hand-typed notes.
+ Like
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ The panel on the note: hake over the last price and mussels nobody ordered, €16.06 in dispute 
+ The project at a glance: money in dispute, notes that need attention, open findings 
+ Supplier price changes against the reference, per item 
+ Dispute: Dockside writes the letter to the supplier and posts it as your comment 
+ The Receiving Clerk, a Rovo agent, reads a hand-typed note 
+ Every line the agent extracts is checked against the note before it counts 
+ Inspiration
+ My family runs a restaurant in Asturias, in the north of Spain, and nobody there compares each supplier's note or invoice with what actually arrived. That is the problem Dockside is for.
+ A restaurant gets a delivery note with almost every delivery, and someone signs it at the kitchen door between two other jobs. Over a month the small things add up: hake 70 cents a kilo dearer than last time, 2 kilos of mussels nobody ordered, butter billed for 10 kilos when 8 came off the van, eggs at 7% VAT, the same note booked twice because it also came by email. None of it is hard to catch. It just needs someone to compare every line with the last price and the order, every time, and at 7:40 in the morning nobody has time for that.
+ What it does
+ Dockside reads a supplier's delivery note (in Spain, the albarán ) in a Jira work item and checks it against the price you last approved for each item, what you ordered, what was counted at the door, the Spanish VAT rates and the note's own arithmetic. It tells you which line is wrong, quotes it, and says how much money is at stake.
+ On each note: a panel with the verdict (OK, Check, Dispute, Not read), each finding with its line number and the quoted line, and the money in dispute, VAT included. Press Dispute and Dockside writes the letter to the supplier, posts it as your comment and keeps those prices out of the reference. Press Approve and the prices become the reference for the next note.
+ On the project: money in dispute, open findings across all notes, supplier price changes with a chart, suppliers, the activity log and the rules (price threshold, VAT rates).
+ The Receiving Clerk (Rovo agent): reads the hand-typed notes the parser can't. It doesn't get the last word: every line it extracts goes back to the engine, which rejects any line whose quote isn't in the note or whose numbers aren't in the quote. The model reads; the code decides.
+ MCP: five read-only tools (check, parse, price history, open findings, price changes) for Rovo Studio agents and, once a site admin enables them, for any MCP client, with an open SKILL.md that tells a third-party agent how to use them.
+ Search: results are indexed, so issue.property[dockside].amountInDispute > 0 works in JQL.
+ How I built it
+ It's all Forge and it all runs on Atlassian: no external server, no egress, no third-party key. UI Kit jira:issuePanel and jira:projectPage ; a trigger on issue created/updated that checks notes nobody opened (with ignoreSelf , so its own writes never loop); jira:entityProperty for JQL; 7 action modules behind a rovo:agent and a rovo:mcp module; Forge KVS for price history, results, decisions, the duplicate index and the audit log.
+ The check engine in src/lib/ is plain JavaScript with no Forge and no randomness: the same note, history and settings always give the same answer. That's what lets the tests pin every figure to the cent. npm test runs 72 tests, including the full app flow against an in-memory Jira, and a scorecard on 120 synthetic notes with 144 planted problems: 144 found, 0 missed, 0 false alarms.
+ Permissions follow Jira: reads run as the user, approving or disputing needs Edit work items, changing rules needs project admin. On the MCP path, if the user token isn't available, Dockside asks Jira whether that exact account can browse the project or work item, and refuses if it can't.
+ Challenges I ran into
+ Delivery notes come in every shape: CSV with commas or semicolons, tables pasted from a PDF, aligned columns, lines like 15 kg Onions @ 0,92 = 13,80 , decimal commas. The parser had to read them all and say plainly when a line might be missing, instead of guessing.
+ Trusting a language model with money. The answer was to make the agent quote every line it extracts and have the engine verify each quote and number against the original before anything counts.
+ A note must never come out "OK" just because nothing was read, so "Not read" and "Check" are separate verdicts.
+ Testing in a real Jira site and recording the demo found small things: a line showed +18.0% while its finding said +17.9%, and the project total could add an amount before VAT into one with VAT. Both are fixed and covered by tests.
+ Accomplishments that I'm proud of
+ Every finding points at a real line and quotes it, and every euro in dispute can be traced back to a line.
+ The agent and the deterministic engine work together, and the agent can't slip an invented line past the engine.
+ 144 of 144 planted problems found on 120 synthetic notes, with no false alarms.
+ What I learned
+ How far Forge goes on its own: UI, triggers, storage, JQL indexing, a Rovo agent and MCP tools, all from one manifest and with no server to run. And that the useful split between a model and code is to let the model read and let the code decide.
+ What's next for Dockside
+ Reading photographed paper notes, agreed price lists imported from a supplier's file, and a weekly digest of price rises for the person who places the orders.
+ Use of AI
+ I wrote Dockside with the help of an AI coding assistant (Claude Code, by Anthropic). The Receiving Clerk runs on Rovo; nothing else calls a model. The demo narration uses Kokoro-82M, an open-weights text-to-speech model run locally.
+ Timeline, libraries and other entries
+ Started on 2 November 2026 (first commit in the public repo).
+ Built with the Forge CLI and @forge/api, @forge/bridge, @forge/kvs, @forge/react (UI Kit) and @forge/resolver on Node.js; React 18.
+ Also entered in Codegeist 2026 (Atlassian), GenHacks, LaunchPad Hacks and Arbiter Hacks V1.
+ Try it
+ Install link, instructions and code: https://github.com/antonmareo10/dockside (the README has the install link at the top and a two-minute walkthrough).
+ Demo video: https://youtu.be/LZjLwTaQF_k 
+ Everything in the demo (suppliers, notes, prices) is invented.
+ Built With
+ forge 
+ forge-kvs 
+ javascript 
+ jira 
+ mcp 
+ node.js 
+ rovo 
+ ui-kit 
+ Try it out
+ github.com 
+ Submitted to
+ Arbiter Hacks V1 
+ Codegeist 2026: Build with context. Ship with confidence. 
+ LaunchPad Hacks (580k In Prizes!) 
+ GenHacks 
+ Created by
+ Antonio González Fernández 
+ Like
+ Share this project:
+ Updates
+ Antonio González Fernández 
+ started this project
+ —
+ Nov 17, 2026 12:34 PM EST
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

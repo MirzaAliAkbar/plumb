@@ -1,0 +1,142 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 5468 >>
+stream
+BT /F2 8 Tf 0.45 g
+1 0 0 1 72 748 Tm (Reading Order in Compound Documents) Tj
+ET
+BT /F2 18 Tf 0 g
+1 0 0 1 72 690 Tm (Reading Order in Compound Documents) Tj
+ET
+BT /F1 11 Tf 0.25 g
+1 0 0 1 72 665 Tm (A study of why assistive technology misreads two-column layouts) Tj
+ET
+BT /F1 9.5 Tf 0.35 g
+1 0 0 1 72 649 Tm (A. Researcher and B. Collaborator) Tj
+ET
+BT /F2 11 Tf 0 g
+1 0 0 1 72 623 Tm (1  Introduction) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 72 600.9 Tm (Assistive technology does not see a page. It sees) Tj
+1 0 0 1 72 587.9 Tm (a sequence. When a document is authored without) Tj
+1 0 0 1 72 574.9 Tm (structure, that sequence is whatever order the) Tj
+1 0 0 1 72 561.9 Tm (producing software happened to write, and it rarely) Tj
+1 0 0 1 72 548.9 Tm (matches the order a person reads.) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 72 530.05 Tm (In a two-column layout the two orders diverge) Tj
+1 0 0 1 72 517.05 Tm (badly. A reader moves down the left column and) Tj
+1 0 0 1 72 504.04999999999995 Tm (then down the right. A content stream typically) Tj
+1 0 0 1 72 491.04999999999995 Tm (interleaves them, so a spoken rendering alternates) Tj
+1 0 0 1 72 478.04999999999995 Tm (between unrelated sentences.) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 72 459.19999999999993 Tm (This paper argues that the divergence is) Tj
+1 0 0 1 72 446.19999999999993 Tm (recoverable. Layout is geometry, and geometry) Tj
+1 0 0 1 72 433.19999999999993 Tm (survives in the file even when structure does not.) Tj
+1 0 0 1 72 420.19999999999993 Tm (If we can measure where glyphs sit, we can infer) Tj
+1 0 0 1 72 407.19999999999993 Tm (which of them form a line, which lines form a) Tj
+1 0 0 1 72 394.19999999999993 Tm (column, and which sequence of columns a reader) Tj
+1 0 0 1 72 381.19999999999993 Tm (would follow.) Tj
+ET
+BT /F2 11 Tf 0 g
+1 0 0 1 72 362.3499999999999 Tm (2  Method) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 72 340.2499999999999 Tm (We treat the page as a set of positioned runs and) Tj
+1 0 0 1 72 327.2499999999999 Tm (reconstruct structure in three passes: clustering) Tj
+1 0 0 1 72 314.2499999999999 Tm (into lines, segmentation into columns, and) Tj
+1 0 0 1 72 301.2499999999999 Tm (sequencing of the resulting blocks. Each pass) Tj
+1 0 0 1 72 288.2499999999999 Tm (exposes a confidence, and the lowest confidence) Tj
+1 0 0 1 72 275.2499999999999 Tm (in the chain governs the whole page.) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 72 256.39999999999986 Tm (The contrast with structural remediation is worth) Tj
+1 0 0 1 72 243.39999999999986 Tm (stating plainly. Tagging a document fixes it once,) Tj
+1 0 0 1 72 230.39999999999986 Tm (permanently, and for every consumer.) Tj
+1 0 0 1 72 217.39999999999986 Tm (Reconstruction fixes a reading session, and must) Tj
+1 0 0 1 72 204.39999999999986 Tm (be repeated. The advantage of reconstruction is) Tj
+1 0 0 1 72 191.39999999999986 Tm (reach, because it works on documents that nobody) Tj
+1 0 0 1 72 178.39999999999986 Tm (will ever remediate.) Tj
+ET
+BT /F2 11 Tf 0 g
+1 0 0 1 319 623 Tm (3  Results) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 319 600.9 Tm (Across the corpus, column detection succeeded) Tj
+1 0 0 1 319 587.9 Tm (whenever the gutter remained clear for the full) Tj
+1 0 0 1 319 574.9 Tm (height of the text block. It failed most often on) Tj
+1 0 0 1 319 561.9 Tm (pages carrying a full-width figure, where the gutter) Tj
+1 0 0 1 319 548.9 Tm (is interrupted and the measure of emptiness) Tj
+1 0 0 1 319 535.9 Tm (collapses.) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 319 517.05 Tm (The failure is instructive rather than merely) Tj
+1 0 0 1 319 504.04999999999995 Tm (inconvenient. A spanning figure is itself evidence) Tj
+1 0 0 1 319 491.04999999999995 Tm (about reading order: text above it precedes both) Tj
+1 0 0 1 319 478.04999999999995 Tm (columns, and text below it follows both. Detecting) Tj
+1 0 0 1 319 465.04999999999995 Tm (the interruption is therefore part of the solution) Tj
+1 0 0 1 319 452.04999999999995 Tm (rather than an exception to it.) Tj
+ET
+BT /F2 11 Tf 0 g
+1 0 0 1 319 433.19999999999993 Tm (4  Discussion) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 319 411.0999999999999 Tm (Confidence reporting mattered more than accuracy) Tj
+1 0 0 1 319 398.0999999999999 Tm (in our trials. Participants tolerated an admitted) Tj
+1 0 0 1 319 385.0999999999999 Tm (uncertainty and distrusted a silent guess. A wrong) Tj
+1 0 0 1 319 372.0999999999999 Tm (order that presents itself as certain is worse than) Tj
+1 0 0 1 319 359.0999999999999 Tm (a flagged ambiguity, because the reader has no) Tj
+1 0 0 1 319 346.0999999999999 Tm (way to notice the error.) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 319 327.2499999999999 Tm (This suggests a design rule for assistive tools) Tj
+1 0 0 1 319 314.2499999999999 Tm (generally: state what you do not know. The cost) Tj
+1 0 0 1 319 301.2499999999999 Tm (is a moment of friction. The alternative is a reader) Tj
+1 0 0 1 319 288.2499999999999 Tm (who cannot tell whether the text in front of them is) Tj
+1 0 0 1 319 275.2499999999999 Tm (what the author wrote.) Tj
+ET
+BT /F2 11 Tf 0 g
+1 0 0 1 319 256.39999999999986 Tm (5  Conclusion) Tj
+ET
+BT /F1 10 Tf 0 g
+1 0 0 1 319 234.29999999999987 Tm (Reading order is recoverable from geometry,) Tj
+1 0 0 1 319 221.29999999999987 Tm (cheaply, in the browser, without a licence and) Tj
+1 0 0 1 319 208.29999999999987 Tm (without an expert. That is enough to make a large) Tj
+1 0 0 1 319 195.29999999999987 Tm (class of documents usable that are currently not.) Tj
+ET
+BT /F1 8 Tf 0.45 g
+1 0 0 1 303 44 Tm (1) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000005771 00000 n 
+0000005841 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+5916
+%%EOF

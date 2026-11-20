@@ -1,0 +1,160 @@
+ 
+ BlinkTalk AI | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ BlinkTalk AI
+ An AI-powered assistive communication tool that lets users select words with eye blinks and turns them into smart sentence suggestions and speech.
+ Like
+ 1 
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ Inspiration
+ People living with ALS, stroke, or severe paralysis often keep full mental clarity but lose the ability to speak or use their hands. Dedicated eye-tracking communication devices exist, but they are often very expensive and out of reach for many families. We asked: what if any laptop with a webcam could become a voice?
+ What it does
+ BlinkTalk AI lets a person communicate using only eye blinks and a regular webcam — no special hardware, no installation.
+ The webcam detects intentional blinks in real time.
+ A scanning keyboard highlights letters and quick phrases; a blink selects one.
+ An AI layer predicts what the user wants to say. Typing just "wa" can suggest "I'm thirsty, can I have some water?" — turning dozens of blinks into a few.
+ The selected sentence is spoken aloud with text-to-speech.
+ An emergency phrase ("I need help") is always one blink away.
+ How we built it
+ MediaPipe Face Landmarker runs in the browser to track facial landmarks and blink scores.
+ Blink detection uses a calibrated threshold plus a minimum duration, so natural blinks are ignored and only deliberate long blinks count.
+ [LLM API name] generates context-aware sentence suggestions from partial input.
+ Web Speech API reads sentences aloud.
+ Everything runs as a static web app in HTML, CSS, and JavaScript ; video never leaves the user's device.
+ Challenges we ran into
+ [e.g., separating natural blinks from intentional ones, lighting and glasses, keeping AI suggestions fast enough...]
+ Accomplishments that we're proud of
+ [e.g., speaking a full sentence in under X blinks...]
+ What we learned
+ [What you learned about computer vision, accessibility, prompt design...]
+ What's next for BlinkTalk AI
+ Testing with real users and caregivers
+ Turkish and other languages
+ Personalized phrase prediction that learns the user's vocabulary
+ Caregiver alert notifications
+ Credits & AI assistance
+ Built during LaunchPad Hacks (Oct 16 – Nov 20, 2026). Uses MediaPipe (Google), Web Speech API, and [LLM API]. AI tools were used to assist with [code/writing].
+ Built With
+ computer-vision 
+ css3 
+ gemini-api 
+ html5 
+ javascript 
+ mediapipe 
+ web-speech-api 
+ Submitted to
+ LaunchPad Hacks (580k In Prizes!) 
+ Created by
+ Betül Altunyuva 
+ Özge Altunyuva 
+ Like
+ 1 
+ 1 person likes this:
+ Share this project:
+ Updates
+ Betül Altunyuva 
+ started this project
+ —
+ Oct 20, 2026 08:32 AM EDT
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

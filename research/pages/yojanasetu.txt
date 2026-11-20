@@ -1,0 +1,154 @@
+ 
+ YojanaSetu | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ YojanaSetu
+ Find the government schemes you qualify for, in plain language — with the rule-by-rule reason why.
+ Like
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ Inspiration
+ India runs hundreds of welfare schemes, yet the people they are meant for often cannot find out which ones they qualify for. The criteria sit in long government documents, in formal language, and a family can miss out simply because nobody told them. At the same time, the officers who run these schemes work from scattered records, where the same person can be enrolled twice under slightly different spellings. I wanted one clear view: which schemes exist, who is enrolled, and — in plain language — why a person does or does not qualify.
+ What it does
+ YojanaSetu is a privacy-conscious data-intelligence platform for government-scheme delivery in Uttarakhand, built solo on 10 November 2026.
+ Scheme registry: 9 schemes (8 real national schemes plus one clearly labelled representative state scheme), searchable by name and category, with benefit details and eligibility criteria.
+ Beneficiary lookup: search by ID, name or district and see one holistic view of a person's scheme participation, with each enrolment citing its source department and record.
+ Duplicate detection: deterministic matching on name, date of birth, district and family reference, with a confidence score and per-field evidence, so the same person enrolled twice can be spotted.
+ Eligibility trace: pick a person and a scheme to see a rule-by-rule PASS / FAIL / UNKNOWN trace, each rule citing its source — so anyone can see exactly which condition was met or missed, in plain language.
+ Officer dashboard: totals across the demo data (22 people, 25 enrolments, 9 schemes, 13 districts), enrolments by district and scheme, and duplicate statistics.
+ 3D district map: a CSS-3D map of all 13 Uttarakhand districts, where block height shows enrolment volume; clicking a district filters the dashboard.
+ How I built it
+ Python 3 standard library only — no pip installs, no CDN, no external assets, no secrets and no environment variables. The core (scheme data, governance logic, duplicate matching and eligibility rules) is plain Python served over WSGI, with a Vercel serverless adapter for the live deployment and an HTML, CSS and JavaScript front end. Tests cover duplicate matching (exact, near-miss, same-name-different-date-of-birth, no match), eligibility traces and the dashboard totals.
+ Challenges I ran into
+ Turning scheme criteria into rules a computer can trace without losing the human meaning: every rule needed a source citation so a FAIL is explainable rather than a black box. I also had to design for privacy from the start — the demo uses only synthetic, fictional people, so no real citizen data is ever handled.
+ Accomplishments that I'm proud of
+ An end-to-end flow from "who is this person?" to "which schemes, and why?" with every eligibility answer traceable to its rule and source, plus duplicate detection that shows its evidence instead of just a score.
+ What I learned
+ That explainability matters as much as accuracy in welfare technology: a person who is told they do not qualify deserves to know which rule failed and where it came from. I also learned to be careful with data provenance — scheme figures here are a curated snapshot of widely published headline criteria, not an official source.
+ What's next for YojanaSetu
+ Pulling scheme criteria from official sources so figures stay current, adding consent-based identity checks for real deployment, and expanding the registry beyond the 9 demo schemes.
+ Important: all people, IDs and enrolments in the demo are fictional and invented for demonstration. Scheme figures are a curated snapshot of published headline criteria and are NOT an official source — verify current criteria at myscheme.gov.in. One scheme, "Hill Transport Support", is labelled REPRESENTATIVE and was invented to show how a state scheme plugs into the same governance layer. Never use this demo for a real eligibility decision. 
+ Built for LaunchPad Hacks — what's new
+ Pre-existing work (built 10–11 November 2026, before this submission, and also entered in GenHacks): the core YojanaSetu platform — a privacy-conscious, synthetic-data governance tool that connects beneficiary records across departments into one view per person, flags duplicate enrolments with evidence and confidence, traces eligibility rule-by-rule with citations, and surfaces inclusion gaps on an officer dashboard.
+ New work completed during the LaunchPad Hacks period (12 November 2026): the Duplicate Review Queue. Every flagged duplicate pair now sits in a review queue where an officer records a decision — Confirmed duplicate or Not a duplicate — with an optional note, and every decision is written to an audit trail (newest first, timestamped). New endpoints: GET /api/review-queue, POST /api/review-decisions (invalid decisions return 400, unknown pairs 404), GET /api/audit-trail. Try it live: open the live site and use the Review Queue tab. The test suite grew from 38 to 45 tests (7 new, all passing). The demo video linked here was recorded on 11 November and shows the core platform; the Review Queue was added afterwards and is best seen on the live site. All data in this project is synthetic — no real citizen data is used anywhere.
+ Built With
+ css 
+ html 
+ javascript 
+ python 
+ vercel 
+ Try it out
+ yojanasetu-self.vercel.app 
+ github.com 
+ Submitted to
+ LaunchPad Hacks (580k In Prizes!) 
+ GenHacks 
+ Created by
+ M S abhishek 
+ Like
+ Share this project:
+ Updates
+ M S abhishek 
+ started this project
+ —
+ Nov 11, 2026 02:18 PM EST
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

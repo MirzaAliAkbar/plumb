@@ -1,0 +1,138 @@
+ 
+ MIDI Dungeon | Devpost 
+ We've detected that you are using an unsupported browser. Please
+ upgrade your browser 
+ to Internet Explorer 10 or higher.
+ Log in
+ Sign up
+ Join a hackathon 
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Join a hackathon
+ Devpost
+ Participate in our public hackathons
+ Hackathons 
+ Projects 
+ Devpost for Teams
+ Access your company's private hackathons
+ Login 
+ Host a hackathon
+ Devpost
+ Grow your developer ecosystem and promote your platform
+ Host a public hackathon 
+ Devpost for Teams
+ Drive innovation, collaboration, and retention within your organization
+ Host an internal hackathon 
+ By use case
+ AI hackathons 
+ Customer hackathons 
+ Employee hackathons 
+ Public hackathons 
+ Resources
+ Blog
+ Insights into hackathon planning and participation
+ Customer stories
+ Inspiration from peers and other industry leaders
+ Planning guides
+ Best practices for planning online and in-person hackathons
+ Webinars & events
+ Upcoming events and on-demand recordings
+ Help desk
+ Common questions and support documentation
+ Log in
+ Sign up
+ MIDI Dungeon
+ A top-down dungeon crawler that utilizes a Launchpad MIDI controller for user control and display functionality.
+ Like
+ Comment
+ Story 
+ Updates 
+ Submission history 
+ Inspiration
+ Undertale and EDM production.
+ What it does
+ It dungeon-crawls and makes use of a MIDI controller.
+ How we built it
+ From the ground up.
+ Challenges we ran into
+ Compiler errors, non-compiler errors, ineptitude, not being full stack developers, x/y confusion, lack of GitHub literacy, lack of literacy.
+ Accomplishments that we're proud of
+ Teamwork.
+ What we learned
+ Stuff about mythical critters, T-Pain, and more than anything, ourselves.
+ Built With
+ java 
+ Submitted to
+ Dandy Hacks Spring 2017 
+ Created by
+ I worked on the backend and cleaned up our landing page's CSS. It was my first time using node, which was a little intimidating, but I learned a TON about streams.
+ Ben Schmitz 
+ E.g., I worked on the backend and cleaned up our landing page's CSS. It was my first time using node, which was a little intimidating, but I learned a TON about streams.
+ Private user 
+ Rick Carl 
+ Like
+ Share this project:
+ Updates
+ Ben Schmitz 
+ started this project
+ —
+ Feb 19, 2017 01:18 AM EST
+ Leave feedback in the comments! 
+ Log in 
+ or
+ sign up for Devpost 
+ to join the conversation.
+ Submission history
+ Devpost
+ About 
+ Careers 
+ Contact 
+ Help 
+ Hackathons
+ Browse hackathons 
+ Explore projects 
+ Host a hackathon 
+ Hackathon guides 
+ Portfolio
+ Your projects 
+ Your hackathons 
+ Settings 
+ Connect
+ Twitter
+ Discord
+ Facebook
+ LinkedIn
+ © 2026 Devpost, Inc. All rights reserved.
+ Community guidelines 
+ Security 
+ CA notice 
+ Privacy policy 
+ Terms of service 

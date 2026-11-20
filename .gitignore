@@ -1,0 +1,19 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.DS_Store
+*.log
+
+# Build/test artifacts
+app/test-results/
+app/playwright-report/
+app/.vite/
+coverage/
+
+# Generated screenshots and local scratch
+shots/
+
+# The accuracy corpus is fetched, not vendored: these are other people's papers.
+# Run `node app/tools/fetch-corpus.mjs` to rebuild it.
+spike/pdfs/

@@ -1,0 +1,144 @@
+.reading {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reading__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--paper-200);
+}
+
+.reading__status {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--ink-500);
+}
+
+.reading__unsupported {
+  font-size: var(--step--1);
+  color: var(--ink-500);
+  font-style: italic;
+}
+
+.reading__page {
+  max-width: 68ch;
+  margin: 0 auto;
+  font-family: var(--font-reading);
+  font-size: clamp(1.05rem, 1rem + 0.25vw, 1.18rem);
+  line-height: 1.72;
+  color: var(--ink-900);
+}
+
+.reading__block {
+  position: relative;
+  border-radius: var(--radius-sm);
+  transition: background-color 180ms var(--ease);
+}
+
+.reading__block--active {
+  background: var(--accent-050);
+  box-shadow: -0.75rem 0 0 var(--accent-050), 0.75rem 0 0 var(--accent-050);
+}
+
+.reading__block h2 {
+  font-size: var(--step-2);
+  margin: 2em 0 0.6em;
+}
+
+.reading__block h3 {
+  font-size: var(--step-1);
+  margin: 1.6em 0 0.5em;
+}
+
+.reading__page > :first-child h2,
+.reading__page > :first-child h3 {
+  margin-top: 0;
+}
+
+.reading__block p {
+  margin: 0 0 1.05em;
+  text-wrap: pretty;
+}
+
+.reading__block--list-item {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.1em;
+}
+
+.reading__block--list-item li {
+  position: relative;
+  padding-left: 1.4em;
+  margin-bottom: 0.4em;
+}
+
+.reading__block--list-item li::before {
+  content: "";
+  position: absolute;
+  left: 0.25em;
+  top: 0.72em;
+  width: 0.38em;
+  height: 0.38em;
+  border-radius: 50%;
+  background: var(--accent-600);
+}
+
+.reading__block--caption {
+  margin: 1.4em 0;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--paper-300);
+}
+
+.reading__block--caption figcaption {
+  font-size: 0.92em;
+  line-height: 1.55;
+  color: var(--ink-500);
+  font-style: italic;
+}
+
+.reading__block--code {
+  margin: 1.2em 0;
+}
+
+.reading__block pre,
+.reading__table {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  line-height: 1.6;
+  padding: 0.9rem 1rem;
+  background: var(--paper-100);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0 0 1em;
+}
+
+.reading__flag {
+  display: inline-block;
+  margin-top: 0.35em;
+}
+
+@media (forced-colors: active) {
+  .reading__block--active {
+    background: Canvas;
+    outline: 2px solid Highlight;
+  }
+  .reading__block--list-item li::before {
+    background: CanvasText;
+  }
+}
+
+@media print {
+  .reading__toolbar {
+    display: none;
+  }
+  .reading__page {
+    max-width: none;
+  }
+}
