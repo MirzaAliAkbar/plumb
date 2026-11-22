@@ -140,7 +140,7 @@ journals, complex tables, right-to-left scripts, math (points to dedicated tools
 - [x] Production build succeeds; bundle loads under 2s on a cold cache
       *(measured: 741–1254 ms, 212 KB transferred)*
 - [x] `npm test` green: pipeline unit tests + Playwright E2E + axe zero violations
-      *(68 unit + 10 E2E, 0 axe violations)*
+      *(85 unit + 19 E2E, 0 axe violations)*
 - [x] Works offline after first load (verified by test)
 - [x] Deployed URL live *(https://plumb-akw.pages.dev, E2E run against production)*
 - [x] README with 3-line run instructions, architecture diagram, MIT license

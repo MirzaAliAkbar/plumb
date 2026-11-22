@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Landing page
+   The argument is carried by typography and one figure, not by a wall of cards.
+   ========================================================================== */
+
+.lede {
+  padding: clamp(2rem, 4vw, 3.25rem) 0 clamp(2rem, 4vw, 3rem);
+  max-width: 46rem;
+}
+
+.lede__title {
+  font-size: clamp(2.1rem, 1.5rem + 3.2vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+  margin-bottom: 1.25rem;
+  text-wrap: balance;
+}
+
+/* The one word the whole problem turns on. Roman rather than italic: an
+   italic serif hero is the default AI-startup look, and this page's register is
+   editorial, not decorative. The emphasis is carried by colour and a hand-drawn
+   underline instead. */
+.lede__title em {
+  font-style: normal;
+  color: var(--accent-700);
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.12em;
+  text-decoration-color: var(--accent-300);
+}
+
+.lede__body {
+  font-size: var(--step-1);
+  line-height: 1.65;
+  color: var(--ink-700);
+  max-width: 38rem;
+  margin-bottom: 1.5rem;
+  /* Avoid a one-word last line leaving a hole under the block. */
+  text-wrap: pretty;
+}
+
+.lede__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* The second action is still a button, not a text link with a box around it. */
+.lede__actions .btn--ghost {
+  border-color: var(--paper-300);
+  color: var(--ink-900);
+}
+
+.lede__actions .btn--ghost:hover:not(:disabled) {
+  border-color: var(--ink-300);
+}
+
+.btn--lg {
+  min-height: 52px;
+  padding: 0.7em 1.4em;
+  font-size: var(--step-0);
+}
+
+.lede__assurance {
+  font-size: var(--step--1);
+  color: var(--ink-500);
+  margin: 0;
+}
+
+/* --- The figure ---------------------------------------------------------- */
+.demo {
+  padding: clamp(2rem, 5vw, 3.5rem) 0;
+  border-top: 1px solid var(--paper-200);
+}
+
+.demo__heading {
+  font-size: var(--step-2);
+  margin-bottom: 1.75rem;
+  max-width: 28ch;
+}
+
+.demo__pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  max-width: 60rem;
+}
+
+.demo__panel {
+  margin: 0;
+}
+
+.demo__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--ink-500);
+  margin-bottom: 0.85rem;
+  min-height: 4.2rem;
+}
+
+.demo__tag {
+  align-self: flex-start;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  padding: 0.2em 0.55em;
+  border-radius: var(--radius-sm);
+}
+
+.demo__tag--bad {
+  background: var(--danger-100);
+  color: var(--danger-700);
+}
+
+.demo__tag--good {
+  background: var(--accent-100);
+  color: var(--accent-700);
+}
+
+/* The page itself: two columns of rules, with the reading position marked on
+   each line. Built from elements so it reflows and follows dark mode. */
+.demo__page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  padding: 1.4rem 1.5rem 1.4rem 2.4rem;
+  background: var(--paper-000);
+  border: 1px solid var(--paper-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.demo__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+/* Each rule is a text line, with its reading position in the margin. The number
+   is the information; the bar is only the shape of a line. */
+.demo__line {
+  position: relative;
+  height: 0.7rem;
+  border-radius: 2px;
+  background: var(--paper-200);
+}
+
+.demo__line::before {
+  content: attr(data-n);
+  position: absolute;
+  left: -1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink-400);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ragged line lengths, so it reads as text rather than as a bar chart. */
+.demo__col > .demo__line:nth-child(1) { width: 92%; }
+.demo__col > .demo__line:nth-child(2) { width: 74%; }
+.demo__col > .demo__line:nth-child(3) { width: 84%; }
+.demo__panel:last-child .demo__col > .demo__line:nth-child(3) { width: 62%; }
+
+/* --- How it works -------------------------------------------------------- */
+.how {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  border-top: 1px solid var(--paper-200);
+}
+
+.how h2 {
+  font-size: var(--step-3);
+  margin-bottom: 2rem;
+}
+
+.how__steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 62rem;
+  counter-reset: step;
+}
+
+.how__step {
+  position: relative;
+  padding-top: 2.75rem;
+  counter-increment: step;
+}
+
+.how__step::before {
+  content: counter(step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent-050);
+  color: var(--accent-700);
+  font-weight: 700;
+  font-size: var(--step--1);
+  border: 1px solid var(--accent-100);
+}
+
+.how__step h3 {
+  font-size: var(--step-1);
+  font-family: var(--font-reading);
+  margin-bottom: 0.5rem;
+}
+
+.how__step p {
+  font-size: var(--step-0);
+  line-height: 1.65;
+  color: var(--ink-700);
+  margin: 0;
+}
+
+.how__step code {
+  font-size: 0.88em;
+  background: var(--paper-100);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* --- Why it matters ------------------------------------------------------ */
+.why {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  border-top: 1px solid var(--paper-200);
+}
+
+.why h2 {
+  font-size: var(--step-3);
+  margin-bottom: 2rem;
+}
+
+.why__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  max-width: 62rem;
+}
+
+.why__stat {
+  font-family: var(--font-reading);
+  font-size: clamp(2.2rem, 1.6rem + 2.2vw, 3rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--accent-700);
+  margin: 0 0 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.why__note {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--ink-700);
+  margin: 0;
+}
+
+.why__sources {
+  margin-top: 2rem;
+  font-size: 0.8125rem; /* 13px floor: 0.78rem rendered at 11.5px on mobile */
+  color: var(--ink-400);
+}
+
+/* --- Limits -------------------------------------------------------------- */
+.limits {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  border-top: 1px solid var(--paper-200);
+  max-width: 44rem;
+}
+
+.limits h2 {
+  font-size: var(--step-2);
+  margin-bottom: 0.75rem;
+}
+
+.limits__intro {
+  color: var(--ink-700);
+  margin-bottom: 1.5rem;
+}
+
+.limits__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.limits__list li {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--ink-700);
+  padding-left: 1.1rem;
+  position: relative;
+  /* Keep the final words together so a one-word last line cannot form. */
+  text-wrap: pretty;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.limits__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--paper-300);
+}
+
+.limits__list strong {
+  color: var(--ink-900);
+}
+
+.limits__closing {
+  font-size: var(--step--1);
+  line-height: 1.65;
+  color: var(--ink-500);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--paper-200);
+  /* 95ch measured at 1440px was far past a comfortable measure. */
+  max-width: 68ch;
+}
+
+/* --- Closing ------------------------------------------------------------- */
+.closing {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(3rem, 7vw, 5rem);
+  border-top: 1px solid var(--paper-200);
+  max-width: 34rem;
+}
+
+.closing__title {
+  font-size: var(--step-3);
+  margin-bottom: 0.75rem;
+}
+
+.closing__body {
+  color: var(--ink-700);
+  margin-bottom: 1.75rem;
+}
+
+@media (max-width: 40rem) {
+  .demo__caption {
+    min-height: 0;
+  }
+}

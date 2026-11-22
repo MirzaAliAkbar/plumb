@@ -1,0 +1,7 @@
+# Cloudflare Pages SPA fallback.
+#
+# Client-side routes (/app, /library, /sign-in) are real URLs, so a hard
+# navigation or a refresh must serve the app shell rather than a 404.
+# Cloudflare Pages treats a 200 rewrite as a fallback that keeps the URL.
+/*
+  /index.html  200

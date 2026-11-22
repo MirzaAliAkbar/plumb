@@ -23,29 +23,96 @@ function serviceWorker(): Plugin {
     enforce: 'post',
     generateBundle(_options, bundle) {
       const source = fs.readFileSync(
-        path.resolve(__dirname, 'src/sw-source.js'),
+        path.resolve(import.meta.dirname, 'src/sw-source.js'),
         'utf8',
       );
       const assets = Object.keys(bundle).filter(
         (f) => !f.endsWith('.map') && !f.endsWith('sw.js'),
       );
-      const urls = ['./', './index.html', ...assets.map((f) => `./${f}`)];
-      const manifest = `self.__PLUMB_PRECACHE__ = ${JSON.stringify(urls)};\n`;
+      // The standard-font files are precached with the shell: they are small and
+      // are needed by the most ordinary documents (any PDF that uses a
+      // non-embedded Helvetica or Times). CMaps and the image-codec wasm files
+      // are far larger and only matter for CJK and scanned-image pages, so those
+      // are runtime-cached on first use instead.
+      const fontDir = path.resolve(import.meta.dirname, 'node_modules/pdfjs-dist/standard_fonts');
+      const fonts = fs.existsSync(fontDir)
+        ? fs.readdirSync(fontDir).map((f) => `/pdfjs/standard_fonts/${f}`)
+        : [];
+      const urls = ['/', '/index.html', ...assets.map((f) => `/${f}`), ...fonts];
+      const manifest = `self.__PLUMB_PRECACHE__ = ${JSON.stringify([...new Set(urls)])};\n`;
+      // Bump on every build so a returning browser drops the previous shell
+      // instead of serving a stale one. The version is derived from the asset
+      // hashes, so identical output keeps the same cache.
+      const version = assets
+        .map((f) => f.replace(/[^a-zA-Z0-9]/g, ''))
+        .join('')
+        .slice(0, 40);
 
       this.emitFile({
         type: 'asset',
         fileName: 'sw.js',
-        source: manifest + source,
+        source: `self.__PLUMB_VERSION__ = ${JSON.stringify(version)};\n` + manifest + source,
       });
     },
   };
 }
 
-// Static, offline-capable build. `base: './'` keeps it working on GitHub Pages
-// project paths and on any static host without server rewrites.
+/**
+ * Ships pdf.js's auxiliary data files next to the app.
+ *
+ * Without these, pdf.js logs "Ensure that the `standardFontDataUrl` API parameter
+ * is provided" and silently degrades: CJK text decodes to garbage (no CMaps), and
+ * documents that rely on non-embedded standard fonts lose glyph widths. They are
+ * not optional niceties — they are part of reading a real-world PDF correctly.
+ *
+ * Dev serves them straight out of node_modules through a middleware; the build
+ * copies them into `dist/pdfjs/` so the static host serves them like any asset.
+ */
+function pdfjsData(): Plugin {
+  const DIRS = ['cmaps', 'standard_fonts', 'wasm', 'iccs'];
+  const root = path.resolve(import.meta.dirname, 'node_modules/pdfjs-dist');
+
+  return {
+    name: 'plumb-pdfjs-data',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = (req.url ?? '').split('?')[0];
+        if (!url.startsWith('/pdfjs/')) return next();
+        const rel = decodeURIComponent(url.slice('/pdfjs/'.length));
+        const file = path.resolve(root, rel);
+        // Never serve outside the pdfjs-dist package.
+        if (!file.startsWith(root + path.sep) || !fs.existsSync(file)) {
+          res.statusCode = 404;
+          res.end('Not found');
+          return;
+        }
+        const ext = path.extname(file);
+        const type =
+          ext === '.wasm'
+            ? 'application/wasm'
+            : ext === '.pfb' || ext === '.ttf'
+              ? 'font/otf'
+              : 'application/octet-stream';
+        res.setHeader('Content-Type', type);
+        fs.createReadStream(file).pipe(res);
+      });
+    },
+    closeBundle() {
+      const out = path.resolve(import.meta.dirname, 'dist/pdfjs');
+      for (const dir of DIRS) {
+        const from = path.join(root, dir);
+        if (!fs.existsSync(from)) continue;
+        fs.cpSync(from, path.join(out, dir), { recursive: true });
+      }
+    },
+  };
+}
+
+// Static, offline-capable build, served from the host root so client-side
+// routes (/app, /library) resolve without a rewrite on every asset request.
 export default defineConfig({
-  base: './',
-  plugins: [react(), serviceWorker()],
+  base: '/',
+  plugins: [react(), pdfjsData(), serviceWorker()],
   worker: { format: 'es' },
   build: {
     target: 'es2022',

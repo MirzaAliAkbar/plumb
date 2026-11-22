@@ -139,6 +139,29 @@ describe('findRunningElements', () => {
     expect(repeated.has(runningKey(line('1', 303, 309, 748, 8)))).toBe(true);
   });
 
+  it('suppresses a bare page number that differs on every page', () => {
+    // Page numbers are the one running element whose text changes, so the
+    // repetition rule cannot see them: signature("1") and signature("2") both
+    // collapse to "#", but the old length guard dropped them before that.
+    const pages = [
+      [line('body text', 72, 500, 200, 10), line('1', 303, 309, 748, 8)],
+      [line('more body text', 72, 500, 200, 10), line('2', 303, 309, 748, 8)],
+    ];
+    const repeated = findRunningElements(pages, 792);
+    expect(repeated.has(runningKey(line('1', 303, 309, 748, 8)))).toBe(true);
+    expect(repeated.has(runningKey(line('2', 303, 309, 748, 8)))).toBe(true);
+  });
+
+  it('keeps a body-size numeral in the footer band', () => {
+    // A section number set at body size is content, not a page number.
+    const pages = [
+      [line('body text', 72, 500, 200, 10), line('12', 72, 90, 750, 10)],
+      [line('more body text', 72, 500, 200, 10), line('12', 72, 90, 750, 10)],
+    ];
+    const repeated = findRunningElements(pages, 792);
+    expect(repeated.has(runningKey(line('12', 72, 90, 750, 10)))).toBe(false);
+  });
+
   it('keeps a numeral heading that is set at body size', () => {
     // "1" as a section heading must not be mistaken for a page number; the size
     // is what separates them.

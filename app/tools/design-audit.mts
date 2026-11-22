@@ -18,7 +18,12 @@ const URL = process.argv[2] ?? 'http://127.0.0.1:4173/';
 
 const IN_PAGE = `(() => {
   function parseRgb(c) {
-    var m = c.match(/[0-9.]+/g) || ['0','0','0'];
+    // Modern CSS resolves colour-mix and relative colours to color(srgb r g b),
+    // where channels are 0..1. Reading those as 0..255 makes every such colour
+    // look almost black and produces false contrast failures.
+    var srgb = /^color\\(srgb\\s+([0-9.]+)\\s+([0-9.]+)\\s+([0-9.]+)/.exec(c);
+    if (srgb) return [Number(srgb[1]) * 255, Number(srgb[2]) * 255, Number(srgb[3]) * 255];
+    var m = c.match(/[0-9.]+/g) || ['0', '0', '0'];
     return [Number(m[0]), Number(m[1]), Number(m[2])];
   }
   function toLum(rgb) {
@@ -55,7 +60,7 @@ const IN_PAGE = `(() => {
     var cv = document.createElement('canvas').getContext('2d');
     cv.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
     var avg = cv.measureText('abcdefghijklmnopqrstuvwxyz ').width / 27;
-    if (avg > 0) measures.push({ ch: Math.round(w / avg), cls: String(el.className || 'p'), w: Math.round(w) });
+    if (avg > 0) measures.push({ ch: Math.round(w / avg), cls: String(el.className || 'p'), w: Math.round(w), wide: w >= 520 });
   });
   result.measures = measures;
 
@@ -95,15 +100,6 @@ const IN_PAGE = `(() => {
   });
   result.contrast = contrast;
 
-  var b = document.querySelector('button');
-  if (b) {
-    b.focus();
-    var cs2 = getComputedStyle(b);
-    result.focus = cs2.outlineStyle !== 'none' || cs2.boxShadow !== 'none';
-  } else {
-    result.focus = null;
-  }
-
   var tiny = {};
   document.querySelectorAll('p,li,span,a').forEach(function (el) {
     var s = parseFloat(getComputedStyle(el).fontSize);
@@ -124,7 +120,25 @@ const pass = (m) => console.log('  ok   ' + m);
 
 async function audit(page, label) {
   console.log(`\n=== ${label} ===`);
+
+  // Drive a real Tab from the top of the document. This is the only way to get
+  // :focus-visible, which is the ring a keyboard user actually sees — a
+  // programmatic el.focus() suppresses it and would give a false failure.
+  await page.evaluate(() => {
+    window.scrollTo(0, 0);
+    if (document.activeElement) document.activeElement.blur();
+  });
+  await page.keyboard.press('Tab');
+  const focusState = await page.evaluate(() => {
+    const el = document.activeElement;
+    if (!el || el === document.body) return null;
+    const cs = getComputedStyle(el);
+    const ring = cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0;
+    return { ring, shadow: cs.boxShadow !== 'none', tag: el.tagName };
+  });
+
   const r = await page.evaluate(IN_PAGE);
+  r.focus = focusState ? focusState.ring || focusState.shadow : null;
 
   if (r.overflow > 2) fail(`horizontal overflow ${r.overflow}px`);
   else pass('no horizontal overflow');
@@ -134,8 +148,15 @@ async function audit(page, label) {
   else pass(`${r.sizes.length} font sizes — coherent scale`);
 
   if (r.measures.length) {
-    const bad = r.measures.filter((m) => m.ch < 40 || m.ch > 92);
-    if (bad.length) fail(`measure out of range: ${bad.map((m) => `${m.cls} ${m.ch}ch (${m.w}px)`).join(' | ')}`);
+    // The upper bound is a hard readability rule: prose wider than ~92ch is
+    // hard to track back from. The lower bound only applies to full-width prose;
+    // a paragraph inside a multi-column grid is deliberately narrow and is not
+    // a measure problem.
+    const tooWide = r.measures.filter((m) => m.ch > 92);
+    const tooNarrow = r.measures.filter((m) => m.ch < 40 && m.wide);
+    if (tooWide.length) fail(`measure too wide: ${tooWide.map((m) => `${m.cls} ${m.ch}ch`).join(' | ')}`);
+    else if (tooNarrow.length)
+      fail(`measure too narrow: ${tooNarrow.map((m) => `${m.cls} ${m.ch}ch`).join(' | ')}`);
     else
       pass(
         `measure ${Math.min(...r.measures.map((m) => m.ch))}–${Math.max(...r.measures.map((m) => m.ch))}ch`,
@@ -149,9 +170,9 @@ async function audit(page, label) {
   else pass('all text meets AA contrast');
 
   if (r.focus === true) pass('focus indicator present');
-  else fail('no focus indicator');
+  else if (r.focus === null) fail('no focusable element found');
+  else fail('no focus indicator on first tab stop');
 }
-
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
 const page = await ctx.newPage();
 
@@ -159,6 +180,10 @@ await page.goto(URL);
 await page.waitForTimeout(500);
 await audit(page, 'landing');
 
+// The tool is a separate route now, so navigate to it before loading a file.
+const appUrl = URL.endsWith('/') ? URL + 'app' : URL + '/app';
+await page.goto(appUrl);
+await page.locator('input[type=file]').waitFor();
 await page.locator('input[type=file]').setInputFiles(SAMPLE);
 await page.getByRole('tab', { name: 'Reading order' }).waitFor();
 await page.waitForTimeout(700);

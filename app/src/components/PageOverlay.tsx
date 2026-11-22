@@ -6,6 +6,8 @@ export interface PageOverlayProps {
   page: PageAnalysis;
   activeOrder?: number | null;
   onActivate?: (order: number) => void;
+  /** Rasterised page, drawn beneath the outlines. */
+  background?: string | null;
 }
 
 function bounds(block: Block) {
@@ -48,7 +50,7 @@ const KIND_LABEL: Record<Block['kind'], string> = {
  * run in scrambled order, then in correct order. It is also a real tool: each
  * block is focusable so a keyboard user can walk the order.
  */
-export function PageOverlay({ page, activeOrder, onActivate }: PageOverlayProps) {
+export function PageOverlay({ page, activeOrder, onActivate, background }: PageOverlayProps) {
   if (!page.blocks.length) {
     return (
       <p className="overlay-empty">
@@ -69,6 +71,21 @@ export function PageOverlay({ page, activeOrder, onActivate }: PageOverlayProps)
           preserveAspectRatio="xMidYMin meet"
         >
           <rect x="0" y="0" width={page.width} height={page.height} className="overlay__paper" />
+
+          {/* The document itself, so an outline is visibly attached to a word
+              rather than floating on white. Decorative: the group label and the
+              hidden list already describe the order. */}
+          {background && (
+            <image
+              href={background}
+              x="0"
+              y="0"
+              width={page.width}
+              height={page.height}
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            />
+          )}
 
           {page.suppressed.map((line, i) => (
             <line
@@ -127,8 +144,16 @@ export function PageOverlay({ page, activeOrder, onActivate }: PageOverlayProps)
                   height={Math.max(h, 34)}
                   className="overlay__hit"
                 />
-                <circle cx={x + 9} cy={y + 9} r="8.5" className="overlay__badge" />
-                <text x={x + 9} y={y + 12.5} className="overlay__number" textAnchor="middle">
+                {/* The badge sits in the margin beside the block, never on top
+                    of the first word: the whole point is to read the text and
+                    the number together. */}
+                <circle cx={Math.max(10, x - 21)} cy={y + 9} r="8.5" className="overlay__badge" />
+                <text
+                  x={Math.max(10, x - 21)}
+                  y={y + 12.5}
+                  className="overlay__number"
+                  textAnchor="middle"
+                >
                   {block.order}
                 </text>
               </g>

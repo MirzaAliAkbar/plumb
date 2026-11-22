@@ -161,7 +161,8 @@ function singleColumnConfidence(lines: Line[], pageWidth: number): number {
   return Math.max(0.5, Math.min(0.95, 0.45 + aligned * 0.3 + reachingAcross * 0.2));
 }
 
-/** Mean density in a window to one side of a position, ignoring empty bins. */function shoulderMean(
+/** Mean density in a window to one side of a position, ignoring empty bins. */
+function shoulderMean(
   density: number[],
   from: number,
   direction: number,
@@ -208,11 +209,17 @@ export function findRunningElements(
   const occurrences = new Map<string, number>();
   for (const lines of pagesLines) {
     const seen = new Set<string>();
+    const bodySize = modalSize(lines);
     for (const line of lines) {
       const inBand = line.y < topBand || line.y > bottomBand;
       if (!inBand) continue;
       const key = runningKey(line);
-      if (signature(line.text).length < 2) continue;
+      // A bare page number is a real footer even though signature("1")
+      // collapses to "#" and looks too short to matter. A numeral set at body
+      // size or larger is more likely a section number, so size still decides.
+      const isBareNumber = /^[\s\d\-–—|/]+$/.test(line.text);
+      if (!isBareNumber && signature(line.text).length < 2) continue;
+      if (isBareNumber && line.size >= bodySize) continue;
       if (seen.has(key)) continue;
       seen.add(key);
       occurrences.set(key, (occurrences.get(key) ?? 0) + 1);

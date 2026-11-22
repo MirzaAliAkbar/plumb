@@ -126,6 +126,24 @@ describe('sequenceBlocks — the core fix', () => {
     expect(caption!.lines).toHaveLength(1);
   });
 
+  it('keeps a wrapped caption together', () => {
+    // The prefix rule only sees the first line. The continuation was being cut
+    // off into its own paragraph, which orphans half a figure caption.
+    const lines: Line[] = [
+      line('left a', 72, 280, 100),
+      line('right a', 320, 520, 100),
+      line('Figure 1. A spanning caption interrupts', 72, 540, 140, 9.5),
+      line('the gutter between the two columns.', 72, 480, 152, 9.5),
+      line('left b', 72, 280, 190),
+      line('right b', 320, 520, 190),
+    ];
+    const blocks = sequenceBlocks(lines, twoCol, { bodySize: 10 });
+    const caption = blocks.find((b) => b.lines[0].text.startsWith('Figure 1'));
+    expect(caption).toBeDefined();
+    expect(caption!.lines).toHaveLength(2);
+    expect(caption!.lines[1].text).toBe('the gutter between the two columns.');
+  });
+
   it('returns no blocks for no lines', () => {
     expect(sequenceBlocks([], single, { bodySize: 10 })).toEqual([]);
   });

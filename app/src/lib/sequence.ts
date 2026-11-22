@@ -116,10 +116,14 @@ function groupIntoBlocks(
   const flush = () => {
     if (current.length === 0) return;
     const kind = classify(current, opts);
+    const streams = current
+      .map((line) => line.stream)
+      .filter((s): s is number => typeof s === 'number');
     blocks.push({
       kind,
       lines: current,
       order: blocks.length + 1,
+      stored: streams.length ? Math.min(...streams) : undefined,
       confidence: blockConfidence(current, layout, kind, opts),
       column: layout.columns === 2 ? layout.columnOf(current[0]) : 0,
     });
@@ -163,7 +167,20 @@ function groupIntoBlocks(
     const currentIsHeading =
       current.length === 1 &&
       (classify(current, opts) === 'heading' || classify(current, opts) === 'caption');
-    const headingEndsHere = currentIsHeading && !startsOwnBlock;
+
+    // A caption is usually two or three lines. The prefix rule only sees the
+    // first one, so the continuation looked like body text and the caption was
+    // cut in half. A continuation sits at normal leading and starts lowercase
+    // or with punctuation; the paragraph after a caption starts a new sentence
+    // at a larger gap.
+    const currentIsCaption = current.length >= 1 && classify(current, opts) === 'caption';
+    const continuesCaption =
+      currentIsCaption &&
+      !startsOwnBlock &&
+      gap < line.size * 1.7 &&
+      /^[a-z(“"'(]/.test(line.text.trim());
+
+    const headingEndsHere = currentIsHeading && !startsOwnBlock && !continuesCaption;
 
     if (!sameColumn || sizeChanged || bigGap || backwards || startsOwnBlock || headingEndsHere) {
       flush();

@@ -103,16 +103,16 @@ the exported HTML:
 
 | Metric | Result |
 |---|---|
-| Mean page reading-order confidence | 79–97% depending on document (mean 89.6%) |
+| Mean page reading-order confidence | 79–97% depending on document (mean 89.5%) |
 | Clean text extraction (no replacement characters) | 6/6 documents |
-| Blocks flagged low-confidence | 2.8% mean |
+| Blocks flagged low-confidence | 2.9% mean |
 | Running headers/footers suppressed | 47 lines |
 | Headings emitted as real `<h2>`/`<h3>` | 180 across the corpus |
 | Heading-level skips in the export outline | 0 |
 | Scanned-document detection | explicit refusal, not garbage |
 
-The corpus harness is checked in, so the numbers are reproducible rather than
-asserted — which is the point. The papers themselves are fetched by
+The corpus harness is checked in, so the numbers can be reproduced. The papers
+themselves are fetched by
 `tools/fetch-corpus.mjs` rather than vendored, since they are other people's work.
 
 ---

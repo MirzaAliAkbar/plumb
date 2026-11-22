@@ -24,6 +24,7 @@
   --accent-600: #0f6f6c;
   --accent-700: #0b5754;
   --accent-500: #148f8a;
+  --accent-300: #7cc4bf;
   --accent-100: #d8efed;
   --accent-050: #eef8f7;
 
@@ -53,7 +54,7 @@
 
   --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-lg: 8px;
   --radius-pill: 999px;
 
   --shadow-sm: 0 1px 2px rgba(20, 22, 26, 0.06), 0 1px 1px rgba(20, 22, 26, 0.04);
@@ -82,6 +83,7 @@
     --accent-600: #5fd3cb;
     --accent-700: #8ce4dd;
     --accent-500: #3fbcb4;
+    --accent-300: #2e7c78;
     --accent-100: #14413f;
     --accent-050: #10302f;
 
@@ -147,6 +149,10 @@ body {
 /* --------------------------------------------------------------------------
    Typography
    -------------------------------------------------------------------------- */
+p {
+  text-wrap: pretty;
+}
+
 h1,
 h2,
 h3,
@@ -154,7 +160,7 @@ h4 {
   font-family: var(--font-reading);
   font-weight: 600;
   line-height: 1.18;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
   color: var(--ink-900);
   margin: 0 0 0.5em;
   text-wrap: balance;
@@ -209,7 +215,9 @@ pre {
   font: inherit;
   font-size: var(--step--1);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
+  /* A .btn can be a link; the shape is the affordance, not an underline. */
+  text-decoration: none;
   cursor: pointer;
   transition:
     background-color 160ms var(--ease),

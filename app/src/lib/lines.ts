@@ -81,6 +81,7 @@ function toLine(group: TextRun[]): Line {
   const runs = [...group].sort((a, b) => a.x - b.x);
   const x0 = Math.min(...runs.map((r) => r.x));
   const x1 = Math.max(...runs.map((r) => r.x + r.w));
+  const streams = runs.map((r) => r.stream).filter((s): s is number => typeof s === 'number');
   // Dominant size by total character count is more stable than the max.
   const size = dominantSize(runs);
   return {
@@ -89,6 +90,7 @@ function toLine(group: TextRun[]): Line {
     x1,
     y: median(runs.map((r) => r.y)),
     text: joinRuns(runs),
+    stream: streams.length ? Math.min(...streams) : undefined,
     size,
   };
 }

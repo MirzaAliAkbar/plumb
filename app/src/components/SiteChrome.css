@@ -1,0 +1,241 @@
+/* ==========================================================================
+   Site chrome — header, footer, brand
+   Shared by every page, so the product feels like one place.
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid var(--paper-200);
+  background: color-mix(in srgb, var(--paper-050) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+}
+
+/* Without backdrop-filter support the header must still be opaque, or text
+   scrolling underneath it becomes unreadable. */
+@supports not (backdrop-filter: blur(1px)) {
+  .site-header {
+    background: var(--paper-050);
+  }
+}
+
+.site-header__inner {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.site-header__brand {
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+/* --- Brand --------------------------------------------------------------- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-reading);
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink-900);
+  white-space: nowrap;
+}
+
+.brand__mark {
+  display: inline-flex;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--accent-600);
+  flex-shrink: 0;
+}
+
+.brand__mark svg {
+  width: 100%;
+  height: 100%;
+}
+
+.brand--compact {
+  font-size: inherit;
+  font-weight: 600;
+}
+
+.brand--compact .brand__mark {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* --- Nav ----------------------------------------------------------------- */
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-right: auto;
+  font-size: var(--step--1);
+}
+
+.site-header__nav a {
+  /* --ink-500 measured 3.43:1 on paper-050, below the 4.5:1 body minimum.
+     --ink-700 is 8.6:1 and still reads as secondary against the wordmark. */
+  color: var(--ink-700);
+  text-decoration: none;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: color 140ms var(--ease), background-color 140ms var(--ease);
+}
+
+.site-header__nav a:hover {
+  color: var(--ink-900);
+  background: var(--paper-100);
+}
+
+.site-header__nav a[aria-current='page'] {
+  color: var(--accent-700);
+  font-weight: 600;
+}
+
+/* --- Auth ---------------------------------------------------------------- */
+.site-header__auth {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.plumb-avatar {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* --- Main ---------------------------------------------------------------- */
+.main {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  min-height: 60vh;
+}
+
+.main--wide {
+  max-width: 82rem;
+}
+
+/* --- Footer -------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--paper-200);
+  margin-top: 2rem;
+}
+
+.site-footer__inner {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--step--1);
+  color: var(--ink-400);
+}
+
+.site-footer__line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+}
+
+.site-footer__nav {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.site-footer__nav a {
+  color: var(--ink-700);
+  text-decoration: none;
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.site-footer__nav a:hover {
+  color: var(--ink-900);
+  background: var(--paper-100);
+  text-decoration: none;
+}
+
+/* --- Clerk component overrides ------------------------------------------- */
+.plumb-clerk__card {
+  background: var(--paper-000);
+  border: 1px solid var(--paper-200);
+  box-shadow: var(--shadow-md);
+}
+
+.plumb-clerk__title {
+  font-family: var(--font-reading);
+  letter-spacing: 0;
+}
+
+.plumb-clerk__subtitle {
+  color: var(--ink-500);
+}
+
+.plumb-clerk__input {
+  background: var(--paper-000);
+  border-color: var(--paper-300);
+  color: var(--ink-900);
+}
+
+.plumb-clerk__input:focus {
+  border-color: var(--accent-600);
+  box-shadow: 0 0 0 3px var(--accent-100);
+}
+
+.plumb-clerk__label {
+  color: var(--ink-700);
+  font-weight: 500;
+}
+
+.plumb-clerk__submit {
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.plumb-clerk__link {
+  color: var(--accent-600);
+  font-weight: 500;
+}
+
+.plumb-clerk__divider-text {
+  color: var(--ink-400);
+}
+
+.plumb-clerk__popover {
+  background: var(--paper-000);
+  border: 1px solid var(--paper-200);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 46rem) {
+  .site-header__inner {
+    padding: 0.65rem 1rem;
+    gap: 0.75rem;
+  }
+  .site-header__nav {
+    display: none;
+  }
+  .main {
+    padding: 0 1rem 3rem;
+  }
+  .site-footer__inner {
+    padding: 1.5rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

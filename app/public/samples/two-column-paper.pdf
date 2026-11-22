@@ -3,140 +3,191 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 5468 >>
+<< /Length 6669 >>
 stream
 BT /F2 8 Tf 0.45 g
 1 0 0 1 72 748 Tm (Reading Order in Compound Documents) Tj
 ET
-BT /F2 18 Tf 0 g
-1 0 0 1 72 690 Tm (Reading Order in Compound Documents) Tj
-ET
-BT /F1 11 Tf 0.25 g
-1 0 0 1 72 665 Tm (A study of why assistive technology misreads two-column layouts) Tj
-ET
-BT /F1 9.5 Tf 0.35 g
-1 0 0 1 72 649 Tm (A. Researcher and B. Collaborator) Tj
-ET
-BT /F2 11 Tf 0 g
-1 0 0 1 72 623 Tm (1  Introduction) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 72 600.9 Tm (Assistive technology does not see a page. It sees) Tj
-1 0 0 1 72 587.9 Tm (a sequence. When a document is authored without) Tj
-1 0 0 1 72 574.9 Tm (structure, that sequence is whatever order the) Tj
-1 0 0 1 72 561.9 Tm (producing software happened to write, and it rarely) Tj
-1 0 0 1 72 548.9 Tm (matches the order a person reads.) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 72 530.05 Tm (In a two-column layout the two orders diverge) Tj
-1 0 0 1 72 517.05 Tm (badly. A reader moves down the left column and) Tj
-1 0 0 1 72 504.04999999999995 Tm (then down the right. A content stream typically) Tj
-1 0 0 1 72 491.04999999999995 Tm (interleaves them, so a spoken rendering alternates) Tj
-1 0 0 1 72 478.04999999999995 Tm (between unrelated sentences.) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 72 459.19999999999993 Tm (This paper argues that the divergence is) Tj
-1 0 0 1 72 446.19999999999993 Tm (recoverable. Layout is geometry, and geometry) Tj
-1 0 0 1 72 433.19999999999993 Tm (survives in the file even when structure does not.) Tj
-1 0 0 1 72 420.19999999999993 Tm (If we can measure where glyphs sit, we can infer) Tj
-1 0 0 1 72 407.19999999999993 Tm (which of them form a line, which lines form a) Tj
-1 0 0 1 72 394.19999999999993 Tm (column, and which sequence of columns a reader) Tj
-1 0 0 1 72 381.19999999999993 Tm (would follow.) Tj
-ET
-BT /F2 11 Tf 0 g
-1 0 0 1 72 362.3499999999999 Tm (2  Method) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 72 340.2499999999999 Tm (We treat the page as a set of positioned runs and) Tj
-1 0 0 1 72 327.2499999999999 Tm (reconstruct structure in three passes: clustering) Tj
-1 0 0 1 72 314.2499999999999 Tm (into lines, segmentation into columns, and) Tj
-1 0 0 1 72 301.2499999999999 Tm (sequencing of the resulting blocks. Each pass) Tj
-1 0 0 1 72 288.2499999999999 Tm (exposes a confidence, and the lowest confidence) Tj
-1 0 0 1 72 275.2499999999999 Tm (in the chain governs the whole page.) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 72 256.39999999999986 Tm (The contrast with structural remediation is worth) Tj
-1 0 0 1 72 243.39999999999986 Tm (stating plainly. Tagging a document fixes it once,) Tj
-1 0 0 1 72 230.39999999999986 Tm (permanently, and for every consumer.) Tj
-1 0 0 1 72 217.39999999999986 Tm (Reconstruction fixes a reading session, and must) Tj
-1 0 0 1 72 204.39999999999986 Tm (be repeated. The advantage of reconstruction is) Tj
-1 0 0 1 72 191.39999999999986 Tm (reach, because it works on documents that nobody) Tj
-1 0 0 1 72 178.39999999999986 Tm (will ever remediate.) Tj
-ET
-BT /F2 11 Tf 0 g
-1 0 0 1 319 623 Tm (3  Results) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 319 600.9 Tm (Across the corpus, column detection succeeded) Tj
-1 0 0 1 319 587.9 Tm (whenever the gutter remained clear for the full) Tj
-1 0 0 1 319 574.9 Tm (height of the text block. It failed most often on) Tj
-1 0 0 1 319 561.9 Tm (pages carrying a full-width figure, where the gutter) Tj
-1 0 0 1 319 548.9 Tm (is interrupted and the measure of emptiness) Tj
-1 0 0 1 319 535.9 Tm (collapses.) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 319 517.05 Tm (The failure is instructive rather than merely) Tj
-1 0 0 1 319 504.04999999999995 Tm (inconvenient. A spanning figure is itself evidence) Tj
-1 0 0 1 319 491.04999999999995 Tm (about reading order: text above it precedes both) Tj
-1 0 0 1 319 478.04999999999995 Tm (columns, and text below it follows both. Detecting) Tj
-1 0 0 1 319 465.04999999999995 Tm (the interruption is therefore part of the solution) Tj
-1 0 0 1 319 452.04999999999995 Tm (rather than an exception to it.) Tj
-ET
-BT /F2 11 Tf 0 g
-1 0 0 1 319 433.19999999999993 Tm (4  Discussion) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 319 411.0999999999999 Tm (Confidence reporting mattered more than accuracy) Tj
-1 0 0 1 319 398.0999999999999 Tm (in our trials. Participants tolerated an admitted) Tj
-1 0 0 1 319 385.0999999999999 Tm (uncertainty and distrusted a silent guess. A wrong) Tj
-1 0 0 1 319 372.0999999999999 Tm (order that presents itself as certain is worse than) Tj
-1 0 0 1 319 359.0999999999999 Tm (a flagged ambiguity, because the reader has no) Tj
-1 0 0 1 319 346.0999999999999 Tm (way to notice the error.) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 319 327.2499999999999 Tm (This suggests a design rule for assistive tools) Tj
-1 0 0 1 319 314.2499999999999 Tm (generally: state what you do not know. The cost) Tj
-1 0 0 1 319 301.2499999999999 Tm (is a moment of friction. The alternative is a reader) Tj
-1 0 0 1 319 288.2499999999999 Tm (who cannot tell whether the text in front of them is) Tj
-1 0 0 1 319 275.2499999999999 Tm (what the author wrote.) Tj
-ET
-BT /F2 11 Tf 0 g
-1 0 0 1 319 256.39999999999986 Tm (5  Conclusion) Tj
-ET
-BT /F1 10 Tf 0 g
-1 0 0 1 319 234.29999999999987 Tm (Reading order is recoverable from geometry,) Tj
-1 0 0 1 319 221.29999999999987 Tm (cheaply, in the browser, without a licence and) Tj
-1 0 0 1 319 208.29999999999987 Tm (without an expert. That is enough to make a large) Tj
-1 0 0 1 319 195.29999999999987 Tm (class of documents usable that are currently not.) Tj
-ET
+BT /F2 18 Tf 0 g 1 0 0 1 72 690 Tm (Reading Order in Compound Documents) Tj ET
+BT /F1 11 Tf 0.25 g 1 0 0 1 72 665 Tm (A study of why assistive technology misreads two-column layouts) Tj ET
+BT /F1 9.5 Tf 0.35 g 1 0 0 1 72 649 Tm (A. Researcher and B. Collaborator) Tj ET
+BT /F2 11 Tf 0 g 1 0 0 1 72 623 Tm (1  Introduction) Tj ET
+BT /F2 11 Tf 0 g 1 0 0 1 319 623 Tm (2  Method) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 600.9 Tm (Assistive technology does not see a page. It) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 600.9 Tm (We treat the page as a set of positioned runs) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 587.9 Tm (sees a sequence. When a document is authored) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 587.9 Tm (and reconstruct structure in three passes:) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 574.9 Tm (without structure, that sequence is whatever) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 574.9 Tm (clustering into lines, segmentation into) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 561.9 Tm (order the producing software happened to) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 561.9 Tm (columns, and sequencing of the resulting) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 548.9 Tm (write, and it rarely matches the order a person) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 548.9 Tm (blocks. Each pass exposes a confidence, and) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 535.9 Tm (reads.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 535.9 Tm (the lowest confidence in the chain governs the) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 522.9 Tm (whole page.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 517.05 Tm (In a two-column layout the two orders diverge) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 504.04999999999995 Tm (badly. A reader moves down the left column) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 504.04999999999995 Tm (Tagging a document fixes it once,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 491.04999999999995 Tm (and then down the right. A content stream) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 491.04999999999995 Tm (permanently, and for every consumer.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 478.04999999999995 Tm (typically interleaves them, so a spoken) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 478.04999999999995 Tm (Reconstruction fixes a reading session, and) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 465.04999999999995 Tm (rendering alternates between unrelated) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 465.04999999999995 Tm (must be repeated. The advantage of) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 452.04999999999995 Tm (sentences.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 452.04999999999995 Tm (reconstruction is reach, because it works on) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 439.04999999999995 Tm (documents that nobody will ever remediate.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 433.19999999999993 Tm (This paper argues that the divergence is) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 420.19999999999993 Tm (recoverable. Layout is geometry, and geometry) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 420.19999999999993 Tm (The method is deliberately narrow. We handle) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 407.19999999999993 Tm (survives in the file even when structure does) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 407.19999999999993 Tm (born-digital pages with one or two columns,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 394.19999999999993 Tm (not. If we can measure where glyphs sit, we) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 394.19999999999993 Tm (and we refuse scans rather than guess at) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 381.19999999999993 Tm (can infer which of them form a line, which) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 381.19999999999993 Tm (words we cannot see.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 368.19999999999993 Tm (lines form a column, and which sequence of) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 362.3499999999999 Tm (Sequencing uses the gutter to divide the page) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 355.19999999999993 Tm (columns a reader would follow.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 349.3499999999999 Tm (into bands. A line that crosses the gutter) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 336.3499999999999 Tm (Two properties make the problem tractable.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 336.3499999999999 Tm (closes the band above it and opens the one) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 323.3499999999999 Tm (First, a line of text is a horizontal run of glyphs) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 323.3499999999999 Tm (below, which is how a full-width title, a figure) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 310.3499999999999 Tm (that share a baseline and sit close enough) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 310.3499999999999 Tm (caption, or a table rule keeps its place) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 297.3499999999999 Tm (together to be read as one unit. Second, a) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 297.3499999999999 Tm (between the columns instead of being sorted) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 284.3499999999999 Tm (column is a vertical band in which lines start) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 284.3499999999999 Tm (into one of them.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 271.3499999999999 Tm (at a consistent left edge and stop short of the) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 265.4999999999999 Tm (Every stage reports how much evidence it had.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 258.3499999999999 Tm (band beside it. Both are measurable from the) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 252.4999999999999 Tm (A gutter with a wide, empty shoulder produces) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 245.3499999999999 Tm (positions alone.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 239.4999999999999 Tm (high confidence; a page whose text crowds the) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 226.49999999999991 Tm (The approach has a cost. It assumes the page) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 226.4999999999999 Tm (middle produces low confidence, and the block) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 213.49999999999991 Tm (was laid out with intent, so a deliberately) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 213.4999999999999 Tm (is flagged rather than silently ordered. The) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 200.49999999999991 Tm (scattered poster or a collage will defeat it.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 200.4999999999999 Tm (reader sees the flag before they hear the text.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 187.49999999999991 Tm (Those documents are rare in the settings that) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 174.49999999999991 Tm (matter here: course readings, journal articles,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 161.49999999999991 Tm (government reports, and the exported slides) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 148.49999999999991 Tm (that circulate in every organisation.) Tj ET
 BT /F1 8 Tf 0.45 g
 1 0 0 1 303 44 Tm (1) Tj
 ET
 endstream
 endobj
 5 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
+<< /Length 5933 >>
+stream
+BT /F2 8 Tf 0.45 g
+1 0 0 1 72 748 Tm (Reading Order in Compound Documents) Tj
+ET
+0.97 g 72 390.19999999999993 468 92 re f
+0.82 G 0.8 w 72 390.19999999999993 468 92 re S
+0.80 g 98 404.19999999999993 22 18 re f
+0.80 g 142 404.19999999999993 22 55 re f
+0.80 g 186 404.19999999999993 22 40 re f
+0.80 g 230 404.19999999999993 22 25 re f
+0.80 g 274 404.19999999999993 22 62 re f
+0.80 g 318 404.19999999999993 22 47 re f
+0.80 g 362 404.19999999999993 22 32 re f
+BT /F2 11 Tf 0 g 1 0 0 1 72 690 Tm (3  Results) Tj ET
+BT /F2 11 Tf 0 g 1 0 0 1 319 690 Tm (4  Discussion) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 667.9 Tm (Across the corpus, column detection) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 667.9 Tm (Confidence reporting mattered more than) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 654.9 Tm (succeeded whenever the gutter remained clear) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 654.9 Tm (accuracy in our trials. Participants tolerated an) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 641.9 Tm (for the full height of the text block. It failed) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 641.9 Tm (admitted uncertainty and distrusted a silent) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 628.9 Tm (most often on pages carrying a full-width) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 628.9 Tm (guess. A wrong order that presents itself as) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 615.9 Tm (figure, where the gutter is interrupted and the) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 615.9 Tm (certain is worse than a flagged ambiguity,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 602.9 Tm (measure of emptiness collapses.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 602.9 Tm (because the reader has no way to notice the) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 589.9 Tm (error.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 584.05 Tm (Band detection recovered most of those pages.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 571.05 Tm (A figure that crosses the gutter splits the page) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 571.05 Tm (The effect held across experience levels.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 558.05 Tm (in two, and each half is measured on its own,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 558.05 Tm (Readers new to assistive technology were the) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 545.05 Tm (so the interrupted gutter stops being a problem) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 545.05 Tm (most likely to abandon a document after one) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 532.05 Tm (and becomes a boundary instead.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 532.05 Tm (bad passage, which is the outcome a repair) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 519.05 Tm (tool exists to prevent.) Tj ET
+BT /F1 9.5 Tf 0.2 g 1 0 0 1 72 374.19999999999993 Tm (Figure 1. A spanning caption interrupts the gutter. Text above it belongs to both columns; text below it) Tj ET
+BT /F1 9.5 Tf 0.2 g 1 0 0 1 72 362.19999999999993 Tm (resumes the same two-column flow. The band rule keeps the caption between them.) Tj ET
+BT /F2 11 Tf 0 g 1 0 0 1 72 334.19999999999993 Tm (5  Conclusion) Tj ET
+BT /F2 11 Tf 0 g 1 0 0 1 319 334.19999999999993 Tm (6  Limitations) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 312.0999999999999 Tm (Reading order is recoverable from geometry,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 312.0999999999999 Tm (We do not handle scans, three-column layouts,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 299.0999999999999 Tm (cheaply, in the browser, without a licence and) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 299.0999999999999 Tm (or mathematics. Where the pipeline is unsure,) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 286.0999999999999 Tm (without an expert. That is enough to make a) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 286.0999999999999 Tm (it says so per block. A visible uncertainty is) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 273.0999999999999 Tm (large class of documents usable that are) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 273.0999999999999 Tm (more useful than a confident wrong answer.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 260.0999999999999 Tm (currently not.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 254.24999999999991 Tm (The tool does not claim to replace a tagged) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 241.24999999999991 Tm (The remaining failures were mostly pages with) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 241.24999999999991 Tm (PDF. It claims to make an untagged one) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 228.24999999999991 Tm (a narrow gutter and a wide figure. A second) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 228.24999999999991 Tm (usable now, and to show where it is unsure.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 215.24999999999991 Tm (pass that measured whitespace per band) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 209.39999999999992 Tm (That distinction matters for procurement. A) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 202.24999999999991 Tm (recovered some of them, but we left it out of) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 196.39999999999992 Tm (library can deploy a browser tool without a) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 189.24999999999991 Tm (this version because it made single-column) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 183.39999999999992 Tm (licence negotiation, and a student can use it on) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 176.24999999999991 Tm (pages less stable.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 170.39999999999992 Tm (a personal laptop without asking anyone for) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 157.39999999999992 Tm (We also measured the cost of a wrong split.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 319 157.39999999999992 Tm (permission.) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 144.39999999999992 Tm (When a page was split into two columns that) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 131.39999999999992 Tm (were not there, the order changed but the text) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 118.39999999999992 Tm (remained readable, because each half was still) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 105.39999999999992 Tm (internally ordered. The failure mode is) Tj ET
+BT /F1 10 Tf 0 g 1 0 0 1 72 92.39999999999992 Tm (confusing, not catastrophic.) Tj ET
+BT /F1 8 Tf 0.45 g
+1 0 0 1 303 44 Tm (2) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+8 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
 xref
-0 7
+0 9
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
-0000000115 00000 n 
-0000000251 00000 n 
-0000005771 00000 n 
-0000005841 00000 n 
+0000000121 00000 n 
+0000000257 00000 n 
+0000006978 00000 n 
+0000007114 00000 n 
+0000013099 00000 n 
+0000013169 00000 n 
 trailer
-<< /Size 7 /Root 1 0 R >>
+<< /Size 9 /Root 1 0 R >>
 startxref
-5916
+13244
 %%EOF

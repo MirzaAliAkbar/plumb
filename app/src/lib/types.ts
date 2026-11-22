@@ -8,6 +8,13 @@
 /** A single text run as pdf.js reports it, normalised to page points. */
 export interface TextRun {
   str: string;
+  /**
+   * Position in the PDF content stream, before any reconstruction.
+   *
+   * Optional because saved analyses from before this field existed are still
+   * readable; the comparison view falls back to block order when it is absent.
+   */
+  stream?: number;
   /** left edge */
   x: number;
   /** baseline y, measured from the top of the page (y grows downward) */
@@ -25,6 +32,8 @@ export interface Line {
   x1: number;
   y: number;
   text: string;
+  /** earliest content-stream position among this line's runs */
+  stream?: number;
   /** dominant font size on the line */
   size: number;
 }
@@ -42,6 +51,8 @@ export interface Block {
   lines: Line[];
   /** 1-based reading position on the page */
   order: number;
+  /** earliest content-stream position among this block's lines */
+  stored?: number;
   /** 0..1 — how sure the pipeline is about this block's position and kind */
   confidence: number;
   /** which detected column the block belongs to (0 = left/first) */

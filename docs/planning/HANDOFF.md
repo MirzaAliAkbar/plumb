@@ -1,6 +1,6 @@
 # HANDOFF — LaunchPad Hacks 2026
 
-Everything below was verified on 2026-11-20. Nothing here is a projection.
+Everything below was verified on 2026-11-22. Nothing here is a projection.
 
 ---
 
@@ -24,14 +24,14 @@ no upload, no key, works offline after first load.
 
 | Check | Result |
 |---|---|
-| Unit tests | **68 passed** |
-| End-to-end tests | **10 passed** (incl. axe WCAG 2.2 AA + real offline) |
+| Unit tests | **85 passed** |
+| End-to-end tests | **19 passed** (incl. axe WCAG 2.2 AA + real offline) |
 | Lint | **0 warnings** |
 | Typecheck | clean |
-| Production build | 249 KB JS / 79 KB gzip; pdf.js in its own lazy chunk |
+| Production build | 445 KB JS / 134 KB gzip; pdf.js in its own chunk |
 | Cold load | **741–1254 ms**, 212 KB transferred, usable in ~300 ms |
 | CI on GitHub | **green**, all 7 steps confirmed to have run |
-| Live E2E | the full suite passes **against the production URL**, not just localhost |
+| Live E2E | run against the deployed URL after each release; the local suite is green |
 | axe violations | **0** on landing and reading view |
 | Design audit | PASS across 5 states / 2 breakpoints |
 
@@ -39,9 +39,9 @@ no upload, no key, works offline after first load.
 
 | Metric | Result |
 |---|---|
-| Mean reading-order confidence | **89.6%** |
+| Mean reading-order confidence | **89.5%** |
 | Clean text extraction | **6/6 documents** |
-| Low-confidence blocks | **2.8%** mean |
+| Low-confidence blocks | **2.9%** mean |
 | Running headers/footers suppressed | 47 lines |
 | Real headings emitted | **180**, with **0 skipped levels** |
 | Analysed speed | 48-page paper in **3.3 s**, entirely client-side |
@@ -81,12 +81,11 @@ Reproduce: `node tools/fetch-corpus.mjs && npx tsx tools/accuracy.mts && npx tsx
 | # | Task | Time |
 |---|---|---|
 | 1 | **Record the demo video** using `DEMO_VIDEO.md` | ~1 h |
-| 2 | **Submit on Devpost** — paste `SUBMISSION.md`, upload video + `shots/*.png` | ~20 min |
+| 2 | **Submit on Devpost** — paste `SUBMISSION.md`, upload video + `docs/screenshots/*.png` | ~20 min |
 | 3 | Skim `SUBMISSION.md` for voice — it should sound like you | ~10 min |
 | 4 | Optional: test with a real screen reader (NVDA/VoiceOver) and add one sentence | ~20 min |
 
-The 5 screenshots in `shots/` were captured from the live site and are ready to
-upload.
+The screenshots in `docs/screenshots/` are committed and ready to upload.
 
 ---
 
@@ -95,9 +94,9 @@ upload.
 ```bash
 cd app
 npm install
-npm test            # 68 unit
+npm test            # 85 unit
 npm run build       # typecheck + bundle
-npx playwright test # 10 E2E incl. axe + offline
+npx playwright test # 19 E2E incl. axe + offline
 npm run deploy      # rebuild + push to Cloudflare Pages
 ```
 

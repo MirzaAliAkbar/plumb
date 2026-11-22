@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Auth pages and the not-found page
+   A narrow, quiet column: the task is one thing, and the page should not
+   compete with Clerk's own card.
+   ========================================================================== */
+
+.auth {
+  display: flex;
+  justify-content: center;
+  padding: clamp(2.5rem, 7vw, 5rem) 0;
+}
+
+.auth__panel {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.auth__panel--narrow {
+  max-width: 32rem;
+}
+
+.auth__title {
+  font-size: var(--step-3);
+  margin-bottom: 0.6rem;
+}
+
+.auth__lede {
+  color: var(--ink-700);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 44ch;
+}
+
+.auth__signed-in {
+  font-size: var(--step-0);
+  color: var(--ink-700);
+  padding: 1rem 1.15rem;
+  background: var(--accent-050);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent-100);
+}
+
+.auth__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}

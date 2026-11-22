@@ -10,13 +10,15 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "deploy": "npm run build && wrangler pages deploy dist --project-name plumb --branch main --commit-dirty=true"
+    "deploy": "npm run build && npx --yes wrangler@latest pages deploy dist --project-name plumb --branch main --commit-dirty=true"
   },
   "dependencies": {
+    "@clerk/react": "^6.19.2",
     "idb": "^8.0.4",
     "pdfjs-dist": "^6.5.438",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.6"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

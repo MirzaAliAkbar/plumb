@@ -3,25 +3,32 @@
 }
 
 .overlay__frame {
+  /* Keep the page at a readable size instead of stretching it across a wide
+     panel, which leaves a letter page small inside a lot of empty frame. */
+  max-width: 46rem;
+  margin-inline: auto;
   border: 1px solid var(--paper-200);
   border-radius: var(--radius-md);
   background: var(--paper-100);
   padding: 0.75rem;
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
 .overlay__svg {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 72vh;
   background: var(--paper-000);
   border-radius: var(--radius-sm);
 }
 
 .overlay__paper {
   fill: var(--paper-000);
+}
+
+/* The rendered page is light even in dark mode, so keep it un-tinted. */
+.overlay__svg image {
+  image-rendering: auto;
 }
 
 .overlay__suppressed {
