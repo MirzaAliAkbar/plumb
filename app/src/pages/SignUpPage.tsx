@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth, SignUp } from '@clerk/react';
 import { Page } from '../components/SiteChrome';
+import { clerkConfigured } from '../lib/authConfig';
 import '../styles/auth.css';
 
 export function SignUpPage() {
@@ -15,7 +16,17 @@ export function SignUpPage() {
             An account keeps a library of what you have analysed, across your devices. The
             documents themselves still never leave the device they were opened on.
           </p>
-          {isLoaded && isSignedIn ? (
+          {!clerkConfigured ? (
+            <div className="auth__unavailable">
+              <p>
+                Accounts are not configured in this build. You can still repair a PDF
+                without one.
+              </p>
+              <Link className="btn btn--primary" to="/app?sample=1">
+                Open the two-column sample
+              </Link>
+            </div>
+          ) : isLoaded && isSignedIn ? (
             <p className="auth__signed-in">
               You already have an account and are signed in.{' '}
               <Link to="/app">Open the tool</Link>.

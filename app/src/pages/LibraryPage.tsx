@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/react';
 import { Page } from '../components/SiteChrome';
 import { deleteDocument, formatSavedAt, readIndex, type DocumentRecord } from '../lib/store';
+import { clerkConfigured } from '../lib/authConfig';
 import '../styles/library.css';
 
 /**
@@ -20,7 +21,7 @@ export function LibraryPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isLoaded && !isSignedIn) {
+    if (clerkConfigured && isLoaded && !isSignedIn) {
       navigate('/sign-in', { replace: true });
     }
   }, [isLoaded, isSignedIn, navigate]);
