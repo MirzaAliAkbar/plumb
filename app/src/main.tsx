@@ -7,23 +7,28 @@ import { App } from './App';
 import { clerkAppearance } from './clerkAppearance';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
+const clerkConfigured = Boolean(PUBLISHABLE_KEY);
 
-if (!PUBLISHABLE_KEY) {
-  // A missing key is a build/configuration fault, not a runtime condition the
-  // user can fix. Fail loudly in the console rather than rendering a blank page.
-  console.error(
-    '[plumb] VITE_CLERK_PUBLISHABLE_KEY is not set. Sign-in will not work. ' +
-      'Copy .env.example to .env.local and fill it in.',
+if (!clerkConfigured) {
+  console.warn(
+    '[plumb] VITE_CLERK_PUBLISHABLE_KEY is not set. Sign-in and library sync disabled. ' +
+      'The repair tool works without an account.',
   );
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY ?? ''} appearance={clerkAppearance}>
+    {clerkConfigured ? (
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY!} appearance={clerkAppearance}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ClerkProvider>
+    ) : (
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ClerkProvider>
+    )}
   </StrictMode>,
 );
 
