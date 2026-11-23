@@ -57,7 +57,7 @@ Drop a PDF. Plumb:
 5. **Exports** semantic HTML with real `<h2>`, `<p>`, `<ul>`, `<figcaption>`, as a
    file you keep and open in your own screen reader.
 
-No account. No API key. No server. Works offline after first load.
+No account needed. No API key. No server. Works offline after first load.
 
 ---
 
@@ -139,6 +139,42 @@ can be tested without a browser or a PDF.
 
 ---
 
+## Accomplishments that we're proud of
+
+- **A real geometric algorithm, not a wrapper.** Reading order is reconstructed from a
+  character-density profile and spanning-line bands. No model calls, no API keys, no server.
+- **It actually works offline.** The service worker precaches 24 assets (app shell, pdf.js
+  worker, font data, read-aloud fallback). A real Playwright test cuts the network, reloads,
+  and still analyses a PDF.
+- **Accessibility is the product, not a checkbox.** axe-core reports zero WCAG 2.2 A/AA
+  violations on the landing page and reading view, enforced in CI; every text pair meets AA
+  contrast; the whole tool is keyboard-operable; confidence is never signalled by colour alone.
+- **Measured, reproducible accuracy.** A checked-in harness runs the pipeline over six real
+  arXiv papers (144 pages): **89.5% mean reading-order confidence**, **180 real `<h2>`/`<h3>`
+  elements with zero skipped levels**, **47 running headers/footers suppressed**, and a
+  48-page paper analysed in **3.3 s**.
+- **85 unit tests and 19 end-to-end tests**, including a genuine offline test and an axe scan,
+  green in CI.
+- **Zero-friction and private.** No account needed, no upload, no API key, no backend. The file
+  and the full analysis never leave the device.
+- **A durable artifact.** The export is semantic HTML with real headings, paragraphs and lists —
+  a file the user keeps and opens in their own screen reader.
+- **Free and open source.** GPL-3.0-or-later, with a clean README and a live deployment.
+
+### Accessibility is the product, not a checkbox
+
+- **axe-core: zero violations** against WCAG 2.2 A/AA on the landing page and the reading view.
+- **Every text pair meets AA contrast**, computed rather than eyeballed (`tools/contrast.mjs`).
+- **Full keyboard operation**: overlay blocks are focusable, the tool works without a mouse, and
+  focus rings are visible on every control.
+- **Confidence is never signalled by colour alone**: border style (solid, dashed, dotted) and a
+  text label carry the same information, including in forced-colours mode.
+- **Semantic HTML throughout**: the reading view emits real headings, lists and figure captions.
+- Respects `prefers-reduced-motion` and `forced-colors`; no horizontal overflow at 200% zoom or
+  at 390px.
+
+---
+
 ## What we learned
 
 - **A confident wrong answer is worse than a visible "I am not sure".** A
@@ -153,36 +189,33 @@ can be tested without a browser or a PDF.
 
 ---
 
-## Limitations
+## What's next for Plumb
 
-- **No OCR.** Scanned PDFs are detected and refused with a clear message, not
-  turned into garbage.
+- **A real user study.** We have not yet measured outcomes with blind or low-vision students.
+  That is the biggest gap and the first thing we would do next.
+- **Ground-truth accuracy, not just confidence.** Compare the repaired order against
+  human-ordered PDFs (precision/recall), so the headline number is measured correctness rather
+  than a self-reported score.
+- **OCR for scanned PDFs.** Today scans are detected and refused; next we would add OCR so the
+  same pipeline can repair them.
+- **Three-column layouts.** One and two columns work; three-column journals need a different
+  banding model.
+- **Real tables.** Detect table regions and export real `<table>` markup instead of sequencing
+  the text.
+- **Math.** Export MathML (or ASCIIMath) so equations are navigable rather than flattened.
+- **Right-to-left scripts** and **text over background images**.
+- **More durable formats.** Tagged PDF and EPUB export alongside HTML.
+- **Installable PWA polish** and a browser extension for one-click repair.
+
+### What it doesn't do yet
+
+- **No OCR.** Scanned PDFs are detected and refused with a clear message, not turned into garbage.
 - **One and two columns only.** Three-column journals are not handled.
 - **Tables are not reconstructed as tables.** Their text is sequenced as text.
 - **Mathematics is not spoken correctly.** Use a dedicated math tool for that.
 - **Right-to-left scripts** are not handled.
 - **Text over background images** and unusual font encodings can lose runs.
 - **No user study yet.** We have not measured outcomes with disabled students.
-
----
-
-## Accessibility of the app itself
-
-Criterion 4 scores accessibility, so here is what is verified:
-
-- **axe-core: zero violations** against WCAG 2.2 A/AA on the landing page and the
-  reading view, enforced in CI.
-- **Every text pair meets AA contrast**, computed rather than eyeballed
-  (`tools/contrast.mjs` asserts it).
-- **Full keyboard operation**: overlay blocks are focusable, the tool works
-  without a mouse, and focus rings are visible on every control.
-- **Confidence is never signalled by colour alone**: border style (solid, dashed,
-  dotted) and a text label carry the same information, including in forced-colours
-  mode.
-- **Semantic HTML throughout**: the reading view emits real headings, lists and
-  figure captions, which is what we ask of the PDFs.
-- Respects `prefers-reduced-motion` and `forced-colors`; no horizontal overflow at
-  200% zoom or at 390px.
 
 ---
 
