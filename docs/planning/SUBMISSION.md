@@ -253,3 +253,5 @@ GPL-3.0-or-later to comply with `mespeak`'s license. The disability and screen-r
 come from WebAIM's Screen Reader User Survey #10, the National Center for Education Statistics,
 and the PNP Student Factsheet 2025. AI assistance was used for code review, copy editing and
 test scaffolding; the architecture, algorithm and final decisions are the team's.
+
+react typescript vite javascript css html pdf.js pdf pwa service-worker indexeddb accessibility a11y wcag screen-reader text-to-speech espeak offline clerk authentication vitest playwright axe-core education disability
