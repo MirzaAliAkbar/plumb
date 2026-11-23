@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '@clerk/react';
 import { SignIn } from '@clerk/react';
 import { Page } from '../components/SiteChrome';
 import { clerkConfigured } from '../lib/authConfig';
+import { useClerk } from '../lib/clerkContext';
 import '../styles/auth.css';
 
 /**
@@ -13,7 +13,7 @@ import '../styles/auth.css';
  * without an account, and a wall in front of that would be a lie.
  */
 export function SignInPage() {
-  const { isSignedIn, isLoaded } = useAuth();
+  const { isSignedIn, isLoaded } = useClerk();
 
   return (
     <Page>

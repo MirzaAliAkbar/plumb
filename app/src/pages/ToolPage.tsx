@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useUser } from '@clerk/react';
+import { useClerk } from '../lib/clerkContext';
 import { Dropzone } from '../components/Dropzone';
 import { PageOverlay } from '../components/PageOverlay';
 import { OrderCompare } from '../components/OrderCompare';
@@ -83,7 +83,7 @@ export function ToolPage() {
   /** The file or stored blob the previews are drawn from. */
   const previewSource = useRef<Blob | null>(null);
   const [params, setParams] = useSearchParams();
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn, user } = useClerk();
   const announceRef = useRef<HTMLParagraphElement>(null);
   const pendingFile = useRef<File | null>(null);
   /** Resolver for the in-page password prompt currently on screen. */

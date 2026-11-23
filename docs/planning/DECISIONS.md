@@ -150,3 +150,20 @@ do. The conclusions are the useful artifact; the raw copies are not.
 
 **Cost.** A judge cannot re-derive our field analysis from the repo. They can
 re-run the Devpost search themselves.
+
+## D11 — License: GPL-3.0-or-later, not MIT
+
+**Decision.** The project is GPL-3.0-or-later.
+
+**Why.** The offline read-aloud fallback bundles `mespeak` (eSpeak compiled to
+JS), which is GPL-3.0. Distributing it inside an MIT project would make the
+combined work GPL-derivative while the README claimed MIT — a mismatch a judge
+could catch. Relicensing to GPL-3.0-or-later keeps the fallback (so read-aloud
+works on a machine with no system voice) and stays open source. The alternative,
+dropping the fallback to keep MIT, was rejected because it makes read-aloud fail
+on Linux without speech-dispatcher, which is the demo machine.
+
+**Cost.** We lose the permissive MIT label. GPL is still OSS, and consistency is
+worth more than the label.
+
+**Revisit if.** We replace `mespeak` with a permissively licensed synthesizer.

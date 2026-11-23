@@ -108,16 +108,53 @@ function pdfjsData(): Plugin {
   };
 }
 
+/**
+ * Two compatibility fixes for `mespeak` (the offline read-aloud fallback):
+ *
+ * 1. Its generated `ESpeak.js` is Latin-1 — it has literal 0xC0/0xD6 bytes in
+ *    comments. Rolldown refuses to read it as UTF-8, so load it with the right
+ *    encoding. The code itself is ASCII; only comments differ.
+ * 2. `index.js` registers a `window` `unload` listener, which Chrome reports as a
+ *    permissions-policy violation. It only flips an internal flag during
+ *    navigation, which this SPA never needs, so drop it.
+ */
+function mespeakCompat(): Plugin {
+  return {
+    name: 'mespeak-compat',
+    enforce: 'pre',
+    load(id) {
+      const clean = id.split('?')[0];
+      if (clean.endsWith('mespeak/src/ESpeak.js')) {
+        return fs.readFileSync(clean, 'latin1');
+      }
+      return null;
+    },
+    transform(code, id) {
+      const clean = id.split('?')[0];
+      if (clean.endsWith('mespeak/src/index.js')) {
+        return code.replace(
+          /if \(typeof window !== 'undefined'\)\s*window\.addEventListener\('unload',\s*unloadHandler,\s*false\);/g,
+          '',
+        );
+      }
+      return null;
+    },
+  };
+}
+
 // Static, offline-capable build, served from the host root so client-side
 // routes (/app, /library) resolve without a rewrite on every asset request.
 export default defineConfig({
   base: '/',
-  plugins: [react(), pdfjsData(), serviceWorker()],
+  plugins: [react(), mespeakCompat(), pdfjsData(), serviceWorker()],
   worker: { format: 'es' },
   build: {
     target: 'es2022',
     sourcemap: false,
-    chunkSizeWarningLimit: 1400,
+    // The offline read-aloud fallback (eSpeak compiled to JS) is a deliberately
+    // large, lazily-loaded chunk. It only downloads when read-aloud is first
+    // used, so the size warning is expected rather than a problem.
+    chunkSizeWarningLimit: 1800,
     rollupOptions: {
       output: {
         // pdf.js is large; keep it in its own chunk so first paint is fast.

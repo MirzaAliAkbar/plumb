@@ -26,7 +26,7 @@
 2. **Works offline after first load.** Service worker + local persistence.
 3. **Accessible to WCAG 2.2 AA** and *provably* so (axe + keyboard-only E2E).
 4. **Automated tests** (unit + E2E + a11y) running in CI.
-5. **MIT licensed**, clean README with 3-line run instructions.
+5. **GPL-3.0-or-later licensed**, clean README with 3-line run instructions.
 6. **Deployed to a URL that will not die** before judging ends (Dec 10).
 7. **Honest Limitations section**, specific and credible.
 8. **Avoid saturated lanes** (see FIELD_INTEL §2).

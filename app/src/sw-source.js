@@ -82,7 +82,9 @@ self.addEventListener('fetch', (event) => {
           return fresh;
         } catch {
           const cache = await caches.open(CACHE);
-      const shell = (await cache.match('/index.html')) ?? (await cache.match('/'));
+          const shell =
+            (await cache.match('/index.html', { ignoreVary: true })) ??
+            (await cache.match('/', { ignoreVary: true }));
           return shell ?? new Response('Offline', { status: 503, statusText: 'Offline' });
         }
       })(),
@@ -93,7 +95,12 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     (async () => {
       const cache = await caches.open(CACHE);
-      const cached = await cache.match(request, { ignoreSearch: true });
+      // `ignoreVary` matters: module scripts and other CORS-mode fetches send an
+      // `Origin` header, and the host answers assets with `Vary: Origin`. The
+      // precached copy was stored from a fetch with no `Origin`, so a strict
+      // match misses every asset when offline. These are immutable same-origin
+      // files, so the `Vary` axis is not a real distinction here.
+      const cached = await cache.match(request, { ignoreSearch: true, ignoreVary: true });
       if (cached) return cached;
 
       try {

@@ -48,7 +48,7 @@ Tertiary: anyone reading a badly-exported PDF on a phone.
 | WCAG 2.2 AA, provably | axe in CI, keyboard-only E2E, focus management, live regions |
 | Tested | Vitest unit tests on the pipeline; Playwright E2E; axe scan |
 | Honest failure | Confidence shown per block; low-confidence blocks flagged, never silently guessed |
-| MIT licensed | `LICENSE` |
+| GPL-3.0-or-later licensed | `LICENSE` |
 | Deployable, durable URL | GitHub Pages (primary) + Cloudflare Pages (fallback) |
 
 ## 5. Architecture
@@ -138,12 +138,13 @@ journals, complex tables, right-to-left scripts, math (points to dedicated tools
 ## 9. Definition of done — verified 2026-11-20
 
 - [x] Production build succeeds; bundle loads under 2s on a cold cache
-      *(measured: 741–1254 ms, 212 KB transferred)*
+      *(measured: ~0.3–1.0 s load, ~0.5–1.1 s to heading, ~296 KB initial gzipped; the
+      offline read-aloud fallback adds ~600 KB in the background precache)*
 - [x] `npm test` green: pipeline unit tests + Playwright E2E + axe zero violations
       *(85 unit + 19 E2E, 0 axe violations)*
 - [x] Works offline after first load (verified by test)
 - [x] Deployed URL live *(https://plumb-akw.pages.dev, E2E run against production)*
-- [x] README with 3-line run instructions, architecture diagram, MIT license
+- [x] README with 3-line run instructions, architecture diagram, GPL-3.0-or-later license
 - [ ] 90–150s captioned demo video — **script written (`DEMO_VIDEO.md`), recording is the user's**
 - [x] Devpost page copy with sourced evidence and honest limitations
 - [x] Accuracy harness output published (real numbers on real PDFs)

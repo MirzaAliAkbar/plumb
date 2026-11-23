@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useAuth, SignUp } from '@clerk/react';
+import { SignUp } from '@clerk/react';
 import { Page } from '../components/SiteChrome';
 import { clerkConfigured } from '../lib/authConfig';
+import { useClerk } from '../lib/clerkContext';
 import '../styles/auth.css';
 
 export function SignUpPage() {
-  const { isSignedIn, isLoaded } = useAuth();
+  const { isSignedIn, isLoaded } = useClerk();
 
   return (
     <Page>

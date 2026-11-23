@@ -1,13 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { ClerkProvider } from '@clerk/react';
 import './styles/theme.css';
 import { App } from './App';
-import { clerkAppearance } from './clerkAppearance';
-
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined;
-const clerkConfigured = Boolean(PUBLISHABLE_KEY);
+import { ClerkScope } from './lib/clerk';
+import { clerkConfigured } from './lib/authConfig';
 
 if (!clerkConfigured) {
   console.warn(
@@ -18,17 +15,11 @@ if (!clerkConfigured) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {clerkConfigured ? (
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY!} appearance={clerkAppearance}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ClerkProvider>
-    ) : (
+    <ClerkScope>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    )}
+    </ClerkScope>
   </StrictMode>,
 );
 

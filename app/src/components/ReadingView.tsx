@@ -25,7 +25,26 @@ export function ReadingView({ doc, activeOrder, onBlockFocus }: ReadingViewProps
   // ref during render.
   const [speaker] = useState(createSpeaker);
   const supported = speaker.isSupported();
+  // Voices load asynchronously on many platforms (and can be absent entirely on
+  // Linux without a speech backend), so this starts from the current list and
+  // updates when the engine reports a change.
+  const [hasVoice, setHasVoice] = useState(() => speaker.hasVoice());
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const off = speaker.onVoicesChanged(() => setHasVoice(speaker.hasVoice()));
+    // A few engines populate the list a moment after load without firing the
+    // event in time; re-check shortly after mount so the button enables itself.
+    const timers = [250, 1000].map((ms) =>
+      window.setTimeout(() => setHasVoice(speaker.hasVoice()), ms),
+    );
+    return () => {
+      off();
+      timers.forEach((t) => window.clearTimeout(t));
+    };
+  }, [speaker]);
+
+  const canSpeak = supported && hasVoice;
 
   // Flatten to a flat, ordered list of blocks across pages.
   const flat = useMemo(() => doc.pages.flatMap((p) => p.blocks), [doc]);
@@ -42,26 +61,34 @@ export function ReadingView({ doc, activeOrder, onBlockFocus }: ReadingViewProps
   }, [activeOrder]);
 
   const read = useCallback(() => {
-    if (!supported) return;
+    if (!canSpeak) return;
     const text = flat.map((b) => joinLines(b.lines)).join('\n\n');
     setSpeaking(true);
     setPaused(false);
     setStatus('Reading the document aloud.');
-    speaker.speak(text, (charIndex) => {
-      let running = 0;
-      for (const b of flat) {
-        const len = joinLines(b.lines).length;
-        if (charIndex < running + len) {
-          onBlockFocus(b.order);
-          break;
+    speaker.speak(
+      text,
+      (charIndex) => {
+        let running = 0;
+        for (const b of flat) {
+          const len = joinLines(b.lines).length;
+          if (charIndex < running + len) {
+            onBlockFocus(b.order);
+            break;
+          }
+          running += len + 2;
         }
-        running += len + 2;
-      }
-    });
-  }, [flat, onBlockFocus, supported, speaker]);
+      },
+      (message) => {
+        setSpeaking(false);
+        setPaused(false);
+        setStatus(message);
+      },
+    );
+  }, [flat, onBlockFocus, canSpeak, speaker]);
 
   const toggle = () => {
-    if (!supported) return;
+    if (!canSpeak) return;
     if (!speaking) {
       read();
       return;
@@ -129,7 +156,7 @@ export function ReadingView({ doc, activeOrder, onBlockFocus }: ReadingViewProps
           type="button"
           className="btn btn--primary btn--sm"
           onClick={toggle}
-          disabled={!supported}
+          disabled={!canSpeak}
           aria-pressed={speaking}
         >
           {!speaking ? 'Read aloud' : paused ? 'Resume' : 'Pause'}
@@ -142,9 +169,11 @@ export function ReadingView({ doc, activeOrder, onBlockFocus }: ReadingViewProps
         >
           Stop
         </button>
-        {!supported && (
+        {!canSpeak && (
           <span className="reading__unsupported">
-            Your browser has no speech voice — the text is still fully readable.
+            {supported
+              ? 'No text-to-speech voice is installed on this device, so read-aloud is unavailable. Install a system voice (or speech backend) to enable it — the text is still fully readable.'
+              : 'Your browser has no speech voice — the text is still fully readable.'}
           </span>
         )}
         <p className="reading__status" role="status" aria-live="polite">

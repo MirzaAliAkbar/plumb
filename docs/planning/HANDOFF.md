@@ -9,7 +9,7 @@ Everything below was verified on 2026-11-22. Nothing here is a projection.
 | | |
 |---|---|
 | **Live app** | https://plumb-akw.pages.dev |
-| **Source** | https://github.com/MirzaAliAkbar/plumb (MIT) |
+| **Source** | https://github.com/MirzaAliAkbar/plumb (GPL-3.0-or-later) |
 | **Devpost copy** | `SUBMISSION.md` — paste-ready |
 | **Demo script** | `DEMO_VIDEO.md` — shot by shot, 90–150s |
 | **Deadline** | **Dec 4, 2026, 5:00 PM EST** |
@@ -28,8 +28,8 @@ no upload, no key, works offline after first load.
 | End-to-end tests | **19 passed** (incl. axe WCAG 2.2 AA + real offline) |
 | Lint | **0 warnings** |
 | Typecheck | clean |
-| Production build | 445 KB JS / 134 KB gzip; pdf.js in its own chunk |
-| Cold load | **741–1254 ms**, 212 KB transferred, usable in ~300 ms |
+| Production build | main 448 KB / 135 KB gzip; pdf.js 499 KB / 152 KB gzip (own chunk); offline read-aloud fallback 1.73 MB / 600 KB gzip (lazy, precached) |
+| Cold load | **~0.3–1.0 s load**, **~0.5–1.1 s to heading**, **~296 KB transferred gzipped** (main + pdf.js + CSS); the service worker then precaches the worker, fonts and the read-aloud fallback in the background |
 | CI on GitHub | **green**, all 7 steps confirmed to have run |
 | Live E2E | run against the deployed URL after each release; the local suite is green |
 | axe violations | **0** on landing and reading view |

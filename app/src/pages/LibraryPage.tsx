@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useUser } from '@clerk/react';
+import { useClerk } from '../lib/clerkContext';
 import { Page } from '../components/SiteChrome';
 import { deleteDocument, formatSavedAt, readIndex, type DocumentRecord } from '../lib/store';
 import { clerkConfigured } from '../lib/authConfig';
@@ -15,7 +15,7 @@ import '../styles/library.css';
  * and it is shown honestly rather than hidden.
  */
 export function LibraryPage() {
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { isLoaded, isSignedIn, user } = useClerk();
   const navigate = useNavigate();
   const [removing, setRemoving] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export function LibraryPage() {
   }, [isLoaded, isSignedIn, navigate]);
 
   // Derived during render, not copied into state by an effect: the account's
-  // metadata is the source of truth, and `useUser` already re-renders when it
+  // metadata is the source of truth, and `useClerk` already re-renders when it
   // changes. A mirrored state copy would only be able to drift from it.
   const records = readIndex(user?.unsafeMetadata);
 
@@ -41,7 +41,7 @@ export function LibraryPage() {
         // still gone from this device, which is what the user asked for.
         await deleteDocument(record.id);
         const next = readIndex(user.unsafeMetadata).filter((r) => r.id !== record.id);
-        // `useUser` re-renders on the new metadata, so the list updates itself.
+        // `useClerk` re-renders on the new metadata, so the list updates itself.
         await user.updateMetadata({ unsafeMetadata: { documents: next } });
       } catch {
         setError('That document could not be removed from your account. Try again.');
@@ -51,6 +51,29 @@ export function LibraryPage() {
     },
     [user],
   );
+
+  // A keyless build has no accounts to sign into, so there is no session to wait
+  // for. Say so plainly instead of sitting on "Checking your session…".
+  if (!clerkConfigured) {
+    return (
+      <Page>
+        <div className="library">
+          <header className="library__head">
+            <h1 className="library__title">Your library</h1>
+          </header>
+          <div className="library__empty">
+            <p>
+              A library follows an account, and accounts are not configured in this
+              build. You can still repair a PDF without one.
+            </p>
+            <Link to="/app" className="btn btn--primary">
+              Repair a PDF
+            </Link>
+          </div>
+        </div>
+      </Page>
+    );
+  }
 
   if (!isLoaded || !isSignedIn) {
     return (

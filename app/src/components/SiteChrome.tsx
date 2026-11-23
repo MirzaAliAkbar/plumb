@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Show, SignInButton, SignUpButton, UserButton, useUser } from '@clerk/react';
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react';
+import { useClerk } from '../lib/clerkContext';
+import { clerkConfigured } from '../lib/authConfig';
 import './SiteChrome.css';
 
 /**
@@ -41,7 +43,7 @@ interface HeaderProps {
 }
 
 export function SiteHeader({ marketing = false }: HeaderProps) {
-  const { isSignedIn } = useUser();
+  const { isSignedIn } = useClerk();
 
   return (
     <header className="site-header">
@@ -68,21 +70,25 @@ export function SiteHeader({ marketing = false }: HeaderProps) {
         </nav>
 
         <div className="site-header__auth">
-          <Show when="signed-out">
-            <SignInButton mode="modal">
-              <button type="button" className="btn btn--ghost btn--sm">
-                Sign in
-              </button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button type="button" className="btn btn--primary btn--sm">
-                Create account
-              </button>
-            </SignUpButton>
-          </Show>
-          <Show when="signed-in">
-            <UserButton appearance={{ elements: { avatarBox: 'plumb-avatar' } }} />
-          </Show>
+          {clerkConfigured && (
+            <>
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <button type="button" className="btn btn--ghost btn--sm">
+                    Sign in
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button type="button" className="btn btn--primary btn--sm">
+                    Create account
+                  </button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
+                <UserButton appearance={{ elements: { avatarBox: 'plumb-avatar' } }} />
+              </Show>
+            </>
+          )}
         </div>
       </div>
     </header>

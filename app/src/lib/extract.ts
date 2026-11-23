@@ -1,10 +1,16 @@
-import * as pdfjs from 'pdfjs-dist';
+// The legacy build is used deliberately: the modern `build/` entry relies on
+// newer ECMAScript built-ins (`Uint8Array.prototype.toHex`, among others) that
+// many current browsers do not implement. In the modern build that throws
+// "a.toHex is not a function" the moment pdf.js computes a document fingerprint,
+// i.e. on essentially every open. The legacy build bundles core-js polyfills for
+// those methods, so it runs on browsers the app is otherwise happy to support.
+import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs';
 import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
 import type { TextRun } from './types';
 
 // pdf.js needs its worker and its auxiliary data. Vite resolves the worker URL
 // at build time and emits it as an asset, which is what keeps the app offline.
-import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url';
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 

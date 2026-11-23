@@ -177,4 +177,5 @@ docs/           submission copy, decisions, evidence
 
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+GPL-3.0-or-later. See [LICENSE](LICENSE). The offline read-aloud fallback uses eSpeak via
+`mespeak`, which is GPL-3.0, so the project is GPL to comply with that license.

@@ -52,7 +52,8 @@ Drop a PDF. Plumb:
 3. **Shows you what it decided**: a numbered overlay drawn on the real page,
    colour- and pattern-coded by confidence, plus a before/after view that puts
    the stored order beside the repaired one.
-4. **Reads** the result in a clean, reflowed view with synchronised text-to-speech.
+4. **Read** the result in a clean, reflowed view with synchronised text-to-speech — using an
+   offline eSpeak fallback when the device has no system voice.
 5. **Exports** semantic HTML with real `<h2>`, `<p>`, `<ul>`, `<figcaption>`, as a
    file you keep and open in your own screen reader.
 
@@ -187,7 +188,7 @@ Criterion 4 scores accessibility, so here is what is verified:
 
 ## Built with
 
-`react` `typescript` `vite` `pdf.js` `vitest` `playwright` `axe-core` `css`
+`react` `typescript` `vite` `pdf.js` `mespeak` `vitest` `playwright` `axe-core` `css`
 
 ---
 
@@ -202,7 +203,7 @@ Before / after tab shows the stored order and the repaired order side by side.
 
 ## Repo
 
-https://github.com/MirzaAliAkbar/plumb (MIT licensed).
+https://github.com/MirzaAliAkbar/plumb (GPL-3.0-or-later licensed).
 
 ```bash
 cd app
@@ -213,8 +214,9 @@ npm run dev
 
 ## Credits
 
-Plumb uses React, Vite, pdf.js, Clerk, Vitest, Playwright and axe-core. The
-disability and screen-reader figures come from WebAIM's Screen Reader User Survey
-#10, the National Center for Education Statistics, and the PNP Student Factsheet
-2025. AI assistance was used for code review, copy editing and test scaffolding;
-the architecture, algorithm and final decisions are the team's.
+Plumb uses React, Vite, pdf.js, Clerk, Vitest, Playwright, axe-core, and `mespeak` (eSpeak
+compiled to JS, GPL-3.0, for the offline read-aloud fallback). The project is licensed
+GPL-3.0-or-later to comply with `mespeak`'s license. The disability and screen-reader figures
+come from WebAIM's Screen Reader User Survey #10, the National Center for Education Statistics,
+and the PNP Student Factsheet 2025. AI assistance was used for code review, copy editing and
+test scaffolding; the architecture, algorithm and final decisions are the team's.
