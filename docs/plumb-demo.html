@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Plumb — product demo</title>
+<style>
+  :root {
+    --paper:#F7F5F0;
+    --ink:#14161A;
+    --ink2:#5B636E;
+    --ink3:#8A8A94;
+    --line:#E8E5DB;
+    --surface:#FFFFFF;
+    --accent:#0F6F6C;
+    --accent-2:#148F8A;
+    --accent-soft:#D8EFED;
+    --accent-050:#EEF8F7;
+    --sans:"Inter","Liberation Sans","DejaVu Sans",system-ui,sans-serif;
+    --serif:"Source Serif 4","Liberation Serif","DejaVu Serif",Georgia,serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#0d0d0f;}
+  #stage{
+    position:relative;width:1920px;height:1080px;overflow:hidden;
+    background:var(--paper);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  #bg{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(1200px 820px at 18% 8%, #ffffff 0%, rgba(255,255,255,0) 62%),
+      radial-gradient(1100px 760px at 88% 92%, #EEF8F7 0%, rgba(238,248,247,0) 58%),
+      var(--paper);
+  }
+  .scene{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center;will-change:opacity;}
+  .cam{position:absolute;inset:0;transform-origin:center center;display:flex;align-items:center;justify-content:center;will-change:transform;}
+
+  /* ---------- brand ---------- */
+  .logo{display:inline-flex;align-items:center;gap:14px;font-weight:650;letter-spacing:-0.02em;}
+  .logo svg{width:42px;height:42px;}
+  .logo--xl{font-size:76px;gap:20px;}
+  .logo--xl svg{width:92px;height:92px;}
+
+  /* ---------- intro ---------- */
+  #s0 .intro{position:relative;display:flex;flex-direction:column;align-items:center;gap:40px;}
+  #s0 .intro__word{font-size:30px;color:var(--ink3);letter-spacing:0.01em;}
+  #s0 .intro__brand{display:flex;align-items:center;justify-content:center;}
+  #s0 .brandwash{
+    position:absolute;width:2200px;height:1400px;left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    background:
+      linear-gradient(115deg, rgba(255,255,255,0) 20%, rgba(216,239,237,0.55) 42%, rgba(15,111,108,0.14) 58%, rgba(255,255,255,0) 78%);
+    filter:blur(2px);
+  }
+
+  /* ---------- titles ---------- */
+  .titleline{
+    position:relative;font-size:30px;font-weight:450;letter-spacing:-0.015em;
+    color:var(--ink);white-space:nowrap;line-height:1.25;text-align:center;
+  }
+  .titleline .hl-target{position:relative;}
+  .titleline .hl-box{
+    position:absolute;background:rgba(15,111,108,0.16);border-radius:5px;
+    transform:scaleX(0);transform-origin:left center;pointer-events:none;
+  }
+  .titleline .hl-text{position:relative;}
+
+  /* ---------- dropzone ---------- */
+  .dropzone{
+    width:860px;padding:72px 64px;border-radius:26px;background:var(--surface);
+    border:1.5px dashed #CFC9B8;box-shadow:0 24px 70px rgba(20,22,26,0.10);
+    display:flex;flex-direction:column;align-items:center;gap:18px;
+  }
+  .dropzone__icon{
+    width:74px;height:74px;border-radius:20px;background:var(--accent-050);
+    display:flex;align-items:center;justify-content:center;color:var(--accent);
+  }
+  .dropzone__icon svg{width:34px;height:34px;}
+  .dropzone__title{font-size:40px;font-weight:600;letter-spacing:-0.02em;}
+  .dropzone__hint{font-size:22px;color:var(--ink2);}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;
+    background:var(--accent-050);color:var(--accent);font-size:20px;font-weight:550;
+  }
+  .chip svg{width:18px;height:18px;}
+
+  /* ---------- app window ---------- */
+  .app{
+    width:1480px;height:900px;background:var(--surface);border:1px solid var(--line);
+    border-radius:20px;box-shadow:0 40px 120px rgba(20,22,26,0.14);overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .app__bar{
+    height:74px;display:flex;align-items:center;gap:28px;padding:0 30px;
+    border-bottom:1px solid var(--line);background:#fff;
+  }
+  .app__bar .logo{font-size:24px;gap:10px;}
+  .app__bar .logo svg{width:30px;height:30px;}
+  .app__tabs{display:flex;gap:6px;margin-left:18px;}
+  .app__tab{font-size:18px;color:var(--ink2);padding:9px 16px;border-radius:10px;}
+  .app__tab--on{background:var(--accent-050);color:var(--accent);font-weight:600;}
+  .app__spacer{flex:1;}
+  .app__btn{
+    font-size:18px;font-weight:600;color:#fff;background:var(--accent);
+    padding:10px 18px;border-radius:11px;
+  }
+  .app__body{flex:1;display:flex;align-items:center;justify-content:center;background:#FBF9F4;padding:34px;}
+  .paper-wrap{position:relative;width:1100px;height:720px;}
+  .paper{
+    position:absolute;inset:0;background:#fff;border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 18px 50px rgba(20,22,26,0.10);
+    padding:46px 54px;font-family:var(--serif);color:#1b1b1f;
+  }
+  .paper__title{font-size:34px;font-weight:700;text-align:center;letter-spacing:-0.01em;}
+  .paper__authors{font-size:17px;text-align:center;color:#555;margin-top:8px;}
+  .paper__cols{display:flex;gap:44px;margin-top:34px;}
+  .paper__col{flex:1;font-size:15.5px;line-height:1.55;color:#232327;}
+  .paper__col h3{font-size:17px;margin:0 0 8px;font-weight:700;}
+  .paper__col p{margin:0 0 10px;}
+  .paper__abs b{font-weight:700;}
+  .overlay{position:absolute;inset:0;}
+  .blk{
+    position:absolute;border:1.5px solid var(--accent);border-radius:7px;
+    background:rgba(216,239,237,0.20);opacity:0;
+  }
+  .blk--active{background:rgba(20,143,138,0.28);box-shadow:0 6px 20px rgba(15,111,108,0.18);}
+  .blk__n{
+    position:absolute;top:-15px;left:-15px;width:30px;height:30px;border-radius:999px;
+    background:var(--accent);color:#fff;font-family:var(--sans);font-size:16px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(15,111,108,0.35);
+  }
+
+  /* ---------- compare ---------- */
+  .compare{width:1560px;display:flex;align-items:center;gap:40px;}
+  .compare__pane{
+    flex:1;background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    padding:34px 36px;box-shadow:0 24px 60px rgba(20,22,26,0.09);min-height:640px;
+  }
+  .compare__tag{
+    display:inline-flex;padding:7px 14px;border-radius:999px;font-size:19px;font-weight:650;
+    margin-bottom:22px;
+  }
+  .compare__tag--bad{background:#FBE6E6;color:#9B2C2C;}
+  .compare__tag--good{background:var(--accent-050);color:var(--accent);}
+  .line{
+    display:flex;align-items:center;gap:14px;font-family:var(--serif);font-size:20px;
+    line-height:1.4;color:#232327;padding:11px 14px;border-radius:9px;opacity:0;
+  }
+  .line__n{
+    flex:none;width:30px;height:30px;border-radius:8px;background:#F1EEE6;color:var(--ink2);
+    font-family:var(--sans);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  }
+  .compare__arrow{
+    flex:none;font-size:44px;color:var(--accent);opacity:0;
+  }
+
+  /* ---------- reading ---------- */
+  .reading-wrap{width:1200px;display:flex;gap:60px;align-items:flex-start;}
+  .reading{
+    flex:1;background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    padding:52px 58px;box-shadow:0 24px 60px rgba(20,22,26,0.09);
+    height:760px;overflow:hidden;font-family:var(--serif);color:#1b1b1f;
+  }
+  .reading h2{font-size:34px;margin:0 0 14px;letter-spacing:-0.01em;}
+  .reading p{font-size:21px;line-height:1.62;margin:0 0 22px;}
+  .reading ul{font-size:21px;line-height:1.6;margin:0;padding-left:26px;}
+  .reading li{margin:0 0 8px;}
+  .export{
+    width:420px;background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    padding:28px;box-shadow:0 24px 60px rgba(20,22,26,0.10);opacity:0;
+  }
+  .export__file{display:flex;gap:14px;align-items:center;}
+  .export__icon{
+    width:54px;height:54px;border-radius:13px;background:var(--accent-050);color:var(--accent);
+    font-size:15px;font-weight:800;letter-spacing:0.04em;display:flex;align-items:center;justify-content:center;
+  }
+  .export__name{font-size:17px;font-weight:650;letter-spacing:-0.01em;word-break:break-all;}
+  .export__meta{font-size:14px;color:var(--ink2);margin-top:4px;}
+  .export__check{
+    margin-left:auto;width:34px;height:34px;border-radius:999px;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:20px;opacity:0;
+  }
+  .export__code{
+    margin-top:22px;background:#F6F4EE;border:1px solid var(--line);border-radius:12px;
+    padding:16px;font-family:ui-monospace,"DejaVu Sans Mono",monospace;font-size:13.5px;line-height:1.55;
+    color:#2a2a30;white-space:pre-wrap;word-break:break-word;
+  }
+
+  /* ---------- closer / end ---------- */
+  #s5 .closer{display:flex;flex-direction:column;align-items:center;gap:34px;}
+  #s5 .proof{
+    font-size:22px;color:var(--ink2);letter-spacing:0.005em;opacity:0;
+  }
+  #s6 .endcard{display:flex;flex-direction:column;align-items:center;gap:26px;}
+  #s6 .endcard__url{font-size:24px;color:var(--ink2);letter-spacing:0.01em;opacity:0;}
+  #s6 .brandwash{
+    position:absolute;width:2200px;height:1400px;left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    background:
+      linear-gradient(115deg, rgba(255,255,255,0) 20%, rgba(216,239,237,0.55) 42%, rgba(15,111,108,0.14) 58%, rgba(255,255,255,0) 78%);
+    filter:blur(2px);
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div>
+
+  <!-- 0: open -->
+  <div class="scene" id="s0"><div class="cam">
+    <div class="brandwash"></div>
+    <div class="intro">
+      <div class="intro__word">Introducing</div>
+      <div class="intro__brand">
+        <div class="logo logo--xl">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0F6F6C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="2.6" r="1.4" fill="#0F6F6C" stroke="none"/>
+            <path d="M12 4.2v9.1"/>
+            <path d="M12 13.1 16.6 17 12 21.6 7.4 17z"/>
+          </svg>
+          <span style="color:#14161A">Plumb</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- 1: problem -->
+  <div class="scene" id="s1"><div class="cam">
+    <div class="titleline">A PDF doesn't say what order to read it in.</div>
+  </div></div>
+
+  <!-- 1b: dropzone -->
+  <div class="scene" id="s1b"><div class="cam">
+    <div class="dropzone">
+      <div class="dropzone__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+        </svg>
+      </div>
+      <div class="dropzone__title">Drop a PDF</div>
+      <div class="dropzone__hint">or <span class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        try the two-column sample
+      </span></div>
+    </div>
+  </div></div>
+
+  <!-- 2: title -->
+  <div class="scene" id="s2"><div class="cam">
+    <div class="titleline">Plumb rebuilds the <span class="hl-target hl-text">reading order</span>.<span class="hl-box"></span></div>
+  </div></div>
+
+  <!-- 2b: tool UI -->
+  <div class="scene" id="s2b"><div class="cam">
+    <div class="app">
+      <div class="app__bar">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0F6F6C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="2.6" r="1.3" fill="#0F6F6C" stroke="none"/>
+            <path d="M12 4.2v9.1"/><path d="M12 13.1 16.6 17 12 21.6 7.4 17z"/>
+          </svg><span>Plumb</span>
+        </div>
+        <div class="app__tabs">
+          <div class="app__tab app__tab--on">Reading order</div>
+          <div class="app__tab">Before / after</div>
+          <div class="app__tab">Reading view</div>
+        </div>
+        <div class="app__spacer"></div>
+        <div class="app__btn">Export HTML</div>
+      </div>
+      <div class="app__body">
+        <div class="paper-wrap">
+          <div class="paper">
+            <div class="paper__title">Attention Is All You Need</div>
+            <div class="paper__authors">Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit</div>
+            <div class="paper__cols">
+              <div class="paper__col">
+                <p class="paper__abs"><b>Abstract</b> The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder.</p>
+                <h3>1 Introduction</h3>
+                <p>Recurrent neural networks, long short-term memory and gated recurrent neural networks in particular have been firmly established as state of the art approaches in sequence modeling and transduction problems.</p>
+                <h3>2 Model Architecture</h3>
+                <p>Most competitive neural sequence transduction models have an encoder-decoder structure. Here, we propose a new simple network architecture, the Transformer.</p>
+              </div>
+              <div class="paper__col">
+                <h3>3 Attention</h3>
+                <p>An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors.</p>
+                <h3>4 Results</h3>
+                <p>On the WMT 2014 English-to-German translation task, the big transformer model outperforms the best previously reported models by more than 2 BLEU.</p>
+                <p>Table 1: The Transformer yields better translation quality than all previously reported models.</p>
+              </div>
+            </div>
+          </div>
+          <div class="overlay">
+            <div class="blk" data-i="0" style="left:5.5%;top:5%;width:89%;height:10%"></div>
+            <div class="blk" data-i="1" style="left:5.5%;top:20%;width:41%;height:17%"></div>
+            <div class="blk" data-i="2" style="left:5.5%;top:40%;width:41%;height:17%"></div>
+            <div class="blk" data-i="3" style="left:5.5%;top:60%;width:41%;height:17%"></div>
+            <div class="blk" data-i="4" style="left:53.5%;top:20%;width:41%;height:17%"></div>
+            <div class="blk" data-i="5" style="left:53.5%;top:40%;width:41%;height:17%"></div>
+            <div class="blk" data-i="6" style="left:53.5%;top:60%;width:41%;height:17%"></div>
+            <div class="blk" data-i="7" style="left:5.5%;top:80%;width:89%;height:10%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- 3: title -->
+  <div class="scene" id="s3"><div class="cam">
+    <div class="titleline">Every decision, <span class="hl-target hl-text">visible</span>.<span class="hl-box"></span></div>
+  </div></div>
+
+  <!-- 3b: before / after -->
+  <div class="scene" id="s3b"><div class="cam">
+    <div class="compare">
+      <div class="compare__pane">
+        <div class="compare__tag compare__tag--bad">What the file stores</div>
+        <div class="line" data-k="0"><span class="line__n">1</span><span>Left: The dominant sequence transduction models…</span></div>
+        <div class="line" data-k="1"><span class="line__n">2</span><span>Right: Recurrent neural networks, long short-term…</span></div>
+        <div class="line" data-k="2"><span class="line__n">3</span><span>Left: Most competitive neural sequence models…</span></div>
+        <div class="line" data-k="3"><span class="line__n">4</span><span>Right: On the WMT 2014 English-to-German…</span></div>
+        <div class="line" data-k="4"><span class="line__n">5</span><span>Left: The Transformer, a new architecture…</span></div>
+        <div class="line" data-k="5"><span class="line__n">6</span><span>Right: Table 1: The Transformer yields better…</span></div>
+      </div>
+      <div class="compare__arrow">→</div>
+      <div class="compare__pane">
+        <div class="compare__tag compare__tag--good">What Plumb reads</div>
+        <div class="line" data-k="0"><span class="line__n">1</span><span>Left: The dominant sequence transduction models…</span></div>
+        <div class="line" data-k="1"><span class="line__n">2</span><span>Left: Most competitive neural sequence models…</span></div>
+        <div class="line" data-k="2"><span class="line__n">3</span><span>Left: The Transformer, a new architecture…</span></div>
+        <div class="line" data-k="3"><span class="line__n">4</span><span>Right: Recurrent neural networks, long short-term…</span></div>
+        <div class="line" data-k="4"><span class="line__n">5</span><span>Right: On the WMT 2014 English-to-German…</span></div>
+        <div class="line" data-k="5"><span class="line__n">6</span><span>Right: Table 1: The Transformer yields better…</span></div>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- 4: title -->
+  <div class="scene" id="s4"><div class="cam">
+    <div class="titleline">Real <span class="hl-target hl-text">headings</span>. Real paragraphs.<span class="hl-box"></span></div>
+  </div></div>
+
+  <!-- 4b: reading + export -->
+  <div class="scene" id="s4b"><div class="cam">
+    <div class="reading-wrap">
+      <div class="reading">
+        <h2>1 Introduction</h2>
+        <p>Recurrent neural networks, long short-term memory and gated recurrent neural networks in particular have been firmly established as state of the art approaches in sequence modeling and transduction problems such as language modeling and machine translation.</p>
+        <h2>2 Background</h2>
+        <p>The goal of reducing sequential computation also forms the foundation of the Extended Neural GPU, ByteNet and ConvS2S, all of which use convolutional neural networks as a basic building block.</p>
+        <ul>
+          <li>Self-attention, computed in parallel</li>
+          <li>Multi-head attention, from 8 heads</li>
+          <li>Positional encoding, so order is not lost</li>
+        </ul>
+      </div>
+      <div class="export">
+        <div class="export__file">
+          <div class="export__icon">HTML</div>
+          <div>
+            <div class="export__name">two-column-paper-accessible.html</div>
+            <div class="export__meta">Semantic HTML · 8 blocks · 100% confidence</div>
+          </div>
+          <div class="export__check">✓</div>
+        </div>
+        <div class="export__code">&lt;h1&gt;Attention Is All You Need&lt;/h1&gt;
+&lt;h2&gt;1 Introduction&lt;/h2&gt;
+&lt;p&gt;Recurrent neural networks…&lt;/p&gt;
+&lt;h2&gt;2 Background&lt;/h2&gt;
+&lt;p&gt;The goal of reducing…&lt;/p&gt;</div>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- 5: closer -->
+  <div class="scene" id="s5"><div class="cam">
+    <div class="closer">
+      <div class="titleline">Free. <span class="hl-target hl-text">Offline</span>. No account.<span class="hl-box"></span></div>
+      <div class="proof">85 unit tests · 19 end-to-end · 0 axe violations</div>
+    </div>
+  </div></div>
+
+  <!-- 6: end card -->
+  <div class="scene" id="s6"><div class="cam">
+    <div class="brandwash"></div>
+    <div class="endcard">
+      <div class="logo logo--xl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0F6F6C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="2.6" r="1.4" fill="#0F6F6C" stroke="none"/>
+          <path d="M12 4.2v9.1"/><path d="M12 13.1 16.6 17 12 21.6 7.4 17z"/>
+        </svg>
+        <span style="color:#14161A">Plumb</span>
+      </div>
+      <div class="endcard__url">plumb-akw.pages.dev</div>
+    </div>
+  </div></div>
+</div>
+
+<script>
+const W = 1920, H = 1080, DURATION = 60;
+window.VIDEO = { w: W, h: H, duration: DURATION };
+
+/* ---------- helpers (from the skill) ---------- */
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const ease = x => (x = clamp(x), x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const spring = (t, w = 14, z = 0.82) => {
+  if (t <= 0) return 0;
+  if (z >= 1) return 1 - Math.exp(-w * t) * (1 + w * t);
+  const wd = w * Math.sqrt(1 - z * z);
+  return 1 - Math.exp(-z * w * t) * (Math.cos(wd * t) + (z * w / wd) * Math.sin(wd * t));
+};
+const kf = keys => t => {
+  if (t <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) {
+    const [a, va] = keys[i - 1], [b, vb, e = ease] = keys[i];
+    if (t <= b) return lerp(va, vb, e((t - a) / (b - a)));
+  }
+  return keys[keys.length - 1][1];
+};
+
+const q = id => document.getElementById(id);
+const qa = (id, sel) => [...q(id).querySelectorAll(sel)];
+
+/* scene opacity with 0.35s crossfade */
+function scene(id, t, start, end, fade = 0.35) {
+  const el = q(id);
+  let o = 0;
+  if (t >= start - fade && t < start) o = (t - (start - fade)) / fade;
+  else if (t >= start && t <= end) o = 1;
+  else if (t > end && t < end + fade) o = 1 - (t - end) / fade;
+  el.style.opacity = o.toFixed(3);
+  el.style.display = o > 0.001 ? 'flex' : 'none';
+  return o;
+}
+
+function setCam(id, scale, x = 0, y = 0) {
+  const el = q(id).querySelector('.cam');
+  el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+}
+
+function type(el, full, t, start, cps = 26) {
+  const n = Math.max(0, Math.floor((t - start) * cps));
+  el.textContent = full.slice(0, n);
+}
+
+function placeHighlight(id, t, start) {
+  const sceneEl = q(id);
+  const target = sceneEl.querySelector('.hl-target');
+  const box = sceneEl.querySelector('.hl-box');
+  if (!target || !box) return;
+  box.style.left = target.offsetLeft + 'px';
+  box.style.top = target.offsetTop + 'px';
+  box.style.width = target.offsetWidth + 'px';
+  box.style.height = target.offsetHeight + 'px';
+  const k = ease(seg(t, start, start + 0.45));
+  box.style.transform = `scaleX(${k})`;
+}
+
+/* ---------- the film ---------- */
+window.seek = function (t) {
+  // scenes
+  scene('s0', t, 0, 4.6);
+  scene('s1', t, 5.0, 7.8);
+  scene('s1b', t, 8.0, 10.8);
+  scene('s2', t, 11.0, 13.0);
+  scene('s2b', t, 13.2, 23.8);
+  scene('s3', t, 24.0, 26.0);
+  scene('s3b', t, 26.2, 36.8);
+  scene('s4', t, 37.0, 39.0);
+  scene('s4b', t, 39.2, 49.8);
+  scene('s5', t, 50.0, 55.8);
+  scene('s6', t, 56.0, 60.1);
+
+  // 0: open
+  const s0cam = kf([[0, 1.0], [4.6, 1.035]])(t);
+  setCam('s0', s0cam);
+  q('s0').querySelector('.intro__word').style.opacity = t < 1.2 ? 1 : Math.max(0, 1 - (t - 1.2) / 0.6);
+  q('s0').querySelector('.intro__brand').style.opacity = ease(seg(t, 1.5, 2.3));
+
+  // 1: problem
+  setCam('s1', 1.0 + 0.06 * ease(seg(t, 5.0, 7.8)));
+  type(q('s1').querySelector('.titleline'), "A PDF doesn't say what order to read it in.", t, 5.15, 24);
+
+  // 1b: dropzone
+  const d1 = spring(t - 8.1, 13, 0.9);
+  q('s1b').querySelector('.dropzone').style.transform = `translateY(${(1 - d1) * 26}px) scale(${0.97 + 0.03 * d1})`;
+  q('s1b').querySelector('.dropzone').style.opacity = d1;
+  setCam('s1b', 1.0 + 0.03 * ease(seg(t, 8.2, 10.8)), 0, -10 * ease(seg(t, 8.2, 10.8)));
+
+  // 2: title
+  const s2push = kf([[11.0, 1.0], [12.9, 3.15]])(t);
+  setCam('s2', s2push);
+  type(q('s2').querySelector('.titleline'), "Plumb rebuilds the reading order.", t, 11.15, 24);
+  placeHighlight('s2', t, 11.95);
+
+  // 2b: tool UI
+  const appIn = spring(t - 13.3, 13, 0.9);
+  q('s2b').querySelector('.app').style.opacity = appIn;
+  q('s2b').querySelector('.app').style.transform = `translateY(${(1 - appIn) * 24}px) scale(${0.98 + 0.02 * appIn})`;
+  const blocks = qa('s2b', '.blk');
+  let active = -1;
+  blocks.forEach((b, i) => {
+    const t0 = 13.7 + i * 0.52;
+    const k = spring(t - t0, 15, 0.9);
+    b.style.opacity = k;
+    b.style.transform = `translateY(${(1 - k) * 8}px)`;
+    if (t >= t0 + 0.15) active = i;
+    b.classList.toggle('blk--active', i === active);
+    let n = b.querySelector('.blk__n');
+    if (!n) { n = document.createElement('div'); n.className = 'blk__n'; n.textContent = i + 1; b.appendChild(n); }
+    n.style.opacity = k;
+  });
+  const s2bCam = kf([[13.2, 1.0], [17.5, 1.045], [23.8, 1.0]])(t);
+  setCam('s2b', s2bCam);
+
+  // 3: title
+  const s3push = kf([[24.0, 1.0], [25.9, 3.1]])(t);
+  setCam('s3', s3push);
+  type(q('s3').querySelector('.titleline'), "Every decision, visible.", t, 24.15, 24);
+  placeHighlight('s3', t, 24.95);
+
+  // 3b: before / after
+  const panes = qa('s3b', '.compare__pane');
+  panes.forEach((p, i) => {
+    const k = spring(t - (26.3 + i * 0.55), 13, 0.9);
+    p.style.opacity = k;
+    p.style.transform = `translateX(${(1 - k) * (i === 0 ? -18 : 18)}px)`;
+  });
+  qa('s3b', '.line').forEach((ln, i) => {
+    const k = spring(t - (26.8 + i * 0.28), 15, 0.9);
+    ln.style.opacity = k;
+    ln.style.transform = `translateX(${(1 - k) * -8}px)`;
+  });
+  q('s3b').querySelector('.compare__arrow').style.opacity = ease(seg(t, 27.6, 28.2));
+  const s3bCam = kf([[26.2, 1.0], [31.0, 1.035], [36.8, 1.0]])(t);
+  const pan = lerp(-30, 30, ease(seg(t, 26.8, 34.5)));
+  setCam('s3b', s3bCam, pan);
+
+  // 4: title
+  const s4push = kf([[37.0, 1.0], [38.9, 3.05]])(t);
+  setCam('s4', s4push);
+  type(q('s4').querySelector('.titleline'), "Real headings. Real paragraphs.", t, 37.15, 24);
+  placeHighlight('s4', t, 37.95);
+
+  // 4b: reading + export
+  const readIn = spring(t - 39.3, 13, 0.9);
+  q('s4b').querySelector('.reading').style.opacity = readIn;
+  q('s4b').querySelector('.reading').style.transform = `translateY(${(1 - readIn) * 22}px)`;
+  const exp = spring(t - 46.0, 13, 0.9);
+  const expEl = q('s4b').querySelector('.export');
+  expEl.style.opacity = exp;
+  expEl.style.transform = `translateY(${(1 - exp) * 22}px)`;
+  q('s4b').querySelector('.export__check').style.opacity = ease(seg(t, 46.7, 47.2));
+  const s4bCam = kf([[39.2, 1.0], [45.6, 1.04], [49.8, 1.0]])(t);
+  setCam('s4b', s4bCam, 0, -8 * ease(seg(t, 39.6, 45.6)));
+
+  // 5: closer
+  const s5push = kf([[50.0, 1.0], [53.5, 1.06]])(t);
+  setCam('s5', s5push);
+  type(q('s5').querySelector('.titleline'), "Free. Offline. No account.", t, 50.2, 22);
+  placeHighlight('s5', t, 51.2);
+  q('s5').querySelector('.proof').style.opacity = ease(seg(t, 52.0, 52.7));
+
+  // 6: end card
+  const endIn = spring(t - 56.1, 12, 0.9);
+  q('s6').querySelector('.endcard').style.opacity = endIn;
+  q('s6').querySelector('.endcard').style.transform = `scale(${0.98 + 0.02 * endIn})`;
+  q('s6').querySelector('.endcard__url').style.opacity = ease(seg(t, 57.0, 57.6));
+  setCam('s6', kf([[56.0, 1.0], [60.0, 1.025]])(t));
+};
+
+/* ---------- audio ---------- */
+window.buildAudio = function (ctx) {
+  const master = ctx.createGain();
+  master.gain.value = 0.55;
+  master.connect(ctx.destination);
+  const bpm = 102, beat = 60 / bpm, bar = beat * 4;
+  const chords = [
+    [220.00, 261.63, 329.63],  // Am
+    [174.61, 220.00, 261.63],  // F
+    [130.81, 196.00, 261.63],  // C
+    [196.00, 246.94, 293.66],  // G
+  ];
+  const chordAt = t => chords[Math.floor(t / (bar * 2)) % 4];
+
+  // soft pad
+  for (let t = 0; t < DURATION; t += bar * 2) {
+    for (const f of chordAt(t)) {
+      const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.045, t + 0.9);
+      g.gain.linearRampToValueAtTime(0.0001, t + bar * 2);
+      o.connect(g).connect(master); o.start(t); o.stop(t + bar * 2 + 0.1);
+    }
+  }
+
+  // pluck arpeggio
+  for (let t = 1.0; t < DURATION; t += beat) {
+    const chord = chordAt(t);
+    const f = chord[Math.floor(t / beat) % 3] * 2;
+    const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = f;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.05, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0008, t + 0.55);
+    o.connect(g).connect(master); o.start(t); o.stop(t + 0.6);
+  }
+
+  // soft kick on beats 1 and 3
+  for (let t = 8.0; t < DURATION; t += beat * 2) {
+    const o = ctx.createOscillator(); o.type = 'sine';
+    o.frequency.setValueAtTime(120, t);
+    o.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.09, t);
+    g.gain.exponentialRampToValueAtTime(0.0008, t + 0.22);
+    o.connect(g).connect(master); o.start(t); o.stop(t + 0.25);
+  }
+
+  // hat on eighths (quiet)
+  const noiseBuf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * 0.08), ctx.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.sin(i * 12.9898) * 43758.5453 % 1) * 2 - 1;
+  for (let t = 8.0; t < DURATION; t += beat / 2) {
+    const src = ctx.createBufferSource(); src.buffer = noiseBuf;
+    const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 7000;
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.018, t); g.gain.exponentialRampToValueAtTime(0.0005, t + 0.05);
+    src.connect(hp).connect(g).connect(master); src.start(t);
+  }
+
+  // whoosh at scene changes
+  const whoosh = (t, dur = 0.5) => {
+    const src = ctx.createBufferSource(); src.buffer = noiseBuf;
+    const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 0.8;
+    bp.frequency.setValueAtTime(400, t); bp.frequency.exponentialRampToValueAtTime(1800, t + dur);
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.05, t + 0.12); g.gain.exponentialRampToValueAtTime(0.0005, t + dur);
+    src.connect(bp).connect(g).connect(master); src.start(t); src.stop(t + dur);
+  };
+  [5.0, 11.0, 24.0, 37.0, 50.0, 56.0].forEach(t => whoosh(t));
+
+  // key ticks during typing / reading
+  const tick = (t, f = 2200) => {
+    const o = ctx.createOscillator(); o.type = 'square'; o.frequency.value = f;
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.012, t); g.gain.exponentialRampToValueAtTime(0.0004, t + 0.03);
+    o.connect(g).connect(master); o.start(t); o.stop(t + 0.035);
+  };
+  for (let t = 11.2; t < 12.2; t += 0.11) tick(t, 2400);
+  for (let t = 24.2; t < 25.2; t += 0.11) tick(t, 2200);
+  for (let t = 37.2; t < 38.2; t += 0.11) tick(t, 2000);
+  for (let t = 39.6; t < 45.4; t += 0.16) tick(t, 1800);
+
+  // chime on the end card
+  [523.25, 659.25, 783.99].forEach((f, i) => {
+    const t = 56.4 + i * 0.09;
+    const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+    const g = ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.05, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0005, t + 1.2);
+    o.connect(g).connect(master); o.start(t); o.stop(t + 1.3);
+  });
+};
+
+/* ---------- preview (not used when ?render) ---------- */
+const isRender = location.search.includes('render');
+if (!isRender) {
+  const fit = () => {
+    const s = Math.min(innerWidth / W, innerHeight / H);
+    const st = q('stage');
+    st.style.transformOrigin = 'top left';
+    st.style.transform = `scale(${s})`;
+  };
+  addEventListener('resize', fit); fit();
+}
+</script>
+</body>
+</html>

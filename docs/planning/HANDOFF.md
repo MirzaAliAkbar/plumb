@@ -32,7 +32,7 @@ no upload, no key, works offline after first load.
 | Cold load | **~0.3–1.0 s load**, **~0.5–1.1 s to heading**, **~296 KB transferred gzipped** (main + pdf.js + CSS); the service worker then precaches the worker, fonts and the read-aloud fallback in the background |
 | CI on GitHub | **green**, all 7 steps confirmed to have run |
 | Live E2E | run against the deployed URL after each release; the local suite is green |
-| Demo video | **`plumb-demo.mp4`** — 1:45, 1440×900, burned-in captions + ambient music, ready to upload |
+| Demo video | **`plumb-demo.mp4`** — 1:00, 1920×1080, code-rendered motion-graphics product demo with soundtrack, ready to upload (source: `docs/plumb-demo.html`) |
 | axe violations | **0** on landing and reading view |
 | Design audit | PASS across 5 states / 2 breakpoints |
 
@@ -73,8 +73,9 @@ Reproduce: `node tools/fetch-corpus.mjs && npx tsx tools/accuracy.mts && npx tsx
 3. **No OCR.** Scanned PDFs are detected and refused with a message.
 4. **Author names on a title page are classified as headings.** Cosmetic, visible
    in the export outline, not worth a risky fix at this stage.
-5. **The demo video is recorded.** `plumb-demo.mp4` (1:45, 1440×900, captions + ambient
-   music) is ready to upload; review it once before submitting.
+5. **The demo video is recorded.** `plumb-demo.mp4` (1:00, 1920×1080, motion graphics +
+   soundtrack, source in `docs/plumb-demo.html`) is ready to upload; review it once before
+   submitting.
 
 ---
 
@@ -82,7 +83,7 @@ Reproduce: `node tools/fetch-corpus.mjs && npx tsx tools/accuracy.mts && npx tsx
 
 | # | Task | Time |
 |---|---|---|
-| 1 | **Review `plumb-demo.mp4`** (1:45, captioned); re-record only if you want a voiceover | ~20 min |
+| 1 | **Review `plumb-demo.mp4`** (1:00, 1080p); re-render from `docs/plumb-demo.html` if needed | ~15 min |
 | 2 | **Submit on Devpost** — paste `SUBMISSION.md`, upload `plumb-demo.mp4` + `docs/screenshots/*.png` | ~20 min |
 | 3 | Skim `SUBMISSION.md` for voice — it should sound like you | ~10 min |
 | 4 | Optional: test with a real screen reader (NVDA/VoiceOver) and add one sentence | ~20 min |
