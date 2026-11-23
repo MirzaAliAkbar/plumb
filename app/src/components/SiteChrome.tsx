@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react';
 import { useClerk } from '../lib/clerkContext';
 import { clerkConfigured } from '../lib/authConfig';
+import { ThemeToggle } from './ThemeToggle';
 import './SiteChrome.css';
 
 /**
@@ -70,6 +71,7 @@ export function SiteHeader({ marketing = false }: HeaderProps) {
         </nav>
 
         <div className="site-header__auth">
+          <ThemeToggle />
           {clerkConfigured && (
             <>
               <Show when="signed-out">

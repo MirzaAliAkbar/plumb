@@ -3,14 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Apply a saved theme before first paint so there is no flash. Light is the
+      // default; dark is opt-in from the header toggle.
+      (function () {
+        try {
+          var t = localStorage.getItem('plumb-theme');
+          if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
     <title>Plumb — fix the reading order of any PDF, in your browser</title>
     <meta
       name="description"
       content="Screen readers follow a PDF's internal order, which scrambles two-column papers. Plumb reconstructs the real reading order locally, shows you what it did, and exports clean accessible HTML. No account, no upload, no key."
     />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#16181c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfaf7" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Plumb — fix the reading order of any PDF" />
